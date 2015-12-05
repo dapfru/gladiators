@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form image="/images/art/usurer.jpg"  title_rus="Дом ростовщика" title_eng="Usurer's house" title_ger="Das Haus des Wucherers " privacy="1">
+
+   <make sql="set @error=if(@Term;&lt;3,250,0)
+#set @error=if(@Term;&gt;30,92,0)
+#set @error=if(@Deposit;&lt;500,90,0)
+#set @error=if((select $auth->money;-@Deposit;)&gt;=0,0,67)
+#^makedeposit('$auth->user;','$Deposit;','$Term;');"
+    
+    success_rus="Вклад сделан"
+    success_eng="The deposit is invested"
+    success_ger="Guthaben ist gemacht worden"
+    hint_rus="Сроки измеряются в сутках. Минимальный срок - 3 суток,максимальный - 30."
+    hint_eng=""
+    hint_ger="">
+
+   <fields>
+
+    <field
+      name="Rate"
+      name_rus="Ставка"
+      name_eng="Loan rate"
+      name_ger="Rate"
+      type="label"
+      sql="select concat(DepositPercent,'%') as Percent from ut_leagues where LeagueID='$auth->league;'">
+    </field> 
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Deposit"
+      name_rus="Сумма вклада"
+      name_eng="Deposit sum"
+      name_ger="Guthabenbetrag"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field> 
+
+    <field
+      name="Term"
+      name_rus="Срок вклада"
+      name_eng="Deposit term"
+      name_ger="Guthabenfrist"
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Посчитать"
+       name_eng="Count"
+       name_ger="Zusammenz&amp;auml;hlen"
+       act="approvedeposit">
+   </button> 
+
+ </make>
+
+ <approvedeposit
+    sql="set @error=if(@Term;&lt;3,250,0)
+#set @error=if(@Term;&gt;30,92,0)
+#set @error=if(@Deposit;&lt;500,90,0)
+#set @error=if((select $auth->money;-@Deposit;)&gt;=0,0,67)">
+
+   <fields>
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Deposit"
+      name_rus="Сумма вклада"
+      name_eng="Deposit sum"
+      name_ger="Guthabenbetrag"
+      type="money"
+      needed="1">
+    </field>
+
+    <field
+      name="Term"
+      name_rus="Срок вклада"
+      name_eng="Deposit term"
+      name_ger="Guthabenfrist"
+      type="label"
+      needed="1">
+    </field>
+
+
+    <field
+      name="Summa"
+      name_rus="Сумма выплат"
+      name_eng="Payments total"
+      name_ger="Betrag der Auszahlungen"
+      type="money"
+      needed="1"
+      sql="select round(@Deposit; + @Deposit;*(select DepositPercent/DayCount from ut_leagues where LeagueID='$auth->league;')*@Term;/100) as Summa">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Оформить"
+       name_eng="Confirm"
+       name_ger="Erledigen"
+       act="make">
+   </button> 
+
+ </approvedeposit>
+
+ <deposit pagecount="200" 
+
+sql="select p.* from fn_payments p left outer join fn_operation_types t on t.TypeID=p.TypeID where p.ReceiverID='$auth->user;' and p.TypeID='13' and p.Status=0 order by p.Day asc"
+empty_rus="У Вас нет вкладов в банке"
+empty_eng="You have no deposits"
+empty_ger="Sie haben keine Guthaben"
+    success_rus="Вклад сделан"
+    success_eng="The deposit is invested"
+    success_ger="Guthaben ist gemacht worden">
+	
+<header>
+
+    <item
+      name="Num" order="no"
+      type="template">
+    </item>
+
+    <item
+      name="Date" order="no"
+      name_rus="Дата"
+      name_eng="Date"
+      name_ger="Datum"
+	format="d.m.Y"
+      type="date" 
+      >
+    </item>
+	
+
+    <item
+      name="Money" order="no"
+      name_rus="Сумма"
+      name_eng="Money"
+      name_ger="Betrag"
+      type="money"
+      align="right"
+      count="sum">
+    </item>
+
+   </header>
+
+ </deposit>
+
+ <take sql="set @Term = round(@Term;)
+#set @error=if(@Credit;>3000-coalesce((select sum(money) from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID),0),108,0)
+#set @error=if(@Term&lt;3,109,0)
+#set @error=if(@Term&gt;60,91,0)
+#set @error=if(@Credit;&lt;500,93,0)
+#^getloan('$auth->user;', '$Credit;','$Term;');"
+    width="100%"
+    success_rus="Кредит получен"
+    success_eng="Credit taken"
+    success_ger="Kredit ist erhalten"
+    select="select if(3000-coalesce((select sum(money) from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID),0) >0, 1,null)"
+    error_rus="Вы должны выплатить долг по кредитам, чтобы взять новый"
+    error_eng="You must pay out all your loans to take a new one"
+    error_ger="Sie sollen Ihre Schulden begleichen, um einen neuen Kredit erhalten zu d&amp;uuml;rfen."
+    hint_rus="Сроки измеряются в сутках. Минимальный срок - 3 суток, максимальный - 60. Минимальная сумма кредита - 500 денариев, максимальная - 3000"
+    hint_eng=""
+    hint_ger="">
+
+   <fields>
+
+    <field
+      name="Rate"
+      name_rus="Ставка"
+      name_eng="Loan rate"
+      name_ger="Rate"
+      type="label"
+      needed="1"
+      sql="select Coalesce(ELT('$auth->rang;',0.92,0.84,0.75),1)*concat(CreditPercent,'%') as Percent from ut_leagues where LeagueID='$auth->league;'">
+    </field> 
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+
+    <field
+      name="MaxLawn"
+      name_rus="Макс. кредит"
+      name_eng="Max. lawn"
+      name_ger="Max. Kreditsbetrag"
+      type="money"
+nobr="1"
+      needed="1"
+      sql="select if(3000-coalesce((select sum(money) from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID),0) >0, (3000-coalesce((select sum(money) from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID),0)),0)">
+    </field>
+
+    <field
+      name="Credit"
+      name_rus="Сумма кредита"
+      name_eng="Loan sum"
+      name_ger="Kreditsbetrag"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field> 
+
+
+
+
+    <field
+      name="Term"
+      name_rus="&lt;nobr&gt;Срок кредита (суток)"
+      name_eng=""
+      name_ger=""
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Посчитать"
+       name_eng="Count"
+       name_ger="Zusammenz&amp;auml;hlen"
+       act="approveloan">
+   </button> 
+
+ </take>
+
+ <approveloan
+    sql="set @Term = round(@Term;)#set @error=if(@Credit;>3000-coalesce((select sum(money) from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID),0),108,0)
+#set @error=if(@Term&lt;3,109,0)
+#set @error=if(@Term&gt;60,91,0)
+#set @error=if(@Credit;&lt;500,93,0)"
+    width="100%">
+
+   <fields>
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Credit"
+      name_rus="Сумма кредита"
+      name_eng="Loan sum"
+      name_ger="Kreditsbetrag"
+      type="money"
+      needed="1">
+    </field>
+
+    <field
+      name="Term"
+      name_rus="&lt;nobr&gt;Срок кредита (суток)"
+      name_eng=""
+      name_ger=""
+      type="label"
+      sql="select round('$Term;')"
+      needed="1">
+    </field>
+
+
+    <field
+      name="Summa"
+      name_rus="Выплаты в сутки"
+      name_eng=""
+      name_ger=""
+      type="money"
+      needed="1"
+      sql="select round(@Credit*((1+BankPercent/100)/@Term;+Coalesce(ELT('$auth->rang;',0.92,0.84,0.75)+0,1)*CreditPercent/DayCount/100)) as Summa from ut_leagues where LeagueID='$auth->league;'"
+>
+    </field>
+
+    <field
+      name="Summa"
+      name_rus="Сумма выплат"
+      name_eng="Payments total"
+      name_ger="Betrag der Auszahlungen"
+      type="money"
+      needed="1"
+      sql="select round(@Summa;*@Term;) as Summa">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Оформить"
+       name_eng="Confirm"
+       name_ger="Erledigen"
+       act="take">
+   </button> 
+
+ </approveloan>
+
+   <return sql="set @Price=(select COALESCE(sum(money),0) from fn_payments where status=0 and SenderID='$auth->user;' and TypeID=14)
+#set @error=if(@Price&lt;='$auth->money;',0,67)
+#^returncredit('$auth->user;','$Price;');"
+    width="100%"
+
+    select="select sum(money) as Debt from fn_payments
+where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID"
+    error_rus="У вас нет долгов по кредитам"
+    error_eng="You have no loan debts"
+    error_ger="Sie haben keine Kreditschulden"
+
+    success_rus="Долг по кредиту выплачен"
+    success_eng="Loan debt is payed out completely"
+    success_ger="Kreditschulden sind begliechen">
+
+   <fields>
+
+    <field
+      name="Money" 
+      type="template">
+    </field>
+
+    <field
+      name="Debt" 
+      name_rus="Долг по кредитам"
+      name_eng="Lawn debt"
+      name_ger="Kreditschulden"
+      type="money">
+    </field>
+
+    <field
+      name="Days" 
+      name_rus="Дней"
+      name_eng="Days"
+      name_ger="Tage"
+      type="label"
+      sql="select count(round((Date-unix_timestamp())/86400)) from fn_payments where status=0 and senderID='$auth->user;' and typeID=14 group by SenderID">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Выплатить"
+       name_eng="Confirm"
+       name_ger="Auszahlen">
+   </button> 
+
+ </return>
+
+ <loan pagecount="200" 
+image="/images/main/bank.jpg" 
+sql="select sum(Money) as Money, round(sum(Money)/count(distinct Day)) Date ,count(distinct Day) Days
+from fn_payments where SenderID='$auth->user;' and TypeID='14' and Status=0 group by SenderID"
+empty_rus="У Вас нет полученных кредитов"
+empty_eng="You have no loans"
+empty_ger="Sie haben keine erhaltenen Kredite">
+	
+<header>
+
+
+    <item
+      name="Days" order="no"
+      name_rus="Дней"
+      name_eng="Days"
+      align="right">
+    </item>
+
+
+
+    <item
+      name="Date" order="no"
+      name_rus="В день"
+      name_eng="Per day"
+      align="right">
+    </item>
+
+    <item
+      name="Money" order="no"
+      name_rus="Всего"
+      name_eng="Money"
+      name_ger="Betrag"
+      type="money"
+      align="right">
+    </item>
+	
+
+
+   </header>
+
+ </loan>
+
+
+</form>

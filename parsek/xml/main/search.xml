@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+
+ <request rowcolor="f3f3f3" bgcolor="AEC4D6" cellspacing="1" method="get">
+
+   <fields>
+     
+
+     <field
+      size="30"
+      name="str"
+      colspan="2"
+      name_rus=" "
+      name_eng=" "
+      type="string">
+     </field>
+
+
+  </fields>
+
+   <button
+       name_rus="Поиск"
+       name_eng="Search">
+   </button> 
+
+ </request>
+
+</form>

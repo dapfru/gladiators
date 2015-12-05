@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_scorers">
+
+ <create
+    sql="CREATE TABLE ut_scorers (
+   ScorerID int(11) NOT NULL auto_increment,
+   Name  varchar(50) default NULL,
+   Games  int(11) NOT NULL,
+   Goals  int(10) default NULL,
+   Penalty  int(11) NOT NULL,
+  PRIMARY KEY  (ScorerID)
+)" 
+   success_rus="Таблица создана">
+ </create>
+
+ <drop
+    sql="drop table ut_scorers"
+    success_rus="Таблица удалена">
+ </drop>
+
+ <insert
+    sql="insert into ut_scorers (Name,Games,Goals,Penalty) values(
+   @Name;,
+   @Games;, @Goals;, @Penalty;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      type="string"
+      needed="1">
+    </field>
+
+    <field
+      name="Games"
+      name_rus="Игры"
+      type="numeric" >
+    </field>
+
+    <field
+      name="Goals"
+      name_rus="Голы"
+      type="numeric" >
+    </field>
+
+    <field
+      name="Penalty"
+      name_rus="С пенальти"
+      type="numeric" >
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+  action = "update ut_scorers set 
+Name=@Name;,
+
+Games=@Games;,
+Goals=@Goals;,
+Penalty=@Penalty;
+ where ScorerID=@ScorerID;"
+
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+
+  sql="select ScorerID, Name,
+  Games, Goals, Penalty, Concat(s.Goals,'(',s.Penalty,')') as Goals_Pen from ut_scorers s 
+  order by s.Goals desc">
+
+<header>
+
+    <item
+      name="ScorerID"
+      name_rus="ID"
+      name_eng="ID"
+      type="hidden">
+    </item>
+
+    <item
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      type="string">
+    </item>
+
+    <item
+      name="Games"
+      name_rus="Игры"
+      name_eng="Games"
+      type="numeric"
+      size="2">
+    </item> 
+
+    <item
+      name="Goals"
+      name_rus="Голы"
+      name_eng="Goals"
+      type="numeric"
+      size="2">
+    </item>
+
+    <item
+      name="Penalty"
+      name_rus="С пенальти"
+      name_eng="Penalties"
+      type="numeric"
+      size="2">
+    </item>
+
+    <item
+      name="Goals_Pen"
+      name_rus="Голы (с пенальти)"
+      name_eng="Goals (Penalties)">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button>
+
+ </select>
+
+<update
+    sql="update ut_scorers set 
+Name=@Name;,
+
+Games=@Games;,
+Goals=@Goals;,
+Penalty=@Penalty;
+ where ScorerID=@id;"
+
+ select="select * from ut_scorers where ScorerID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+  <fields>
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      type="string"
+      needed="1">
+    </field>
+
+    <field
+      name="Games"
+      name_rus="Игры"
+      type="numeric" >
+    </field>
+
+    <field
+      name="Goals"
+      name_rus="Голы"
+      type="numeric" >
+    </field>
+
+    <field
+      name="Penalty"
+      name_rus="С пенальти"
+      type="numeric" >
+    </field>
+
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_scorers where ScorerID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

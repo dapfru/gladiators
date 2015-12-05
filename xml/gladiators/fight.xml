@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_players" showlogo="1">
+
+
+<slaves>
+
+   <header>
+
+     <item
+      name="Num"
+      type="template">
+    </item> 
+
+
+   </header>
+
+ </slaves>
+
+<select  title_rus="Бой" title_eng="" title_ger=""
+sql="select p.Age, c.Name_$lang; as Country, round(p.Skl) as Skl, p.Stamina, p.Morale, p.Price,
+if(p.injury=0,null,'blue') as fontcolor, gt.Name_$lang; as TypeID,
+p.Name_$lang; as Gladiator, round(p.Acc) as Acc, round(p.Str) as Str, round(p.Dex) as Dex, round(p.Vit) as Vit, p.Level
+
+from ut_players p
+left outer join ut_countries c on c.CountryID=p.CountryID
+left outer join ut_gladiator_types gt using(TypeID)
+
+ where (p.UserID='$user;') and '$user;'&lt;>'' order by p.Skl desc"
+pagecount="50" maxpages="50" width="100%"
+empty_rus="Игроки не найдены"
+empty_eng="Players not found"
+empty_ger="Es wurde keine Spieler gefunden">
+
+   <header style="style='color:$fontcolor;'">
+
+     <item
+      name="Num"
+      type="template">
+    </item> 
+
+    <item
+      name="Gladiator"
+      type="template">
+    </item> 
+
+    <item
+      name="Country"
+      name_rus="Нац"
+      name_eng="Nat"
+	name_ger=""
+    align="center">
+    </item> 
+
+
+    <item
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+	name_ger=""
+      align="center">
+    </item> 
+  
+
+   
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      count="avg">
+    </item> 
+  
+    <item
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      order="Skl desc"
+      align="center"
+      format="&lt;b&gt;"
+      count="avg"
+type="label">
+    </item> 
+
+    <item
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      count="avg">
+    </item>
+
+
+
+
+    <item
+      name="Vit"
+      name_rus="Здр"
+      name_eng="Vit"
+	name_ger=""
+	title_rus="Здоровье"
+	title_eng="Health"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+    <item
+      name="Dex"
+      name_rus="Лов"
+      name_eng="Dex"
+	name_ger=""
+	title_rus="Ловкость"
+	title_eng="Dexterity"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+    <item
+      name="Acc"
+      name_rus="Точ"
+      name_eng="Acc"
+	name_ger=""
+	title_rus="Точность"
+	title_eng="Accuracy"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+    <item
+      name="Str"
+      name_rus="Сил"
+      name_eng="Str"
+	name_ger=""
+	title_rus="Сила"
+	title_eng="Strength"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+
+    <item
+      name="Level"
+      name_rus="Урв"
+      name_eng="Lev"
+	name_ger=""
+	title_rus="Уровень"
+	title_eng="Level"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="dots"
+      format=""
+      align="right"
+      order="Price desc">
+    </item>
+
+   </header>
+
+ </select>
+
+
+</form>

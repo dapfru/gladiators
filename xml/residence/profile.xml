@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users" name="info">
+
+
+<chars mixcolor="3B484C"  select="^get_rst('$user;');" short="1"
+
+hint_rus="&lt;b>Харизма&lt;/b>&lt;br>Увеличивает мораль всех Ваших гладиаторов в бою.
+&lt;br>&lt;br>&lt;b>Лидерство&lt;/b>&lt;br>Позволяет всем Вашим гладиаторам точнее исполнять тактические установки на бой.
+&lt;br>&lt;br>&lt;b>Управление&lt;/b>&lt;br>Дает Вам возможность дольше не ремонтировать постройки.
+&lt;br>&lt;br>&lt;b>Коммерция&lt;/b>&lt;br>Позволяет Вам брать кредиты у ростовщика под более низкий процент.">
+
+
+</chars>
+
+
+
+
+
+
+ <info mixcolor="3B484C" select="select 
+
+u.UserID, Login,  if(u.Showinfo=1,u.Icq,'') Icq,
+
+if(g.GuildID,concat('&lt;img src=/images/gd_guilds/small/',g.GuildID,'.jpg border=0 align=absmiddle> &lt;a href=/guilds/',g.GuildID,'>',g.Name,'&lt;/a>'),null) Guild,
+  
+if(u.Showinfo=1,u.Url,'') Url, 
+if(u.Showinfo=1,u.BirthDate, '') BirthDate,  
+if(u.Showinfo=1,u.Study,'') Study,  
+if(u.Showinfo=1,u.Work,'') Work,  
+if(u.Showinfo=1,u.Info,'') Info,  
+if(u.Showinfo=1,u.Hobby, '') Hobby,  
+if(u.Showinfo=1,u.Games,'') Games,  
+if(u.Showinfo=1,u.Music, '') Music,   
+if(u.Showinfo=1,u.Hobby, '') Hobby,   
+if(u.Showinfo=1,u.Info, '') Info,   
+if(u.Showinfo=1,u.Email,'') Email,
+u.City,c.Name_$lang; as Country,
+concat_ws(' ',(select concat_ws('',if(u.Rang>0,concat('&lt;img src=/images/vip/',
+u.Rang,'.gif border=0 title=Vip',u.Rang,' width=13px height=13px>'),null)
+)),(select concat_ws('',
+'&lt;a href=/users/',u.UserID,
+'>',
+if(u.FirstName&lt;>'',
+concat(concat_ws(' ',u.FirstName,u.LastName),' (',u.Login,')'),u.Login)
+,'&lt;/a>' ))) as User
+
+ from ut_users u left outer join en_countries c on c.CountryID=u.CountryID 
+left outer join gd_guilds g on u.GuildID=g.GuildID and u.GuildStatusID=1
+
+where u.UserID='$user;'" title_rus="Профиль" title_eng="Profile" title_ger=""
+    short="1"
+error_rus="Пользователь не найден."
+error_eng="User not found."
+    width="100%">
+
+   <fields>
+
+
+    <field
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User"
+      name_ger=""
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Guild"
+      name_rus="Гильдия"
+      name_eng="Guild"
+      name_ger=""
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Email"
+      name_rus="E-Mail"
+      name_eng="E-Mail"
+      name_ger="E-Mail"
+      type="emaillabel"
+      maxlength="30"
+      size="26"
+      needed="1">
+    </field> 
+
+
+    <field
+      name="Icq"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      name_ger="ICQ"
+      needed="1"
+      type="icqlabel">
+    </field> 
+
+
+    <field
+      name="Url"
+      name_rus="Сайт"
+      name_eng="Home site"
+      name_ger="URL"
+      needed="1"
+      type="urllabel">
+    </field> 
+
+
+    <field
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"
+      name_ger="Land"
+      type="safelabel"
+      needed="1">
+    </field>
+
+    <field
+      name="City"
+      name_rus="Город"
+      name_eng="City"
+      name_ger="Stadt"
+      needed="1"
+      type="safelabel">
+    </field> 
+
+    <field
+      name="BirthDate"
+      name_rus="Дата рождения"
+      name_eng="Date of birth"
+      name_ger="Geburtsdatum"
+      type="sqldatelabel"
+      needed="1">
+    </field> 
+
+    <field
+      name="Study"
+      name_rus="Учебное заведение"
+      name_eng="Educational Institution"
+      name_ger=""
+      needed="1"
+      nobr="1"
+      type="safelabel">
+    </field>
+
+    <field
+      name="Work"
+      name_rus="Место работы"
+      name_eng="Place of Job"
+      needed="1"
+      nobr="1"
+      name_ger=""
+      type="safelabel">
+    </field>
+
+    <field
+      name="Info"
+      name_rus="Информация"
+      name_eng="Additional Information"
+      needed="1"
+      name_ger=""
+      type="safelabel">
+    </field>
+
+    <field
+      name="Games"
+      name_rus="Игры"
+      name_eng="Games"
+      name_ger=""
+      needed="1"
+      type="safelabel">
+    </field>
+
+
+    <field
+      name="Music"
+      name_rus="Музыка"
+      name_eng="You favourite music style, group"
+      needed="1"
+      name_ger=""
+      nobr="1"
+      type="safelabel">
+    </field>
+
+    <field
+      name="Hobby"
+      name_rus="Хобби"
+      name_eng="Your hobby"
+      name_ger=""
+      needed="1"
+      type="safelabel">
+    </field>
+
+
+   </fields>
+
+ </info>
+
+
+
+
+<removeavatar sql="update ut_users set Approved=null where UserID='$auth->user;'
+#^deleteimage('ut_users/avatar/$auth->user;.jpg',1);
+#^deleteimage('ut_users/small/$auth->user;.jpg',1);"
+redirect="info.php?act=profile"
+success="1">
+
+<fields>
+</fields>
+
+</removeavatar>
+
+ <profile title_rus="Анкета" title_eng="Profile" title_ger=""
+    sql="set @error=if((select UserID from ut_users where Email=@Email; and UserID&lt;>'$auth->user;' limit 0,1) is null or @Email=(select Email from ut_users where UserID='$auth->user;'),0,concat('В базе уже есть Email=',@Email))#set @error=if(@NewPassword;&lt;&gt;'' and @NewPassword;&lt;&gt;@Password2;,'Пароли не совпадают!',0)
+#update ut_users set
+Showinfo=@Showinfo;,
+FirstName=@FirstName;,
+LastName=@LastName;,
+Showinfo=@Showinfo;,
+BirthDate=@BirthDate;,
+Gender=@Gender;,
+Email=@Email;,
+CountryID=@CountryID;,
+City=@City;,
+Url=@Url;,
+Icq=@Icq;,
+Study=@Study;,
+Work=@Work;,
+Job=@Job;,
+Music=@Music;,
+Hobby=@Hobby;,
+Games=@Games;,
+Adver=@Adver;,
+Info=@Info;
+where UserID='$auth->user;'
+#update ut_users set Approved=0 where @Avatar;&lt;&gt;'' and UserID='$auth->user;'
+#update ut_users set Password=@pwd; where @NewPassword;&lt;&gt;'' and UserID='$auth->user;'"
+
+    select="select u.*,
+if(u.Approved is null,'$message[188];',if(u.Approved='0','$message[189];',
+if(u.Approved='1',concat('&lt;font color=4ED703&gt;&lt;b&gt;','$message[190];',' &lt;a href=info.php?act=removeavatar&amp;step=1&gt;(','$message[192];',')'),
+concat('&lt;font color=F06B00&gt;&lt;b&gt;','$message[191];')))) as Status
+
+ from ut_users u where u.UserID='$auth->user;'"
+    success_rus="Изменения внесены"
+    success_eng="Profile updated"
+    success_ger="" 
+    width="100%">
+
+   <fields>
+
+    <field
+      name="Login"
+      name_rus="Логин(Ник)"
+      name_eng="Login(Nick)"
+      name_ger="Kennname(Login)"
+      needed="1"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="FirstName"
+      name_rus="Имя"
+      name_eng="First Name"
+      name_ger="Vorname"
+      maxlength="30"
+      size="26"
+      preg="/^[a-zA-Zа-яА-ЯёЁ-]+[a-zA-Z_а-яА-ЯёЁ-]*$/">
+    </field> 
+
+    <field
+      name="LastName"
+      name_rus="Фамилия"
+      name_eng="Last Name"
+      name_ger="Nachname"
+      preg="/^[a-zA-Zа-яА-ЯёЁ-]+[a-zA-Z_а-яА-ЯёЁ-]*$/"
+      maxlength="30"
+      size="26">
+    </field> 
+
+
+    <field
+      name="Email"
+      name_rus="E-Mail"
+      name_eng="E-Mail"
+      name_ger="E-Mail"
+      type="email"
+      maxlength="30"
+      size="26"
+      needed="1">
+    </field> 
+
+
+    <field
+      name="Avatar"
+      name_rus="Аватар"
+      name_eng="Avatar"
+      name_ger=""
+background="515E64"
+      width="100"
+      height="100"
+      maxsize="100000"
+      type="image">
+    </field>
+
+    <field
+      name="Status"
+      name_rus="Аватар"
+      name_eng="Avatar"
+      name_ger=""
+      type="label">
+    </field>
+
+    <field
+      name="Icq"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      name_ger="ICQ"
+      type="string"
+      maxlength="20"
+      size="10">
+    </field> 
+
+
+    <field
+      name="Url"
+      name_rus="Сайт"
+      name_eng="Home site"
+      name_ger="URL"
+      type="url"
+      maxlength="100"
+      size="26">http://
+    </field> 
+
+
+    <field
+      name="CountryID"
+      name_rus="Страна"
+      name_eng="Country"
+      name_ger="Land"
+      type="sqlist"
+      sql="select * from en_countries order by Name_$lang;">129
+    </field>
+
+    <field
+      name="City"
+      name_rus="Город"
+      name_eng="City"
+      name_ger="Stadt"
+      type="string"
+      preg="/^[a-zA-Zа-яА-ЯёЁ-]+[a-zA-Z0-9_\sа-яА-ЯёЁ-]*$/"
+      maxlength="30"
+      size="26">
+    </field> 
+
+    <field
+      name="BirthDate"
+      name_rus="Дата рождения"
+      name_eng="Date of birth"
+      name_ger="Geburtsdatum"
+      type="sqldate">
+    </field> 
+
+
+    <field
+      name="Study"
+      name_rus="Учебное заведение"
+      name_eng="Educational institution"
+      name_ger=""
+      type="string"
+      maxlength="50"
+      size="26">
+    </field>
+
+
+    <field
+      name="Work"
+      name_rus="Место работы"
+      name_eng="Place of work"
+      name_ger=""
+      type="string"
+      maxlength="50"
+      size="26">
+    </field>
+
+
+
+    <field
+      name="Adver"
+      name_rus="Откуда узнали об игре?"
+      name_eng="How did you find us?"
+      name_ger=""
+      type="string"
+      maxlength="50"
+      size="50">
+    </field>
+
+    <field
+      name="Info"
+      name_rus="Информация о себе"
+      name_eng="Additional information"
+      name_ger="Personalinformation"
+      type="string"
+      maxlength="200"
+      size="50">
+    </field>
+
+    <field
+      name="Games"
+      name_rus="В каких других браузерных&lt;br&gt; играх Вы играете?"
+      name_eng="Which other on-line &lt;br&gt;browser games do you play?"
+      name_ger=""
+      type="string"
+      maxlength="100"
+      size="50">
+    </field>
+
+
+    <field
+      name="Music"
+      name_rus="Любимый стиль музыки, группы"
+      name_eng="You favourite music style, group"
+      name_ger=""
+      type="string"
+      nobr="1"
+      maxlength="100"
+      size="50">
+    </field>
+
+    <field
+      name="Hobby"
+      name_rus="Хобби"
+      name_eng="Your hobby"
+      name_ger=""
+      type="text">
+    </field>
+
+    <field
+  name="Showinfo"
+  align="left"
+      name_rus="Показывать информацию обо мне другим пользователям"
+      name_eng="Show my info to other members"
+      name_ger=""
+      colspan="2"
+      type="checkbox">1
+    </field>
+
+    <field
+      name="NewPassword"
+      name_rus="Новый пароль"
+      name_eng="New password"
+      name_ger="Neue Kennwort"
+      type="password"
+      maxlength="32"
+      minlength="5"
+      size="20">
+    </field>
+
+    <field
+      name="Password2"
+      name_rus="Повторить пароль"
+      name_eng="Repeat password"
+      name_ger="wiederholen Kennwort"
+      type="password"
+      maxlength="32"
+      size="20">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить данные"
+       name_eng="Update"
+       name_ger="">
+       
+   </button> 
+
+ </profile>
+
+
+ <insertphoto
+    sql="insert into ut_user_photos (UserID,Name,Comment,Photo,Small,Date) values(
+   '$auth->user;',
+   @Name;,
+   @Comment;,
+   @Photo;,
+   @Small;,
+   @Date;)"
+ title_rus="Добавить фото" title_eng="Add photo"
+ success_rus="Фото добавлено!"
+    success_eng="Photo added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Photo"
+      name_rus="Фото, &lt;500Kb"
+      name_eng="Photo, &lt;500Kb"
+      type="image"
+      maxsize="500000"
+      needed="1"
+      height="100">
+    </field>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insertphoto>
+
+ <photos table="ut_user_photos" title_rus="Фотографии" title_eng="Photos" 
+sql="select p.* from ut_user_photos p
+ where p.UserID='$auth->user;' order by p.Date"
+	empty_rus="Фотографий нет" empty_eng="No photos" width="100%">
+  <header>
+
+     <item
+      name="Num"
+      name_rus=" "
+      name_eng=" "
+      name_ger=" "
+      type="number">
+    </item>
+
+     <item
+      name="Photo"
+      name_rus="Фото"
+      name_eng="Photo"
+      name_ger=""
+      type="showimage">
+    </item>
+
+     <item
+      name="Name"
+      width="100%"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger="">
+    </item>
+
+
+     <item
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      name_ger=""
+      type="date"
+      format="d.m.Y">
+    </item>
+
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+
+</photos>
+
+<update table="ut_user_photos" title_rus="Изменение фото" title_eng="Updating photo" 
+    sql="update ut_user_photos set 
+Name=@Name;,
+Comment=@Comment;
+where PhotoID=@id; and UserID='$auth->user;'#
+update ut_user_photos set 
+Photo=@Photo;,
+Small=@Small;
+where PhotoID=@id; and @Photo;&lt;&gt;'' and UserID='$auth->user;'"
+
+ select="select * from ut_user_photos where PhotoID=@id; and UserID='$auth->user;'"
+    success_rus="Фото изменено"
+    success_eng="Photo updated"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+      <fields>
+
+
+    <field
+      name="Photo"
+      name_rus="Фото, &lt;500Kb"
+      name_eng="Photo, &lt;500Kb"
+      type="image"
+      maxsize="500000"
+      height="100">
+    </field>
+
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete title_rus="Фотографии" title_eng="Photos" 
+    sql="delete from ut_user_photos where PhotoID=@id; and UserID='$auth->user;'"
+    success_rus="Фото удалено"
+    success_eng="Photo deleted">
+ </delete>
+
+</form>

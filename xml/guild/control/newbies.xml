@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_guilds"  title_rus="Новички" title_eng="Newbies">
+
+ <select width="100%" sql="select UserID,concat('&lt;a href=/users/',UserID,' target=_blank>',Login,'&lt;/a>') User from ut_users where GuildID='$auth->guild;' and GuildStatusID=0"
+action="update ut_users set GuildStatusID=if(@Yes;='on','1',if(@No;='on','0',GuildStatusID))
+, GuildID=if(@Yes;='on',GuildID,if(@No;='on','0',GuildID))
+ where UserID=@UserID; and GuildID='$auth->guild;'
+#update gd_guilds set NumMembers=NumMembers+1 where GuildID='$auth->guild;' and @Yes='on'">
+
+   <header>
+
+    <item type="hidden"
+      name="UserID"/>
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User"/>
+
+    <item type="checkbox"
+      name="Yes"
+      name_rus="Да"
+      name_eng="Yes"/>
+
+    <item type="checkbox"
+      name="No"
+      name_rus="Нет"
+      name_eng="No"/>
+
+
+   </header>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+ </select>
+
+
+</form>

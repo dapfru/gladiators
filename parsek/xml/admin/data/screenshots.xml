@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_screenshots" title_rus="Скриншоты" title_eng="Screenshots">
+
+
+ <insert
+    sql="insert into ut_screenshots(GalleryID,ScreenshotFile,Name_rus,Name_eng,Comment_rus,Comment_eng,
+Small) values(@GalleryID;,@ScreenshotFile;,@Name_rus;,@Name_eng;,@Comment_rus;,Comment_eng;,@Small;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+
+    <field
+      name="GalleryID"
+      name_rus="Галерея"
+      name_eng="Gallery"
+      type="sqlist"
+      sql="select m.GalleryID,concat_ws(' -> ',m2.Name_$lang;,m.Name_$lang;) from ut_galleries m left outer join ut_galleries m2 on m.ParentID=m2.GalleryID order by m2.Name_$lang;">3
+    </field>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название"
+      name_eng="Name"
+      type="varchar"
+      maxlength="40">
+    </field>   
+      
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий"
+      name_eng="Comment"
+      type="text">
+    </field>   
+
+
+    <field
+      name="ScreenshotFile"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      fix="width"
+      needed="1"
+      width="100"
+      height="75"
+      maxsize="500000">
+    </field> 
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select s.*,g.Name_$lang; as Gallery from ut_screenshots s
+left outer join ut_galleries g on (s.GalleryID=g.GalleryID)
+ order by s.ScreenshotID desc">
+
+   <header>
+
+    <item
+      name="ScreenshotID"
+      name_rus="N"
+      name_eng="N"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1"/>
+
+    <item
+      name="Gallery"
+      name_rus="Проект"
+      name_eng="Project">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_screenshots set GalleryID=@GalleryID;,Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,Comment_rus=@Comment_rus;,Comment_eng=@Comment_eng; where ScreenshotID=$id;
+#update ut_screenshots set ScreenshotFile=@ScreenshotFile;,Small=@Small;  where @Small;&lt;&gt;'' and ScreenshotID=$id;"
+    select="select * from ut_screenshots where ScreenshotID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   
+   <fields>
+
+    <field
+      name="GalleryID"
+      name_rus="Галерея"
+      name_eng="Gallery"
+      type="sqlist"
+      sql="select m.GalleryID,concat_ws(' -> ',m2.Name_$lang;,m.Name_$lang;) from ut_galleries m left outer join ut_galleries m2 on m.ParentID=m2.GalleryID order by m2.Name_$lang;">3
+    </field>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название"
+      name_eng="Name"
+      type="varchar"
+      maxlength="40">
+    </field>   
+      
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий"
+      name_eng="Comment"
+      type="text">
+    </field>   
+
+
+    <field
+      name="ScreenshotFile"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      fix="width"
+      needed="1"
+      width="100"
+      height="75"
+      maxsize="500000">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_screenshots where ScreenshotID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

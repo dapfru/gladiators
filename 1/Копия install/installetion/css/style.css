@@ -1,0 +1,72 @@
+BODY{
+	margin: 0px;
+	padding:0px;
+	background-color: #F2F2F2;
+	font-family : Verdana;
+    	font-size : 11px;
+	color :#000000;
+	text-decoration:none;
+	}
+P{
+	text-align: justify;
+	}
+P IMG,TD.center IMG{
+	margin: 3px 10px 7px 10px;
+	}
+H1{
+	margin: 0px;
+	font-size: 14px;
+	}
+FORM{
+	margin: 0px;
+	}
+INPUT,SELECT,TEXTAREA{
+	border: 1px solid #000000; 
+	font-family: Verdanal;
+	font-size: 11px;
+	color: #000000;
+	margin: 0px;
+	width: 300px;
+	}
+DIV.main A.tree{
+	color: #000000;
+	}
+TD{
+	font-size : 11px;
+	}
+TABLE.menu TD{
+	padding:2px 5px 2px 25px;
+	height: 36px;
+	}
+TABLE.menu TD A{
+	font-weight: bold;
+	color: #FFFFFF;
+	}
+TABLE.center TD.center{
+	padding: 14px;
+	}
+TABLE.left TD.left{
+	padding: 10px;
+	}
+A{
+ 	color: #000000;
+	text-decoration:none;
+	}
+A:hover{
+	text-decoration:underline;
+	}
+A.menu,A.w{
+ 	color: #FFFFFF;
+	text-decoration:none;
+	}
+A.menu_sel{
+ 	color: #FFFFFF;
+	text-decoration:underline;
+	}
+.main{
+   	font-family : Verdana;
+    	font-size : 11px;
+	color : #000000;
+	font-weight:normal;
+	}
+

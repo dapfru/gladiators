@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_polls">
+
+ <create
+    sql="create table ut_polls(
+     PollID int auto_increment primary key,
+     Name_rus varchar(255),
+     Name_eng varchar(255),
+     StartDate int,
+     EndDate int,
+     index (StartDate));
+    #create table ut_answers(
+        AnswerID int auto_increment primary key,
+        PollID int,
+        Name_rus varchar(50),
+        Name_eng varchar(50),
+        index(PollID));"
+    success_rus="Таблица создана"
+    success_eng="Table created">
+ </create>
+
+ <drop
+    sql="drop table ut_polls"
+    success_rus="Таблица удалена"
+    success_eng="Table deleted">
+ </drop>
+
+ <insert
+    sql="set @PollID=(select max(PollID) from ut_polls where EndDate='')
+    #insert into ut_polls (Name_rus, Name_eng, StartDate, EndDate) values(
+       @Name_rus;,
+       @Name_eng;,
+       @StartDate;,
+       @EndDate;)
+    #set @id=@insertid
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer1_rus;,@Answer1_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer2_rus;,@Answer2_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer3_rus;,@Answer3_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer4_rus;,@Answer4_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer5_rus;,@Answer5_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer6_rus;,@Answer6_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer7_rus;,@Answer7_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer8_rus;,@Answer8_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer9_rus;,@Answer9_eng;)
+    #insert into ut_answers(PollID,Name_rus,Name_eng) values(@id,@Answer10_rus;,@Answer10_eng;)
+    #update ut_polls set EndDate=unix_timestamp() where PollID=@PollID"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+     <field
+      name="StartDate"
+      name_rus="Дата начала"
+      name_eng="Start date"
+      type="currentdate"
+      needed="1">
+     </field>
+
+     <field
+      name="EndDate"
+      name_rus="Дата окончания"
+      name_eng="End date"
+      type="date">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1"
+      size="40">
+     </field>
+
+     <field
+      name="Answer1_rus"
+      name_rus="Ответ 1(рус)"
+      name_eng="Answer 1(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer2_rus"
+      name_rus="Ответ 2(рус)"
+      name_eng="Answer 2(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer3_rus"
+      name_rus="Ответ 3(рус)"
+      name_eng="Answer 3(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer4_rus"
+      name_rus="Ответ 4(рус)"
+      name_eng="Answer 4(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer5_rus"
+      name_rus="Ответ 5(рус)"
+      name_eng="Answer 5(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer6_rus"
+      name_rus="Ответ 6(рус)"
+      name_eng="Answer 6(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer7_rus"
+      name_rus="Ответ 7(рус)"
+      name_eng="Answer 7(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer8_rus"
+      name_rus="Ответ 8(рус)"
+      name_eng="Answer 8(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer9_rus"
+      name_rus="Ответ 9(рус)"
+      name_eng="Answer 9(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer10_rus"
+      name_rus="Ответ 10(рус)"
+      name_eng="Answer 10(rus)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255"
+      size="40">
+     </field>
+
+     <field
+      name="Answer1_eng"
+      name_rus="Ответ 1(анг)"
+      name_eng="Answer 1(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer2_eng"
+      name_rus="Ответ 2(анг)"
+      name_eng="Answer 2(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer3_eng"
+      name_rus="Ответ 3(анг)"
+      name_eng="Answer 3(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer4_eng"
+      name_rus="Ответ 4(анг)"
+      name_eng="Answer 4(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer5_eng"
+      name_rus="Ответ 5(анг)"
+      name_eng="Answer 5(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer6_eng"
+      name_rus="Ответ 6(анг)"
+      name_eng="Answer 6(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer7_eng"
+      name_rus="Ответ 7(анг)"
+      name_eng="Answer 7(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer8_eng"
+      name_rus="Ответ 8(анг)"
+      name_eng="Answer 8(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer9_eng"
+      name_rus="Ответ 9(анг)"
+      name_eng="Answer 9(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+     <field
+      name="Answer10_eng"
+      name_rus="Ответ 10(анг)"
+      name_eng="Answer 10(eng)"
+      type="string"
+      maxlength="50"
+      size="40">
+     </field>
+
+
+
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       name_por="">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_polls order by StartDate desc">
+  <header>
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="StartDate"
+      name_rus="Дата начала"
+      name_eng="Start date"
+      type="date"
+      format="d.m.Y">
+    </item> 
+
+    <item
+      name="EndDate"
+      name_rus="Дата окончания"
+      name_eng="End date"
+      type="date"
+      format="d.m.Y">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+ </select>
+
+ <update
+   sql="update ut_polls set 
+   Name_rus=@Name_rus;, 
+   Name_eng=@Name_eng;, 
+   StartDate=@StartDate;,
+   EndDate=@EndDate; where PollID=@id;
+   #update ut_answers set Name_rus=@Answer1_rus;,Name_eng=@Answer1_eng; where AnswerID=@AnswerID1; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer2_rus;,Name_eng=@Answer2_eng; where AnswerID=@AnswerID2; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer3_rus;,Name_eng=@Answer3_eng; where AnswerID=@AnswerID3; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer4_rus;,Name_eng=@Answer4_eng; where AnswerID=@AnswerID4; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer5_rus;,Name_eng=@Answer5_eng; where AnswerID=@AnswerID5; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer6_rus;,Name_eng=@Answer6_eng; where AnswerID=@AnswerID6; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer7_rus;,Name_eng=@Answer7_eng; where AnswerID=@AnswerID7; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer8_rus;,Name_eng=@Answer8_eng; where AnswerID=@AnswerID8; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer9_rus;,Name_eng=@Answer9_eng; where AnswerID=@AnswerID9; and PollID=@id;
+   #update ut_answers set Name_rus=@Answer10_rus;,Name_eng=@Answer10_eng; where AnswerID=@AnswerID10; and PollID=@id;"
+
+   select="select * from ut_polls where PollID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="StartDate"
+      name_rus="Дата начала"
+      name_eng="Start date"
+      type="currentdate"
+      needed="1">
+     </field>
+
+     <field
+      name="EndDate"
+      name_rus="Дата окончания"
+      name_eng="End date"
+      type="date">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1"
+      size="40">
+     </field>
+
+     <field
+      name="Answer1_rus"
+      name_rus="Ответ 1(рус)"
+      name_eng="Answer 1(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 0,1">
+     </field>
+
+     <field
+      name="Answer2_rus"
+      name_rus="Ответ 2(рус)"
+      name_eng="Answer 2(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 1,1">
+     </field>
+
+     <field
+      name="Answer3_rus"
+      name_rus="Ответ 3(рус)"
+      name_eng="Answer 3(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 2,1">
+     </field>
+
+     <field
+      name="Answer4_rus"
+      name_rus="Ответ 4(рус)"
+      name_eng="Answer 4(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 3,1">
+     </field>
+
+     <field
+      name="Answer5_rus"
+      name_rus="Ответ 5(рус)"
+      name_eng="Answer 5(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 4,1">
+     </field>
+
+     <field
+      name="Answer6_rus"
+      name_rus="Ответ 6(рус)"
+      name_eng="Answer 6(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 5,1">
+     </field>
+
+     <field
+      name="Answer7_rus"
+      name_rus="Ответ 7(рус)"
+      name_eng="Answer 7(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 6,1">
+     </field>
+
+     <field
+      name="Answer8_rus"
+      name_rus="Ответ 8(рус)"
+      name_eng="Answer 8(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 7,1">
+     </field>
+
+     <field
+      name="Answer9_rus"
+      name_rus="Ответ 9(рус)"
+      name_eng="Answer 9(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 8,1">
+     </field>
+
+     <field
+      name="Answer10_rus"
+      name_rus="Ответ 10(рус)"
+      name_eng="Answer 10(rus)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 9,1">
+     </field>
+
+     <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255"
+      size="40">
+     </field>
+
+     <field
+      name="Answer1_eng"
+      name_rus="Ответ 1(анг)"
+      name_eng="Answer 1(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 0,1">
+     </field>
+
+     <field
+      name="Answer2_eng"
+      name_rus="Ответ 2(анг)"
+      name_eng="Answer 2(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 1,1">
+     </field>
+
+     <field
+      name="Answer3_eng"
+      name_rus="Ответ 3(анг)"
+      name_eng="Answer 3(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 2,1">
+     </field>
+
+     <field
+      name="Answer4_eng"
+      name_rus="Ответ 4(анг)"
+      name_eng="Answer 4(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 3,1">
+     </field>
+
+     <field
+      name="Answer5_eng"
+      name_rus="Ответ 5(анг)"
+      name_eng="Answer 5(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 4,1">
+     </field>
+
+     <field
+      name="Answer6_eng"
+      name_rus="Ответ 6(анг)"
+      name_eng="Answer 6(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 5,1">
+     </field>
+
+     <field
+      name="Answer7_eng"
+      name_rus="Ответ 7(анг)"
+      name_eng="Answer 7(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 6,1">
+     </field>
+
+     <field
+      name="Answer8_eng"
+      name_rus="Ответ 8(анг)"
+      name_eng="Answer 8(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 7,1">
+     </field>
+
+     <field
+      name="Answer9_eng"
+      name_rus="Ответ 9(анг)"
+      name_eng="Answer 9(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 8,1">
+     </field>
+
+     <field
+      name="Answer10_eng"
+      name_rus="Ответ 10(анг)"
+      name_eng="Answer 10(eng)"
+      type="string"
+      maxlength="50"
+      size="40"
+      sql="select Name_rus from ut_answers where PollID=@id; limit 9,1">
+     </field>
+
+
+     <field
+      name="AnswerID1"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 0,1">
+     </field>
+
+     <field
+      name="AnswerID2"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 1,1">
+     </field>
+
+     <field
+      name="AnswerID3"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 2,1">
+     </field>
+
+     <field
+      name="AnswerID4"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 3,1">
+     </field>
+
+     <field
+      name="AnswerID5"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 4,1">
+     </field>
+
+     <field
+      name="AnswerID6"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 5,1">
+     </field>
+
+     <field
+      name="AnswerID7"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 6,1">
+     </field>
+
+     <field
+      name="AnswerID8"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 7,1">
+     </field>
+
+     <field
+      name="AnswerID9"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 8,1">
+     </field>
+
+     <field
+      name="AnswerID10"
+      type="hidden"
+      sql="select AnswerID from ut_answers where PollID=@id; limit 9,1">
+     </field>
+
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record"
+       name_por="">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from ut_polls where PollID=@id;#delete from ut_answers where PollID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    success_por="">
+ </delete>
+
+</form>

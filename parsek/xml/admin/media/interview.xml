@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_materials">
+
+
+ <insert
+    sql="insert into ut_materials (Link,UserID,TypeID, SourceID, 
+Name_rus, Name_eng, Headline_rus, Headline_eng, Message_rus, 
+Message_eng, Date, Author_rus, Author_eng, Image, Small,Source,ImageDate, ProjectID) values(
+@Link;,
+'$auth->user;',
+   @TypeID;,
+   @SourceID;,
+   @Name_rus;,
+   @Name_eng;,
+
+   @Headline_rus;,
+   @Headline_eng;,
+
+   @Message_rus;,
+   @Message_eng;,
+
+   @Date;,
+   @Author_rus;,
+   @Author_eng;,
+
+   @Image;,
+   @Small;,
+   @Source;,
+   @Date;,
+   @ProjectID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_material_types order by Name_$lang;">4
+     </field>
+
+
+
+     <field
+      name="ProjectID"
+      name_rus="Проект"
+      name_eng="Project"
+      type="sqlist"
+      nobr="1"
+      sql="select * from ut_projects order by Name_$lang;">
+     </field>
+
+     <field
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      sql="select unix_timestamp()"
+      type="datetime">
+     </field>
+
+
+
+     <field
+      name="Source"
+      name_rus="Источник"
+      size="50"
+      name_eng="Source"
+      type="string">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1" nobr="1"
+      size="50">
+     </field>
+     <field
+      name="Headline_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Headline(rus)"
+      type="text">
+     </field>
+
+     <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="150000"
+      width="100">
+     </field>
+
+     <field
+      name="Link"
+      name_rus="Ссылка по теме"
+      size="50"
+      name_eng="Link"
+      type="url">
+     </field>
+
+
+     <field
+      name="Message_rus"
+      name_rus=" "
+      name_eng=" " colspan="2"
+      type="editor"
+      cols="60"
+      rows="8">
+     </field>
+
+     <field
+      name="Author_rus"
+      name_rus="Автор(рус)"
+      name_eng="Author(rus)"
+      type="string"
+      maxlength="40"
+      needed="1">Пресс-служба
+    </field>
+
+
+
+
+
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       name_por="">
+   </button> 
+
+ </insert>
+
+ <select sql="select n.*,.t.Name_$lang; as Type,c.Name_$lang; as Category,u.Login
+from ut_materials n
+left outer join ut_material_types t on (t.TypeID=n.TypeID)
+left outer join ut_projects c on (c.ProjectID=n.ProjectID)
+
+left outer join ut_users u on (u.UserID=n.UserID)
+where n.TypeID=4
+order by Date desc
+">
+  <header>
+
+     <item
+      name="MaterialID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Date"
+      type="date"
+      format="d.m.Y H:i">
+    </item>
+
+    <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type">
+    </item> 
+
+
+    <item
+      name="Category"
+      name_rus="Проект"
+      name_eng="Project">
+    </item> 
+
+    <item
+      name="Login"
+      name_rus="Логин"
+      name_eng="Login">
+    </item> 
+
+     <item type="edit"/>
+    <item type="delete"/>
+
+   </header>
+ </select>
+
+
+
+ <browse sql="select n.*, s.Name_$lang; as Source
+from ut_materials n
+left outer join ut_sources s on (s.SourceID=n.SourceID)
+
+where TypeID='$id;' order by Date desc "
+pagecount="20">
+  <header>
+
+
+   </header>
+ </browse>
+
+ <update
+   sql="update ut_materials set 
+
+   SourceID=@SourceID;,
+
+   Name_rus=@Name_rus;, 
+   Headline_rus=@Headline_rus;,
+   Message_rus=@Message_rus;, 
+
+   Name_eng=@Name_eng;, 
+   Headline_eng=@Headline_eng;,
+   Message_eng=@Message_eng;, 
+   Author_rus=@Author_rus;,
+Link=@Link;,
+   Author_eng=@Author_eng;,
+   Source=@Source;,
+   ImageDate=@Date;,
+   ProjectID=@ProjectID;, Date=@Date;
+
+where MaterialID=@id;
+#update ut_materials set  ImageDate=unix_timestamp(),Image=@Image;,Small=@Small; where MaterialID=@id; and @Image;&lt;&gt;''"
+   select="select * from ut_materials where MaterialID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_material_types order by Name_$lang;">4
+     </field>
+
+
+     <field
+      name="ProjectID"
+      name_rus="Проект"
+      name_eng="Project"
+      type="sqlist"
+      nobr="1"
+      sql="select * from ut_projects order by Name_$lang;">
+     </field>
+
+     <field
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="datetime">
+     </field>
+
+
+
+     <field
+      name="Source"
+      name_rus="Источник"
+      name_eng="Source"
+      size="50"
+      type="string">
+     </field>
+
+     <field
+      name="Link"
+      name_rus="Ссылка по теме"
+      size="50"
+      name_eng="Link"
+      type="url">
+     </field>
+
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1"
+      size="50">
+     </field>
+     <field
+      name="Headline_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Headline(rus)"
+      type="text">
+     </field>
+     <field
+      name="Message_rus"
+      name_rus=" "
+      name_eng=" " colspan="2"
+      type="editor"
+      cols="60"
+      rows="8">
+     </field>
+
+     <field
+      name="Author_rus"
+      name_rus="Автор(рус)"
+      name_eng="Author(rus)"
+      type="string"
+      maxlength="40"
+      needed="1">Пресс-служба
+    </field>
+
+     <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="150000"
+      width="100">
+     </field>
+
+
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record"
+       name_por="">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from ut_materials where MaterialID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    success_por="">
+ </delete>
+
+</form>

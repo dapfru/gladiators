@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+
+
+ <insert
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="url"
+      type="hidden">
+    </field> 
+   
+    <field
+      name="name"
+      name_rus="Логин"
+      name_eng="Login"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+    <field
+      name="pass"
+      name_rus="Пароль"
+      name_eng="Password"
+      type="password"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Войти"
+       name_eng="Login">
+   </button> 
+
+ </insert>
+
+</form>

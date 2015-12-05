@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_slaves" showlogo="1">
+
+
+
+<select  title_rus="Основные параметры" title_eng="Main parameters" title_ger="Hauptparameter"
+sql=""
+pagecount="50" maxpages="50" width="100%"
+empty_rus="Рабы не найдены"
+empty_eng="Slaves not found"
+empty_ger="Es wurden keine Sklaven gefunden">
+
+   <header style="style='color:$fontcolor;'">
+
+    <field
+      name="id"
+      type="hidden">
+    </field> 
+
+     <item
+      name="Num"
+      type="template">
+    </item> 
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+
+    <item
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+	name_ger=""
+      align="center">
+    </item> 
+  
+
+   
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      count="avg">
+    </item> 
+  
+    <item
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      order="Skl desc"
+      align="center"
+      format="&lt;b&gt;"
+      count="avg">
+    </item> 
+
+    <item
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      count="avg">
+    </item>
+
+
+
+
+    <item
+      name="Vit"
+      name_rus="Вын"
+      name_eng="Vit"
+	name_ger=""
+	title_rus="Здоровье"
+	title_eng="Health"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+    <item
+      name="Dex"
+      name_rus="Лов"
+      name_eng="Dex"
+	name_ger=""
+	title_rus="Ловкость"
+	title_eng="Dexterity"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+    <item
+      name="Acc"
+      name_rus="Точ"
+      name_eng="Acc"
+	name_ger=""
+	title_rus="Точность"
+	title_eng="Accuracy"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+    <item
+      name="Str"
+      name_rus="Сил"
+      name_eng="Str"
+	name_ger=""
+	title_rus="Сила"
+	title_eng="Strength"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+
+
+
+    <item
+      name="Level"
+      name_rus="Урв"
+      name_eng="Lev"
+	name_ger=""
+	title_rus="Уровень"
+	title_eng="Level"
+	title_ger=""
+      align="center"
+      count="avg">
+    </item> 
+
+
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="dots"
+      format=""
+      align="right"
+      order="Price desc">
+    </item>
+
+   <item
+      name=""
+      name_rus=""
+      name_eng=""
+      name_ger=""
+      format="/images/icons/ok.gif"
+      type="icon">?act=buy&amp;id=$id;
+   </item> 
+
+   </header>
+
+ </select>
+
+ <buy select="select Name_$lang; as Name, PlayerID as SlaveID from ut_slaves where PlayerID='$id;'"
+sql="call buyslave($auth->user;,$id;,@error)"
+   success_rus="Раб куплен"
+   success_eng="Slave bought"
+>
+
+<fields>
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      type="label">
+    </field> 
+
+</fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+       type="return"
+       redirect="market.php">
+   </button> 
+
+ </buy>
+
+
+</form>

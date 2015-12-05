@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+  table="ut_cities">
+
+ <create
+    sql="create table ut_cities (CityID int auto_increment primary key,Name_rus varchar(30),Name_eng varchar(30),Name_ger varchar(30),CountryID int)"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_cities values('',@Name_rus;,@Name_eng;,@Name_ger;,@CountryID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+   
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+      </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+
+    <field
+      name="CountryID"
+      name_rus="Страна"
+      name_eng="Country"
+      type="sqlist"
+      sql="select CountryID,Name_$lang; from ut_countries order by @Name_lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select
+   sql="select c.*,k.Name_$lang; as Country from ut_cities c left outer join ut_countries k on c.CountryID=k.CountryID order by c.Name_$lang; asc"
+    pagecount="100"
+    mixcolor="f3f3f3" rowcolor="ffffff">
+
+   <header>
+
+
+    <item
+      name="CityID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_cities set  Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,CountryID=@CountryID; where CityID=@id;"
+    select="select * from ut_cities where CityID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+   <fields>
+
+   
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+      </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+
+    <field
+      name="CountryID"
+      name_rus="Страна"
+      name_eng="Country"
+      type="sqlist"
+      sql="select CountryID,Name_$lang; from ut_countries order by @Name_lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_cities where CityID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+ <search
+    sql="select c.*,k.Name_$lang; as Country from ut_cities c left outer join ut_countries k on c.CountryID=k.CountryID where c.Name_$lang; like @Name; and k.Name_$lang; like @Country; order by c.Name_$lang; asc">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      type="stringlike">
+    </field>
+
+    <field
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"
+      type="stringlike">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Выбрать записи"
+       name_eng="Select records">
+   </button> 
+
+ </search>
+
+</form>

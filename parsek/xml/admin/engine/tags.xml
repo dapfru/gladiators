@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_tags">
+
+
+ <insert
+    sql="set @Type=(select Type from en_pages where PageID=@PageID;)
+#set @Site=(select Site from en_pages where PageID=@PageID;)#^xml2bd();"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+  <fields>
+
+     <field
+      name="PageID"
+      name_rus="Page"
+      name_eng="Page"
+      type="sqlist"
+      needed="1"
+      sql="select PageID,concat(Name_$lang;,' (',Site,Type,')') as Name from en_pages order by Name_$lang;">
+     </field>
+
+<field type="hidden" name="Type"/>
+
+     <field
+      name="Xml"
+      name_rus="Xml"
+      name_eng="Xml"
+      type="text" cols="70" rows="24">
+     </field>
+
+ </fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       name_por="">
+   </button> 
+
+ </insert>
+
+ <select sql="select t.*,p.Name_$lang; as Page,p.Site,p.Type as Type
+from en_tags t
+left outer join en_pages p using(PageID)
+order by p.Site,p.Type,t.Act 
+" pagecount="100">
+  <header>
+
+     <item
+      name="TagID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Site"
+      name_rus="Site"
+      name_eng="Site">
+    </item> 
+
+    <item
+      name="Type"
+      name_rus="Type"
+      name_eng="Type">
+    </item> 
+
+     <item
+      name="Act"
+      name_rus="Act"
+      name_eng="Act">
+    </item> 
+
+
+    <item
+      name="Page"
+      name_rus="Page"
+      name_eng="Page">
+    </item> 
+
+     <item type="edit"/>
+    <item type="delete"/>
+
+   </header>
+ </select>
+
+
+
+ <update
+   sql="^xml2bd();"
+   select="select t.*,p.Type,p.Site from en_tags t join en_pages p using(PageID) where t.TagID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="PageID"
+      name_rus="Page"
+      name_eng="Page"
+      type="sqlist"
+      needed="1"
+      sql="select PageID,concat(Name_$lang;,' (',Site,Type,')') as Name from en_pages order by Name_$lang;">
+     </field>
+
+<field type="hidden" name="Type"/>
+
+<field type="hidden" name="tmp" sql="select &quot;^makexml('$Site;','$Type;','$Act;');&quot;"/>
+
+     <field
+      name="Xml"
+      name_rus="Xml"
+      name_eng="Xml"
+      type="text" 
+      cols="70" rows="24" >
+     </field>
+
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record"
+       name_por="">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from en_tags where TagID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    success_por="">
+ </delete>
+
+
+
+ <translate sql="select x.*,t.Act from lk_xml x join en_tags t using(TagID) where x.TagID='$id;'" pagecount="100"
+action="update lk_xml set rus=@rus;,eng=@eng;,ger=@ger; where TextID=@TextID;">
+  <header>
+
+     <item
+      name="TextID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+     <item
+      name="TextID"
+      type="hidden">
+    </item> 
+
+     <item
+      name="Act"
+      name_rus="Act"
+      name_eng="Act"
+      name_ger="Act">
+    </item> 
+
+    <item
+      name="rus"
+      name_rus="рус"
+      name_eng="rus"
+      name_ger="rus" type="text">
+    </item> 
+
+    <item
+      name="eng"
+      name_rus="анг"
+      name_eng="eng"
+      name_ger="eng" type="text">
+    </item>
+
+    <item
+      name="ger"
+      name_rus="нем"
+      name_eng="ger"
+      name_ger="ger" type="text">
+    </item>
+
+
+   </header>
+
+   <button
+       name_rus="Изменить"
+       name_eng="Change"
+       name_por="">
+   </button> 
+
+ </translate>
+
+</form>

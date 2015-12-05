@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_posts">
+
+
+ <insert
+    sql="insert into ut_posts (Name_rus,Name_eng) values(
+   @Name_rus;,
+   @Name_eng;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_posts">
+
+<header>
+    <item
+      name="PostID"
+      name_rus="Id типа"
+      name_eng="Type ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update ut_posts set 
+Name_rus=@Name_rus;,
+
+Name_eng=@Name_eng;
+ where PostID=@id;"
+
+ select="select * from ut_posts where PostID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_posts where PostID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

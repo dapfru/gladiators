@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  table="fn_operations" title_rus="Финансовый отчет" title_eng="Financial report" title_ger="Finanzenbericht" privacy="1"
+date="14.7.06"
+user="Dinadan"
+comments_ger="ok"
+comments_rus="ok"
+comments_eng="ok"
+translator_ger="Dmitrij">
+
+ <select sql="select f.*,
+
+t.Name_$lang; as Comment,
+
+if(f.SenderID='$team;',
+(CASE a2.TypeID  
+    WHEN 1 Then l2.Name_$lang;
+    WHEN 2 Then u2.Name_$lang;
+    WHEN 3 Then t2.Name_$lang;
+end),(CASE a1.TypeID  
+    WHEN 1 Then l1.Name_$lang;
+    WHEN 2 Then u1.Name_$lang;
+    WHEN 3 Then t1.Name_$lang;
+end)) as Contragent,
+
+
+if(f.SenderID='$team;',concat('-',f.Money),concat('+',f.Money)) as Money,
+if(f.SenderID='$team;','A70000','green') as fontcolor,
+
+if(f.SenderID='$team;',f.SenderBalance,f.ReceiverBalance) as Balance
+
+from fn_operations f 
+
+left outer join fn_accounts a1 on f.SenderID=a1.AccountID 
+left outer join fn_accounts a2 on f.ReceiverID=a2.AccountID 
+
+left outer join ut_teams t1 on f.SenderID=t1.TeamID 
+left outer join ut_teams t2 on f.ReceiverID=t2.TeamID 
+
+left outer join ut_leagues l1 on f.SenderID=l1.LeagueID 
+left outer join ut_leagues l2 on f.ReceiverID=l2.LeagueID 
+
+left outer join ut_unions u1 on f.SenderID=u1.UnionID 
+left outer join ut_unions u2 on f.ReceiverID=u2.UnionID 
+
+left outer join fn_operation_types t on (t.TypeID=f.TypeID)
+where 
+f.Money>0 and
+'$team;'&lt;&gt;'' and
+(f.SenderID='$team;' or f.ReceiverID='$team;')
+and (@id;='' or f.TypeID=@id or t.Parent=@id)
+order by f.OperationID desc"  
+  
+width="100%">
+	
+   <header style="style='color:$fontcolor;'">
+
+    <item
+      name="OperationDate"
+      name_rus="Дата"
+      name_eng="Date"
+      name_ger="Datum"
+      type="date"
+      format="d.m.y H:i">
+    </item>
+
+	
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment"
+      name_ger="Kommentar">
+    </item>		
+		
+
+
+
+    <item
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      name_ger="Geld"
+      align="right"
+      type="money"
+
+      order="Money desc">$Money;
+    </item>	
+
+    <item
+      name="Contragent"
+      name_rus="Контрагент"
+      name_eng="Contragent"
+      name_ger="Kontrahent">
+    </item>
+
+
+    <item
+      name="Balance"
+      name_rus="Баланс"
+      name_eng="Balance"
+      name_ger="Bilanz"
+      align="right"
+      order="Balance desc"
+      type="money">
+    </item>
+
+
+
+   </header>
+
+ </select>
+
+</form>

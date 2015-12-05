@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiators" title_rus="Подготовка к бою" mixcolor="#3B484C">
+
+
+
+
+ <squad>
+ <fields>
+
+    <field
+      name="caption"
+	name_rus="Выбор состава" 
+	name_eng="Squad selection"
+	name_ger="Schema waehlen"
+      type="label"
+      needed="1">
+    </field> 
+
+        <field
+      name="LeaderID"
+      name_rus="Лидер"
+      name_eng="Leader"
+      type="list">
+    </field>
+
+    <field
+      name="Tactic"
+      name_rus="Тактика"
+      name_eng="Tactics"
+      type="list"
+      vars_rus="Атака строем;Оборона строем;Свободная атака;Свободная оборона"
+      vars_eng="Formation attack;Formation defense;Free attack;Free defense">0
+    </field>
+  </fields>
+ </squad>
+
+ <tasks>
+
+ <fields>
+     <field
+      name="caption"
+	name_rus="Задания" 
+	name_eng="Tasks"
+	name_ger="Spielaufgaben"
+      type="label"
+      needed="1">
+    </field>
+
+
+
+
+
+   </fields>
+
+ </tasks>
+
+ <repl>
+
+ <fields>
+
+    <field
+	name="caption"
+	name_rus="Замены" 
+	name_eng="Substitutions"
+	name_ger="Spielerwechsel"
+	type="label"
+	needed="1">
+    </field> 
+    
+  </fields>
+  </repl>
+
+
+
+
+
+
+ <additionaldata>
+ 	<fields>
+ 		
+ 		<field name="delSubs" name_rus="Удалить эту замену" name_eng="Delete this substitution"  />
+ 		<field name="addSubs" name_rus="Добавить замену" name_eng="Add substitution"  />
+ 		<field name="player" name_rus="Игрок" name_eng="Player" name_ger="Spieler" />
+ 		<field name="injury" name_rus="Травма" name_eng="Injury" name_ger="Verletzung" />
+ 		<field name="time" name_rus="Время" name_eng="Time" name_ger="Zeit" />
+ 		<field name="goals" name_rus="Голы" name_eng="Goals" name_ger="Tor" />
+ 		<field name="rem" name_rus="удалить" name_eng="remove" name_ger="loeschen" />
+ 		<field name="PlayMaker" name_rus="Плеймейкер" name_eng="Playmaker" name_ger="Playmaker" />
+ 		<field name="Dribling" name_rus="Дриблинг" name_eng="Dribling" name_ger="Dribling" />
+ 		<field name="LongBlow" name_rus="Дальние удары" name_eng="Long blow" name_ger="Weite Stoesse" />
+ 		<field name="Dispatcher" name_rus="Диспетчер" name_eng="Dispatcher" name_ger="Dispatcher" />
+ 		<field name="Violation" name_rus="Нарушения" name_eng="Violation" name_ger="Regelverstoesse" />
+ 		<field name="Flangs" name_rus="Фланги" name_eng="Flangs" name_ger="Flanken" />
+ 		<field name="rem" name_rus="удалить" name_eng="remove" name_ger="loeschen" />
+ 		<field name="task" name_rus="Задание" name_eng="Task" name_ger="Spielaufgabe" />
+ 		<field name="PlayerIn" name_rus="Игрок с поля" name_eng="Player in"  name_ger="Spieler in" />
+ 		<field name="PlayerOut" name_rus="Игрок на поле" name_eng="Player out" name_ger="Spieler aus" />
+ 	</fields>
+ </additionaldata>
+
+
+
+<select sql="select" width="300" bgcolor="78746C"
+serialize="^get_gladiators(0,2);"
+hint_rus="Чтобы задать расстановку, перетащите иконки гладиаторов (например, &lt;img src=/images/types/7.gif>) на поле.">
+
+   <header style="style='height:23px'">
+     <item 
+      name="Num" name_rus=" " name_eng=" " name_ger=" "
+      type="label" width="14">
+    </item> 
+
+
+
+    <item 
+      name="Gladiator" 
+      type="template" order="no">
+    </item> 
+
+
+    <item order="no"
+      name="Health"
+      type="template"
+      count="avg">
+    </item>
+
+
+
+
+    <item order="no"
+      name="Vit"
+      type="template"
+      count="avg">
+    </item>
+
+
+    <item order="no"
+      name="Dex"
+      type="template"
+      count="avg">
+    </item>
+
+    <item order="no"
+      name="Acc"
+      type="template"
+      count="avg">
+    </item>
+
+    <item order="no"
+      name="Str"
+      type="template"
+      count="avg">
+    </item>
+  
+
+
+
+   </header>
+
+
+ </select>
+
+
+ <empty hint_rus="Вам необходимо подать заявку на &lt;a href=/xml/arena/arena.php?typeid=1>сражение&lt;/a>, &lt;a href=/xml/arena/arena.php?typeid=2>поединок&lt;/a>, &lt;a href=/xml/arena/arena.php?typeid=3>серию поединков&lt;/a> или &lt;a href=/xml/arena/arena.php?typeid=4>бой на выживание&lt;/a> на Арене.">
+
+
+ </empty>
+
+
+</form>

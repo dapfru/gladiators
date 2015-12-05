@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_posts">
+
+ <create
+    sql="CREATE TABLE ut_posts(
+	PostID int auto_increment PRIMARY KEY,
+	ObjectID int,
+	UserID int,
+	StartDate int,
+	EndDate int,
+	TypeID int);"
+
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_posts(	
+	PostID,
+	ObjectID,
+	UserID,
+	StartDate,
+	EndDate,
+	TypeID) values(
+	'',
+	@ObjectID;,
+	@UserID;,
+	@Date;,
+	'',
+	@TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+   
+    <field
+      name="ObjectID"
+      name_rus="Футсоюз"
+      name_eng="Union"
+      type="sqlist"
+      sql="select * from ut_unions order by @Name_lang;">
+    </field> 
+
+
+    <field
+      name="UserID"
+      name_rus="ИД пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      name_eng="Post"
+      type="sqlist"
+      needed="1"
+      sql="select t.TypeID,concat(t.Name_$lang;,' (',c.Name_$lang;,')') from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select
+   sql="select p.*,un.Name_$lang; as UnionName,c.Name_$lang; as Structure, concat(u.FirstName,' ',u.LastName,' (',u.Login,')') as User,t.Name_$lang; as Type 
+from ut_posts p 
+left outer join ut_post_types t on t.TypeID=p.TypeID 
+left outer join ut_post_classes c on t.ClassID=c.ClassID 
+left outer join ut_users u on u.UserID=p.UserID 
+left outer join ut_unions un on un.UnionID=p.ObjectID"
+    pagecount="100"
+    mixcolor="f3f3f3" rowcolor="ffffff">
+
+   <header>
+
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item> 
+    <item
+      name="Type"
+      name_rus="Должность"
+      name_eng="Post">
+    </item> 
+
+    <item
+      name="Structure"
+      name_rus="Структура"
+      name_eng="Structure">
+    </item> 
+
+
+
+    <item
+      name="UnionName"
+      name_rus="Футсоюз"
+      name_eng="Union">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_posts set  ObjectID=@ObjectID;,UserID=@UserID;,TypeID=@TypeID; where PostID=@id;"
+
+    select="select * from ut_posts where PostID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+
+   <fields>
+
+   
+    <field
+      name="ObjectID"
+      name_rus="Футсоюз"
+      name_eng="Union"
+      type="sqlist"
+      sql="select * from ut_unions order by @Name_lang;">
+    </field> 
+
+
+    <field
+      name="UserID"
+      name_rus="ИД пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field> 
+
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      name_eng="Post"
+      type="sqlist"
+      needed="1"
+      sql="select t.TypeID,concat(t.Name_$lang;,' (',c.Name_$lang;,')') from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_posts where PostID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+
+</form>

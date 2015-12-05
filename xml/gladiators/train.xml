@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiators" privacy="1" formwidth="170" title_rus="Настройки тренировок" title_eng="Train settings" title_ger="Trainingseinstellungen"
+image="/images/art/school.jpg">
+
+
+
+<select 
+success_rus="Настройки изменены успешно"
+success_eng="Settings updated"
+serialize="^get_gladiators('$user;',1);" mixcolor="3B484C" 
+hint="Прирост опыта на тренировке зависит от возраста и таланта гладиатора, уровня тренера и установленного Вами процента нагрузки. Чем больше этот процент, тем медленнее восстанавливаются силы гладиатора после боя.
+&lt;br>&lt;br>При достижении необходимого количества опыта, появится ссылка на повышение уровня и распределение навыков."
+sql="select"
+    pagecount="100" maxpages="50" width="100%">
+
+   <header>
+
+     <item
+      name="GladiatorID"
+      type="hidden">
+    </item> 
+
+     <item
+      name="Age"
+      type="hidden">
+    </item> 
+     <item
+      name="Talent"
+      type="hidden">
+    </item> 
+     <item
+      name="Trainer"
+      type="hidden">
+    </item> 
+
+     <item
+      name="Injury"
+      type="hidden">
+    </item> 
+
+
+    <item
+      name="Type"
+      type="template">
+    </item> 
+   
+
+    <item
+      name="Gladiator"
+      type="template">
+    </item> 
+
+    <item
+      name="HealthBar" name_rus=" " name_eng=" " name_ger=" "
+
+tdstyle="width=1px background='/images/health/$bar;.gif'  style='background-repeat:no-repeat;background-position:center center'">
+    </item>
+
+
+    <item
+      name="Age"
+      type="template">
+    </item> 
+  
+
+    <item
+      name="Talent"
+      type="template">
+    </item>
+
+
+
+    <item
+      name="ShowExp"
+
+      type="template">
+    </item> 
+  
+
+    <item
+      name="ExpRaise"
+align="right"
+
+      name_rus="Сегодня"
+      name_eng="Today"
+      title_rus="Опыт, набранный за сегодня"
+      title_eng="Experience gained today"
+      format="&lt;b>">
+    </item>
+
+
+    <item
+      name="NewPercentTrain"
+      name_rus="Нагрузка"
+      name_eng="Training"
+      name_ger="Training"
+      align="center"
+      type="numeric"
+      size="2"
+      format=" name='myInput' class='slider' id='prc_$numrow;' "
+      min="0"
+      max="100">
+    </item>
+
+
+
+
+    <item
+      name="PercentTrain"
+      format="id='percentprc_$numrow;'"
+      type="hidden">
+    </item>
+
+    <item
+      name="Train"
+      name_rus="Оп/д"
+      name_eng="Ex/d"
+      title_rus="Прирост опыта за день"
+      title_eng="Experience gain per day"
+      type="numeric" size="3" format="readonly class='clear' style='background-color:$rowcolor;;text-align:center;width:40px' id='trainprc_$numrow;'">
+    </item>
+
+    <item
+      name="Stamina" 
+      name_rus="Зд/ч"
+      name_eng="St/h"
+      title_rus="Прирост здоровья в час"
+      title_eng="Stamina gain per hour"
+      type="numeric" size="3" format="readonly class='clear' style='background-color:$rowcolor;;text-align:center' id='staminaprc_$numrow;'">
+    </item>
+
+
+   </header>
+
+   <button
+       name_rus="Сохранить"
+       name_eng="Save settings"
+       name_ger="Einstellungen speichern">
+   </button> 
+
+   <button
+format="onclick='restore()'"
+       name_rus="Вернуть"
+       name_eng="Restore">
+   </button> 
+
+   <button
+format="onclick='document.location.href=&quot;train.php&quot;'"
+       name_rus="Обновить"
+       name_eng="Refresh">
+   </button> 
+
+
+ </select>
+
+
+</form>

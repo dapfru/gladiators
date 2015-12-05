@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+ <create
+    sql="CREATE TABLE ut_rules_types(
+	TypeID int auto_increment PRIMARY KEY,
+        Number tinyint,
+	Name_rus varchar(50),
+	Name_eng varchar(50),
+	Name_ger varchar(50));"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_rules_types(Number,Name_rus,Name_eng,Name_ger) values(
+	@Number;,
+	@Name_rus;,
+	@Name_eng;,
+	@Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+    <field
+      name="Number"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric">
+    </field>
+	
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+   </fields>
+    
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_rules_types order by Number">
+	
+<header>
+		
+    <item
+      name="Number"
+      name_rus="Ном"
+      name_eng="Num">
+    </item>	
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item>	
+
+   
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_rules_types set 
+Number=@Number;,
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;
+where TypeID=@id;"
+    select="select * from ut_rules_types where TypeID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="Number"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric">
+    </field>
+
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_rules_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

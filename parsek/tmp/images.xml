@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="sms_images">
+
+
+
+
+ <insert
+    sql="insert into sms_images (
+Name,Title,Preview,Image,Date,ImageDate,TypeID) values
+(
+@Name;,
+@Title;,
+
+@Image;,
+@Small;,
+@Date;,
+@Date;,
+@TypeID;)
+#^image_sms('$insertid;','$TypeID;','$Title;','$TypeID;');"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Title"
+      name_rus="Название файла"
+      type="string"
+      maxlength="50"
+      preg="/^[a-zA-Z-]+[a-zA-Z_-]*$/"
+      needed="1">
+    </field>
+
+    <field
+      name="Image"
+      name_rus="Фото"
+      type="image"
+      width="1000"
+      height="1000"
+      needed="1"
+      mix="image.png"
+      mixpos="center"
+      format="jpg">
+    </field>
+
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      type="sqlist"
+      needed="1"
+      sql="select TypeID,Name_$lang; as Name from sms_images_types order by Name">3
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select p1.*,p2.Name_$lang; as Type from sms_images p1 left outer join sms_images_types p2 on p1.TypeID = p2.TypeID 
+where p1.TypeID&lt;>6 
+
+order by Date desc"
+action="delete from sms_images where ImageID=@ImageID; and @Delete;='on'">
+  <header>
+    
+     <item
+      name="ImageID"
+      type="hidden">
+    </item>
+
+
+     <item
+      name="ImageID"
+      name_rus="N"
+      name_eng="N">
+    </item>
+
+
+     <item
+      name="Image"
+      name_rus="Картинка"
+      name_eng="Image"
+      name_por=""
+      type="preview">
+    </item>
+
+     <item
+      name="Code"
+      name_rus="Номер"
+      name_eng="Name"
+      name_por="">
+    </item>
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_por="">
+    </item>
+
+     <item
+      name="Title"
+      name_rus="Файл"
+      name_eng="Title"
+      name_por="">
+    </item>
+
+     <item
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      name_por=""
+      type="date"
+      format="d.m.Y">
+    </item>
+
+
+     <item
+      name="Delete"
+      name_rus=" "
+      name_eng=" "
+      name_por=""
+      type="checkbox">
+    </item>
+
+
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+
+   <button
+       name_rus="Удалить выделенные"
+       name_eng="">
+   </button> 
+
+</select>
+
+<update
+    sql="update sms_images set 
+Name=@Name;,
+Title=@Title;,
+ImageDate=@Date;,
+TypeID=@TypeID;
+ where ImageID=@id;#
+update sms_images set ImageDate=@Date;,Image=@Small;,Preview=@Image;
+ where ImageID=@id; and @Small&lt;&gt;''"
+
+ select="select * from sms_images where ImageID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Title"
+      name_rus="Название файла"
+      type="string"
+      preg="/^[a-zA-Z-]+[a-zA-Z_-]*$/"
+      maxlength="50"
+      needed="1">
+    </field>
+
+
+    <field
+      name="Image"
+      name_rus="Фото"
+      type="image"
+      needed="1"
+      width="1000"
+      height="1000"
+      mixpos="center"
+      mix="image.png"
+      format="jpg">
+    </field>
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      needed="1"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; as Name from sms_images_types order by Name">3
+    </field>
+
+
+
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+
+
+
+ <insertall
+    sql="Select @Name;,@Title;,@Image;#^sms_make_images();"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Title"
+      name_rus="Название файла"
+      type="string"
+      maxlength="50"
+      preg="/^[a-zA-Z-]+[a-zA-Z_-]*$/"
+      needed="1">
+    </field>
+
+    <field
+      name="Image"
+      name_rus="Фото"
+      type="image"
+      width="1000"
+      height="1000"
+      needed="1"
+      mix="images/sms/preview.gif"
+      format="jpg">
+    </field>
+
+    <field
+      name="ImageTrimY"
+      name_rus="Вырезать по высоте"
+      type="list"
+      vars_rus="верх;1/3;центр;2/3;низ">2
+    </field>
+
+
+    <field
+      name="ImageTrimX"
+      name_rus="Вырезать по ширине"
+      type="list"
+      vars_rus="верх;1/3;центр;2/3;низ">2
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insertall>
+ <delete
+    sql="delete from sms_images where ImageID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

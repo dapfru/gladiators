@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_stadium_info">
+
+
+ <insert
+    sql="insert into fn_stadium_info values('',
+@StadiumID;,
+@Level;,
+@Price;,
+@Expand;
+@Name_rus;,
+@Name_eng;,
+@Name_ger;,
+@Comments_rus;,
+@Comments_eng;,
+@Comments_ger;,
+@Img;,
+@Small;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="StadiumID"
+      name_rus="ID постройки"
+      name_eng="Stadium ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+     <field
+      name="Expand"
+      name_rus="Добавка к вместимости"
+      name_eng="Additional capacity"
+      type="numeric"
+      size="8">
+    </field> 
+
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Illustration"
+      type="image">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select * from fn_stadium_info order by StadiumID,Level asc">
+
+   <header>
+
+    <item
+      name="StadiumID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level">
+    </item> 
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update fn_stadium_info set 
+
+Level=@Level;,
+Price=@Price;,
+Expand=@Expand;,
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Comments_rus=@Comments_rus;,
+Comments_eng=@Comments_eng;, 
+Comments_ger=@Comments_ger;
+where InfoID=@id;#
+update fn_stadium_info set Img=@Img;,Small=@Small; where InfoID=@id; and @Img;&lt;&gt;''"
+    select="select * from fn_stadium_info where InfoID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+    <field
+      name="StadiumID"
+      name_rus="ID постройки"
+      name_eng="Stadium ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+
+     <field
+      name="Expand"
+      name_rus="Добавка к вместимости"
+      name_eng="Additional capacity"
+      type="numeric"
+      size="8">
+    </field> 
+
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Illustration"
+      type="image">
+    </field>
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_stadium_info where InfoID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

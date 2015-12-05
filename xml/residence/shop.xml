@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  title_rus="Лавка торговца" title_eng="Merchant's shop" image="/images/fn_buildings_info/img/34.jpg">
+
+   <take 
+hint_rus="В зависимости от уровня &lt;a href=/xml/residence/staff.php?id=7>Торговца&lt;/a>, &lt;a href=/xml/residence/buildings.php?id=11>Торговая лавка&lt;/a> приносит ежедневный доход: 200, 400 и 600 денариев для Торговца-1, Торговца-2 и Торговца-3 соответственно.
+&lt;br>&lt;br>Вы можете забрать выручку в любой момент, когда она составляет не менее 10 денариев. 
+&lt;br>&lt;br>Во время ночного обновления сайта, Вы автоматически забираете оставшуюся выручку."
+sql="set @error=if(@Profit;>=10,'','Выручка должна быть не менее 10 денариев')#^take_shop('$auth->user;');"
+    
+    success_rus="Вы забрали выручку"
+    success_eng="You've taken the profit"
+
+>
+
+   <fields>
+
+    <field
+      name="Profit"
+      name_rus="Выручка (денарии)"
+      name_eng="Profit"
+      type="label">
+    </field> 
+
+
+    <field
+      name="ShopDate"
+      name_rus="Последний раз забиралась"
+      name_eng="Last time taken"
+      type="datelabel" format="d.m.Y H:i">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Забрать выручку"
+       name_eng="Take profit">
+   </button> 
+
+ </take>
+
+
+</form>

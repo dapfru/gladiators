@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+ <create
+    sql="CREATE TABLE ut_messages_types(
+	TypeID int auto_increment PRIMARY KEY,
+	Name_rus varchar(50),
+	Name_eng varchar(50),
+	Name_ger varchar(50));"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_messages_types(Name_rus,Name_eng,Name_ger) values(
+	@Name_rus;,
+	@Name_eng;,
+	@Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+   </fields>
+    
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_messages_types order by Name_$lang;">
+	
+<header>
+		
+    <item
+      name="TypeID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item>	
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item>	
+
+   
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_messages_types set 
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;
+where TypeID=@id;"
+    select="select * from ut_messages_types where TypeID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_messages_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

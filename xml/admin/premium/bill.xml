@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_bills">
+
+ <create
+   sql="create table vp_bills (BillID int auto_increment primary key,
+	UserID int,
+	Money int,
+	FirstName varchar(50),
+	LastName varchar(50),
+	SurName varchar(50),
+	City varchar(30),
+	PostIndex varchar(10),
+	Address varchar(255),
+	Date int)">
+ </create>
+
+ <insert
+    sql="insert into vp_bills(
+	BillID,
+	UserID,
+	Money,
+	FirstName,
+	LastName,
+	SurName,
+	City,
+	PostIndex,
+	Address,
+	Date) values(
+	'',
+	$auth->user;,
+	@sum;,
+	@firstname;,
+	@lastname;,
+	@surname;,
+	@city;,
+	@index;,
+	@address;,
+	@Date;)"
+select="select * from `nekki-butsa`.users where id=$auth->user;">
+
+   <fields>
+
+    <field
+      name="lastname"
+      name_rus="Фамилия"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>   
+      
+    <field
+      name="firstname"
+      name_rus="Имя"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>  
+
+    <field
+      name="surname"
+      name_rus="Отчество"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>  
+
+    <field
+      name="index"
+      name_rus="Индекс"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field>  
+
+    <field
+      name="city"
+      name_rus="Город"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field>  
+
+    <field
+      name="address"
+      name_rus="Адрес"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>  
+
+
+    <field
+      name="sum"
+      name_rus="Сумма(руб)"
+      type="numeric"
+      needed="1"
+      min="100">
+    </field>  
+
+
+
+   </fields>
+
+   <button
+       name_rus="Сформировать квитанцию">
+   </button> 
+
+ </insert>
+
+ <view 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    sql="select b.*,u.login as User,t.name as Team from vp_bills b join `nekki-butsa`.users u on b.UserID=u.id  join `nekki-butsa`.teams t on t.manager=b.UserID  order by Date desc">
+
+   <header>
+
+
+
+    <item
+      name="User"
+      name_rus="Пользователь">
+    </item> 
+
+    <item
+      name="Team"
+      name_rus="Команда">
+    </item> 
+
+    <item
+      name="Money"
+      name_rus="Сумма">
+    </item> 
+
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      format="d.m.Y H:i"
+      type="date">
+    </item> 
+
+   </header>
+
+ </view>
+</form>

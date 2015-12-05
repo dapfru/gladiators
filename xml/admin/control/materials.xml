@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_materials"  title_rus="Материалы" title_ger="Materials">
+
+ <create
+    sql="CREATE TABLE ut_materials(
+	MaterialID int auto_increment PRIMARY KEY,
+	Name_rus varchar(50),
+	Name_eng varchar(50),
+	Name_ger varchar(50),
+
+	Message_rus text,
+	Message_eng text,
+	Message_ger text,
+
+	TypeID int);"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+
+ <insert
+    sql="insert into ut_materials (Name_rus,Message_rus,Name_eng,Message_eng,Name_ger,Message_ger,TypeID) values(
+   @Name_rus;,
+   @Message_rus;,
+   @Name_eng;,
+   @Message_eng;,
+   @Name_ger;,
+   @Message_ger;,
+   @TypeID;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+   <fields>
+
+    <field
+      name="Name_rus"
+      type="template">
+    </field>
+
+    <field
+      name="Message_rus"
+      type="template">
+    </field>
+
+    <field
+      name="Name_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Message_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Name_ger"
+      type="template">
+    </field>
+
+    <field
+      name="Message_ger"
+      type="template">
+    </field>
+
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; as Name from ut_material_types order by Name">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select r1.*, t.Name_$lang; as Type from ut_materials r1 left outer join ut_material_types t on t.TypeID=r1.TypeID order by r1.Name_$lang;">
+  <header>
+    
+     <item
+      name="MaterialID"
+      name_rus="№"
+      name_eng="#"
+      name_ger="">
+    </item>
+
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger=""
+      lang="1">
+    </item>
+
+
+    <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      name_ger="">
+    </item>
+
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+</select>
+
+<update
+    sql="update ut_materials set 
+Name_rus=@Name_rus;,
+Message_rus=@Message_rus;,
+Name_eng=@Name_eng;,
+Message_eng=@Message_eng;,
+Name_ger=@Name_ger;,
+Message_ger=@Message_ger;,
+TypeID=@TypeID;
+
+where MaterialID=@id;"
+
+ select="select * from ut_materials where MaterialID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+    <field
+      name="Name_rus"
+      type="template">
+    </field>
+
+    <field
+      name="Message_rus"
+      type="template">
+    </field>
+
+    <field
+      name="Name_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Message_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Name_ger"
+      type="template">
+    </field>
+
+    <field
+      name="Message_ger"
+      type="template">
+    </field>
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; as Name from ut_material_types order by Name">
+    </field>
+
+
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_materials where MaterialID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

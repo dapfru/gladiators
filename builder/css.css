@@ -1,0 +1,181 @@
+/*для всего документа*/
+body *
+{
+	/*border: 1px solid;*/
+}
+/*для зон запаса*/
+
+.black td {color:000000}
+
+.PositionZone
+{
+	-moz-opacity:0.2;
+	filter:alpha(opacity=20);
+	border: 1px solid black;
+	width: 20px;
+	margin-left:0px;
+}
+.message
+{
+	z-index:200;
+	width:200px;
+	text-align:center;
+	font-size:20px;
+	margin-top: 65px;
+	margin-left: 309px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	position:absolute;
+	display:none;
+	background-color:#3B484C;
+	border:1px solid #78746C;
+}
+/*для надписи под игроком*/
+.playerSubscriptName
+{
+	position:absolute;
+	font: 10px Tahoma;
+	color: white;
+	display:none;
+	text-align:center;
+}
+/*для надписи под игроком позиции когда она правильная*/
+.subscriptRight
+{
+}
+/*для надписи под игроком позиции когда она неправильная*/
+.subscriptNotRight
+{
+	color: red;
+}
+/*для строчки в листе загрузки*/
+.fileListItem
+{
+	display:block;
+	cursor:pointer;
+}
+/*помоему для слоев табов*/
+.borderContainer
+{
+	border: 1px solid;
+	margin: 5px;
+	padding: 2px;
+}
+/*кнопка*/
+button
+{
+	border: 1px solid;
+}
+/*лейблы*/
+.label
+{
+	color: white;
+	font-size: 15px;
+}
+/*слой зоны*/
+.zone
+{
+	position:absolute;
+	border: 0px solid;
+	-moz-opacity:0.2;
+	filter:alpha(opacity=20);
+	
+}
+.zoneZapas
+{
+	position:absolute;
+	border: 1px solid;
+	-moz-opacity:0.2;
+	filter:alpha(opacity=40);	
+}
+/*слой зоны с подсветкой*/
+
+.hightlightleader
+{
+	position:absolute;
+	background-color:#964C27;
+	-moz-opacity:0.5;
+	filter:alpha(opacity=50);
+}
+
+.hilightZone
+{
+	position:absolute;
+	background-color:#3B484C;
+	-moz-opacity:0.5;
+	filter:alpha(opacity=50);
+}
+/*слой зоны с подсветкой 2*/
+.hilight2Zone
+{
+	position:absolute;
+	background-color:#BAAE9C;
+	-moz-opacity:0.5;
+	filter:alpha(opacity=10);
+}
+
+
+
+/*надпись зоны*/
+.zoneTitle
+{
+	font:14px Tahoma;
+	font-weight:bold;
+	
+}
+/*слой игрока*/
+.player
+{
+ height:40px;
+ position:absolute;
+ cursor: pointer;
+ width:40px;
+ text-align:left;
+}
+/*слой таба*/
+.tab
+{
+ height:300px;
+ position:absolute;
+ width:520px;
+
+ visibility:hidden;
+ }
+ /*...*/
+ .repl_item
+ {
+ 	border: 1px solid;
+ }
+ /*клас который дает возможность скролирования*/
+.scrolable
+{
+	overflow:auto;
+}
+/*заголовк таба (вроди не используется)*/
+.tabcaption
+{
+ background:#B3D08C;
+ text-align: center;
+ font-family: Tahoma;
+ font-size: 15px;
+ cursor: pointer;
+ border:1px solid #D0D0D0;
+ border-bottom: 0px;
+ border-left: 0px;
+ padding-left:20px;
+ padding-right:20px;
+}
+/*заголовк таба (вроди не используется)*/
+.firsttabcaption
+{
+ background:#B3D08C;
+ text-align: center;
+ font-family: Tahoma;
+ font-size: 15;
+ cursor: pointer;
+ border:1px solid #D0D0D0;
+ border-bottom: 0px;
+ padding-left:20;
+ padding-right:20;
+ padding-bottom:5;
+}

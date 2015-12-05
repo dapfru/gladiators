@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_rang_types" title_rus="Типы рангов" title_eng="Vip types">
+
+ <create
+    sql="create table vp_rang_types(
+     TypeID int auto_increment primary key,
+     Level tinyint,
+     Name_rus varchar(30),
+     Name_eng varchar(30),
+     Name_ger varchar(30));
+     ">
+ </create>
+ <insert
+    sql="insert into vp_rang_types (Level,Name_rus,Name_eng,Name_ger) values(
+   @Level;,
+   @Name_rus;,
+   @Name_eng;,
+   @Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      unique="1"
+      needed="1">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+     <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+     </field>
+     <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+     </field>
+    </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from vp_rang_types order by Level">
+  <header>
+    <item
+      name="Level"
+      name_rus="Урвоень"
+      name_eng="Level">
+    </item>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+ <update
+   sql="update vp_rang_types set 
+   Level=@Level;,
+   Name_rus=@Name_rus;,
+   Name_eng=@Name_eng;,
+   Name_ger=@Name_ger; 
+   where TypeID=@id;"
+   select="select * from vp_rang_types where TypeID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      unique="1"
+      needed="1">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+     <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+     </field>
+     <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+     </field>
+    </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from vp_rang_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_bills">
+
+ <insert
+    sql="set @error=if(@start;=4,0,'Неправильный ответ!')#insert into `nekki-butsa`.ad_users values('$user;')">
+
+   <fields>
+
+    <field
+      name="start"
+      name_rus="Акция стартует: "
+      type="list"
+      vars_rus="16 сентября;17 сентября;18 сентября;19 сентября;20 сентября"
+      needed="1">
+    </field>   
+      
+   </fields>
+
+   <button
+       name_rus="Отправить">
+   </button> 
+
+ </insert>
+
+</form>

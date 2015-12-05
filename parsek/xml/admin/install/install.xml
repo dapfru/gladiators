@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="lk_messages">
+
+
+
+ <insert
+    sql="insert into lk_messages  values('',@rus;,@eng;,@ger;,@TypeID;)"
+    success_rus="Строка добавлена!"
+    success_eng="Message added"
+>
+
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="string"
+      maxlength="255"
+      size="40"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить строку"
+       name_eng="Add message">
+   </button> 
+
+ </insert>
+
+</form>

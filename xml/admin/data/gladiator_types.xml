@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiator_types"  title_rus="Типы гладиаторов" title_eng="gladiator_types">
+
+ <insert
+    sql="insert into ut_gladiator_types(Name_rus, Name_eng, Name_ger, Headline_rus, Headline_eng, Headline_ger,Description_rus,Description_eng,Description_ger,Coefficient,Slots,Weight,Height,CountryID) 
+  values(@Name_rus;, @Name_eng;, @Name_ger;, @Headline_rus;, @Headline_eng;, @Headline_ger;, @Description_rus;, @Description_eng;, @Description_ger;, @Coefficient;,@Slots;,@Weight;,@Height;,@CountryID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+  <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+   <field
+      name="Coefficient"
+      name_rus="Коэффициент"
+      name_eng="Coefficient"
+      name_ger="Koeffizient"
+      type="string">
+    </field> 
+
+   <field
+      name="CountryID"
+      name_rus="Национальность"
+      name_eng="Nationality"
+      name_ger="Nationality"
+      type="sqlist"
+sql="select CountryID, Name_$lang; from ut_countries order by CountryID">
+    </field>
+
+   <field
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      name_ger="Slots"
+      type="numeric">
+    </field> 
+
+   <field
+      name="Height"
+      name_rus="Прибавка к росту"
+      name_eng="Height increase"
+      name_ger="Height increase"
+      type="string">
+    </field> 
+
+   <field
+      name="Weight"
+      name_rus="Прибавка к весу"
+      name_eng="Weight increase"
+      name_ger="Weight increase"
+      type="string">
+    </field> 
+
+   <field
+      name="Image"
+ mix2="frame4.png"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      width="100"
+      maxsize="500000">
+    </field> 
+  
+    <field
+      name="Headline_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Headline(rus)"
+      name_ger="Ueberschrift(rus)"
+      size="70"
+      type="string">
+    </field> 
+
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      name_ger="Name(eng)"
+      type="string">
+    </field>
+
+    <field
+      name="Headline_eng"
+      name_rus="Заголовок(анг)"
+      name_eng="Headline(eng)"
+      name_ger="Ueberschrift(eng)"
+size="70"
+      type="string">
+    </field> 
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Headline_ger"
+      name_rus="Заголовок(нем)"
+      name_eng="Headline(ger)"
+      name_ger="Ueberschrift(ger)"
+size="70"
+      type="string">
+    </field>
+ 
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="text">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%" sql="select TypeID,Price, t.Name_$lang; as Name, Headline_$lang; as Headline, Coefficient, Slots, Weight, Height, c.Name_$lang; as Country
+ from ut_gladiator_types t left outer join ut_countries c using(CountryID) 
+order by TypeID"
+
+action="update ut_gladiator_types set Coefficient=@Coefficient;,Price=@Price; where TypeID=@TypeID;">
+
+   <header>
+
+    <item
+      name="TypeID"
+      type="hidden">
+    </item> 
+
+    <item
+      name="TypeID"
+      name_rus="N"
+      name_eng="N"
+      name_ger="N"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger="Name"/>
+
+    <item
+      name="Country"
+      name_rus="Нац"
+      name_eng="Nat"
+      name_ger="Naz"/>
+
+    <item
+      name="Coefficient"
+      name_rus="Коэф"
+      name_eng="Coef"
+      name_ger="Koef"
+	type="string" size="5"
+/>
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	type="numeric" size="5"
+/>
+
+
+    <item
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      name_ger="Slots"/>
+
+
+
+    <item
+      name="Headline"
+      name_rus="Заголовок"
+      name_eng="Headline"
+      name_ger="Ueberschrift"/>
+
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_gladiator_types set CountryID=@CountryID;, Weight=@Weight;, Height=@Height;, Coefficient=@Coefficient;, Slots=@Slots;, Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Headline_rus=@Headline_rus;,Headline_eng=@Headline_eng;,Headline_ger=@Headline_ger;,Description_rus=@Description_rus;, Description_eng=@Description_eng;, Description_ger=@Description_ger; where TypeID=$id;"
+    select="select t.*,c.Name_$lang; as Country from ut_gladiator_types t 
+left outer join ut_countries c using(CountryID) where TypeID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+
+   <fields>
+
+   <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+   <field
+      name="CountryID"
+      name_rus="Национальность"
+      name_eng="Nationality"
+      name_ger="Nationality"
+      type="sqlist"
+sql="select CountryID, Name_$lang; from ut_countries order by CountryID">
+    </field>
+
+  <field
+      name="Coefficient"
+      name_rus="Коэффициент"
+      name_eng="Coefficient"
+      name_ger="Koeffizient"
+      type="string">
+    </field> 
+
+   <field
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      name_ger="Slots"
+      type="numeric">
+    </field>
+
+   <field
+      name="Height"
+      name_rus="Прибавка к росту"
+      name_eng="Height increase"
+      name_ger="Height increase"
+      type="string">
+    </field> 
+
+   <field
+      name="Weight"
+      name_rus="Прибавка к весу"
+      name_eng="Weight increase"
+      name_ger="Weight increase"
+      type="string">
+    </field> 
+
+   <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+ mix2="frame4.png"
+      width="100"
+      maxsize="500000">
+    </field> 
+  
+    <field
+      name="Headline_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Headline(rus)"
+      name_ger="Ueberschrift(rus)"
+size="70"
+      type="string">
+    </field> 
+
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      name_ger="Name(eng)"
+      type="string">
+    </field>
+
+    <field
+      name="Headline_eng"
+      name_rus="Заголовок(анг)"
+      name_eng="Headline(eng)"
+      name_ger="Ueberschrift(eng)"
+size="70"
+      type="string">
+    </field> 
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Headline_ger"
+      name_rus="Заголовок(нем)"
+      name_eng="Headline(ger)"
+      name_ger="Ueberschrift(ger)"
+size="70"
+      type="string">
+    </field>
+ 
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="text">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Update record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_gladiator_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

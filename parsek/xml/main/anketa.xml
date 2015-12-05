@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_orders" title_rus="">
+
+ 
+<anketa width="100%" 
+    sql="insert into ut_orders (Name, Surname, Lastname, Work, Occupation) 
+values(@Name;, @Surname;, @Lastname;, @Work;, @Occupation;)#^send_mail('@Email;',3,4);#^send_mail('test@test.ru',2,4);"
+
+    success_rus="Заявка отправлена!"
+    success_eng="Order has been sent"
+>
+
+   <fields>
+     
+
+     <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      type="string"
+      maxlength="50"
+      needed="1">
+     </field>
+
+
+     <field
+      name="Surname"
+      name_rus="Фамилия"
+      name_eng="Surname"
+      type="string"
+      maxlength="50"
+      needed="1">
+     </field>
+
+
+     <field
+      name="Lastname"
+      name_rus="Отчество"
+      name_eng=""
+      type="string"
+      maxlength="50"
+      needed="1">
+     </field>
+
+  
+     <field
+      name="Work"
+      name_rus="Место работы"
+      name_eng="Workplace"
+      type="string"
+      maxlength="50">
+     </field>
+
+     <field
+      name="Occupation"
+      name_rus="Должность"
+      type="string"
+      maxlength="50">
+     </field>
+
+     <field
+      name="Email"
+      name_rus="E-mail"
+      type="string"
+      maxlength="30">
+     </field>
+
+     <field
+      name="Phone"
+      name_rus="Телефон"
+      type="string"
+      maxlength="20">
+     </field>
+
+
+     </fields>
+
+   <button
+       name_rus="Отправить заявку"
+       name_eng="Send">
+   </button> 
+
+ </anketa>
+
+</form>

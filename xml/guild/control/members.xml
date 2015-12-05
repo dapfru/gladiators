@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_guilds"  title_rus="Члены гильдии" title_eng="Members">
+
+ <select sql="select u.UserID,
+concat('&lt;a href=/users/',u.UserID,' target=_blank>',u.Login,'&lt;/a>') User,
+t.Name Post,t.Weight Weight,
+
+concat(round(100*t.Weight/(select sum(t1.Weight) from ut_users u1 
+join gd_posts p1 on u1.UserID=p1.UserID
+join gd_post_types t1  on t1.TypeID=p1.TypeID
+
+where u1.GuildID='$auth->guild;'),2),'%') as Percent
+
+from ut_users u 
+left outer join gd_posts p on p.UserID=u.UserID
+left outer join gd_post_types t on p.TypeID=t.TypeID
+where u.GuildID='$auth->guild;' and u.GuildStatusID=1">
+
+   <header>
+
+    <item type="number"
+ name="Number" name_rus=" " name_eng=" "/>
+
+
+    <item type="hidden"
+      name="UserID"/>
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User"/>
+
+    <item
+      name="Post"
+      name_rus="Должность"
+      name_eng="Post"/>
+
+    <item
+      name="Percent"
+      name_rus="Вес"
+      name_eng="Weight">
+    </item> 
+
+
+    <item type="edit"/>
+    <item type="delete"/>
+
+
+   </header>
+
+ </select>
+
+
+ <update
+    sql="set @error=if(unix_timestamp()-(select coalesce(Date,0) from gd_posts where UserID=@id;)&lt;86400,'Нельзя менять должность чаще чем раз в день','')
+#insert into gd_posts(Date,TypeID,UserID,GuildID) values(unix_timestamp(),@TypeID;,@id;,'$auth->guild;')
+on duplicate key update Date=unix_timestamp(),TypeID=@TypeID,GuildID='$auth->guild;'"
+
+    select="select u.*,p.TypeID from ut_users u left outer join gd_posts p on p.UserID=u.UserID where u.UserID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+
+
+   <fields>
+
+   
+    <field
+      name="Login"
+      name_rus="Логтн"
+      name_eng="Login"
+      type="label">
+    </field> 
+
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      name_eng="Post"
+      type="sqlist"
+      needed="1"
+      sql="select TypeID,Name from gd_post_types where GuildID='$auth->guild;' order by Name">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="set @error=if(@id;=(select UserID from gd_guilds where GuildID='$auth->guild;'),'Нельзя удалить администратора','')
+#update ut_users set GuildStatusID=0,GuildID=0 where UserID=@id; and GuildID='$auth->guild;'
+#update gd_guilds set NumMembers=NumMembers-1 where GuildID='$auth->guild;'"
+    success_rus="Пользователь исключен из гильдии"
+    success_eng="User deleted from guild">
+ </delete>
+
+
+</form>

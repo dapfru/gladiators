@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_materials">
+
+
+
+ <browse sql="select n.Main,MaterialID, n.Name_$lang; as Name,Date, Headline_$lang; as Headline,n.TypeID, 
+s.Url,
+Message_$lang; as Message,Small, s.Name_$lang; as Source
+from ut_materials n
+left outer join ut_sources s on (s.SourceID=n.SourceID)
+left outer join ut_news_categories c on (c.CategoryID=n.CategoryID)
+left outer join ut_news_categories c2 on (c2.CategoryID=c.ParentID)
+left outer join ut_news_categories c3 on (c3.CategoryID=c2.ParentID)
+where 
+(n.CategoryID='$category;' or '$category;'='' or c.ParentID='$category;' or c2.ParentID='$category;' or c3.ParentID='$category;') and 
+('$match;'='' or MatchID='$match;') and 
+('$team;'='' or TeamID1='$team;' or TeamID2='$team;') and 
+('$typeid;'='' or TypeID='$typeid;') order by Date desc "
+pagecount="20">
+  <header>
+
+
+   </header>
+ </browse>
+
+
+ <wapbrowse sql="select n.*, s.Name_$lang; as Source
+from ut_materials n
+left outer join ut_sources s on (s.SourceID=n.SourceID)
+where TypeID='$id;' order by Date desc "
+pagecount="5"
+maxpages="10">
+  <header>
+
+
+   </header>
+ </wapbrowse>
+
+</form>

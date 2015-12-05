@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form title_rus="Меню" title_eng="Menu">
+
+
+ <insert
+    sql="insert into en_menu(Title,Name_rus,Name_eng,Name_ger,Url,Rang,Icon,Icon_width,Parent,Target) values(@Title;,@Name_rus;,@Name_eng;,@Name_ger;,@Url;,@Rang;,@Icon;,@Icon_width;,@Parent;,@Target;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название  (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+
+
+    <field
+      name="Url"
+      name_rus="Url"
+      name_eng="Url"
+      type="string"
+      maxsize="150">
+    </field>
+
+    <field
+      name="Title"
+      name_rus="Тайтл"
+      name_eng="Title"
+      type="string"
+      maxsize="20">
+    </field>
+
+    <field
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="numeric">
+    </field>
+
+    <field
+      name="Icon"
+      name_rus="Иконка"
+      name_eng="Icon"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Icon_width"
+      name_rus="Ширина иконки"
+      name_eng="Icon width"
+      type="numeric">
+    </field>
+
+    <field
+      name="Parent"
+      name_rus="Класс"
+      name_eng="Class"
+      type="sqlist"
+      sql="select m.MenuID,concat_ws(' -> ',m2.Name_$lang;,m.Name_$lang;) from en_menu m left outer join en_menu m2 on m.Parent=m2.MenuID order by m2.Name_$lang;">
+    </field>
+
+    <field
+      name="Target"
+      name_rus="Target"
+      name_eng="Target"
+      type="string"
+      maxsize="10">
+    </field>
+
+
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+	
+ <select width="100%" sql="select m1.*,
+(if(m1.MenuID is null,0,1)
++if(m2.MenuID is null,0,1)
++if(m3.MenuID is null,0,1)
++if(m4.MenuID is null,0,1)
++if(m5.MenuID is null,0,1)
++if(m6.MenuID is null,0,1))
+ as Level,
+
+concat(
+
+if(m2.MenuID is null,'&lt;h3>',if(m3.MenuID is null,'&lt;b>&lt;li>',if(m4.MenuID is null,'&amp;nbsp;&amp;nbsp;» ',if(m5.MenuID is null,'&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- ','&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;- '))))
+
+,if(m1.Parent=0,'',concat('&lt;a href=$site_url;',m1.Url,'>'))
+,m1.Name_$lang;)
+ as Name,
+
+coalesce(m6.Rang,coalesce(m5.Rang,coalesce(m4.Rang,coalesce(m3.Rang,coalesce(m2.Rang,m1.Rang)))))
+ as Top,
+
+if(m2.MenuID is null,'',
+if(m6.Rang is null,if(m5.Rang is null,if(m4.Rang is null,if(m3.Rang is null,m1.Rang,m2.Rang),m3.Rang),m4.Rang),m5.Rang)
+) as Top2,
+
+if(m3.MenuID is null,'',
+if(m6.Rang is null,if(m5.Rang is null,if(m4.Rang is null,m1.Rang,m2.Rang),m3.Rang),m4.Rang)
+) as Top3,
+
+if(m4.MenuID is null,'',
+if(m6.Rang is null,if(m5.Rang is null,m1.Rang,m2.Rang),m3.Rang)
+) as Top4,
+
+ m1.Parent from en_menu m1
+left outer join en_menu m2 on m1.Parent=m2.MenuID
+left outer join en_menu m3 on m2.Parent=m3.MenuID
+left outer join en_menu m4 on m3.Parent=m4.MenuID
+left outer join en_menu m5 on m4.Parent=m5.MenuID
+left outer join en_menu m6 on m5.Parent=m6.MenuID
+order by Top,Top2,Top3,Top4,Level,Rang"
+
+pagecount="300">
+	
+<header>
+		
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item>	
+
+
+
+
+    <item type="up"/>
+
+    <item type="down"/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update en_menu set Target=@Target;,Title=@Title;,Icon_width=@Icon_width;,Icon=@Icon;,Rang=@Rang;,Url=@Url;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Parent=@Parent; where MenuID=@id;"
+    select="select * from en_menu where MenuID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название  (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      maxsize="50"
+      needed="1">
+    </field>
+	
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Url"
+      name_rus="Url"
+      name_eng="Url"
+      type="string"
+      maxsize="150">
+    </field>
+
+    <field
+      name="Title"
+      name_rus="Тайтл"
+      name_eng="Title"
+      type="string"
+      maxsize="20">
+    </field>
+
+    <field
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="numeric">
+    </field>
+
+    <field
+      name="Icon"
+      name_rus="Иконка"
+      name_eng="Icon"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Icon_width"
+      name_rus="Ширина иконки"
+      name_eng="Icon width"
+      type="numeric">
+    </field>
+
+    <field
+      name="Parent"
+      name_rus="Класс"
+      name_eng="Class"
+      type="sqlist"
+      sql="select m.MenuID,concat_ws(' -> ',m2.Name_$lang;,m.Name_$lang;) from en_menu m left outer join en_menu m2 on m.Parent=m2.MenuID order by m2.Name_$lang;">
+    </field>
+
+    <field
+      name="Target"
+      name_rus="Target"
+      name_eng="Target"
+      type="string"
+      maxsize="10">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_menu where MenuID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+ <up
+    sql="set @up=(select m2.MenuID from en_menu m1, en_menu m2 where m1.MenuID='$id;' and m1.Parent=m2.Parent and m2.Rang&lt;=m1.Rang and m2.MenuID&lt;>'$id;' order by m2.Rang desc,m2.Name_$lang; desc limit 0,1)
+#set @rang2=(select Rang from en_menu where MenuID=@up)
+#set @rang1=(select Rang from en_menu where MenuID='$id;')
+#set @rang1=if(@rang1=@rang2,@rang1+1,@rang1)
+#update en_menu set Rang=@rang2 where MenuID='$id;'
+#update en_menu set Rang=@rang1 where MenuID=@up
+"
+    success_rus="Дерево изменено"
+    success_eng="Tree updated">
+ </up>
+
+
+ <down
+    sql="set @up=(select m2.MenuID from en_menu m1, en_menu m2 where m1.MenuID='$id;' and m1.Parent=m2.Parent and m2.Rang>=m1.Rang and m2.MenuID&lt;>'$id;' order by m2.Rang asc,m2.Name_$lang; asc limit 0,1)
+#set @rang2=(select Rang from en_menu where MenuID=@up)
+#set @rang1=(select Rang from en_menu where MenuID='$id;')
+#set @rang2=if(@rang1=@rang2,@rang2+1,@rang2)
+#update en_menu set Rang=@rang2 where MenuID='$id;'
+#update en_menu set Rang=@rang1 where MenuID=@up
+"
+    success_rus="Дерево изменено"
+    success_eng="Tree updated">
+ </down>
+
+</form>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_guilds" title_rus="Гильдии" title_eng="Guilds">
+
+
+ <members pagecount="1000" sql="select u.UserID,
+concat('&lt;a href=/users/',u.UserID,' target=_blank>',u.Login,'&lt;/a>') User,
+t.Name Post
+from ut_users u 
+left outer join gd_posts p on p.UserID=u.UserID
+left outer join gd_post_types t on p.TypeID=t.TypeID
+where u.GuildID='$guild;' and u.GuildStatusID=1
+order by t.Weight desc,u.Login">
+
+   <header>
+
+    <item type="number"
+ name="Number" name_rus=" " name_eng=" "/>
+
+
+    <item type="hidden"
+      name="UserID"/>
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User"/>
+
+    <item
+      name="Post"
+      name_rus="Должность"
+      name_eng="Post"/>
+
+   </header>
+
+ </members>
+
+
+
+ <select width="100%"
+hint_rus="Гильдии объединяют участников, повышая их рейтинг в игре и давая дополнительные возможности. Основной путь заработка и повышения статуса гильдии - проведение турниров и привлечение новых участников.
+&lt;br>&lt;br>На сайте гильдии необходимо установить счетчик посещений, который считает &lt;b>хосты&lt;/b> (уникальные заходы) и &lt;b>хиты&lt;/b> (количество загрузкок страниц)"
+
+sql="select g.*,t.Hits,t.Hosts,
+concat('&lt;b>',t.Hits,'&lt;/b> (&lt;font ',if(t.Hits-t.Hits_yesterday>=0,'color=#28DE4B>+','color=#FF5656>'),(t.Hits-t.Hits_yesterday),')&lt;/font>') HitsName,
+concat('&lt;b>',t.Hosts,'&lt;/b>&lt;br>&lt;font size=-4 ',if(t.Hosts-t.Hosts_yesterday>=0,'color=#28DE4B>+','color=#FF5656>'),(t.Hosts-t.Hosts_yesterday),'&lt;/font>') HostsName,
+concat('&lt;b>',g.NumMembers,'&lt;/b> (&lt;font ',if(g.NumMembers-g.NumMembers_yesterday&lt;>0,if(g.NumMembers-g.NumMembers_yesterday>=0,'color=#28DE4B>+','color=#FF5656>'),' color=ffffff>+'),(g.NumMembers-g.NumMembers_yesterday),'&lt;/font>)') MembersName,
+
+concat('&lt;a href=',g.Url,' target=_blank>',g.Url,'&lt;/a>') Url,
+concat('&lt;a href=/guilds/',g.ShortName,'/>',g.Name,'&lt;/a>') Guild
+
+from gd_guilds g
+left outer join top_sites t using(GuildID)
+
+where g.StatusID>0
+order by Hosts desc,NumMembers desc,g.Name">
+  <header>
+
+    <item sort="no" width="22px"
+
+      name_rus=" "
+      name_eng=" "
+      name="Image" format="/images/gd_guilds/small/$GuildID;.jpg"
+ type="icon">/guilds/$ShortName;/
+    </item> 
+
+
+    <item
+      name="Guild" 
+      name_rus="Название" order="no" 
+      name_eng="Name">
+    </item> 
+
+    <item
+      name="Url" order="no"
+      name_rus="Сайт гильдии"
+      name_eng="Url">
+    </item> 
+
+    <item
+      name="MembersName" align="right"
+      name_rus="Игроков"  order="NumMembers desc"
+      name_eng="Players">
+    </item> 
+
+
+    <item
+      name="Hosts" align="right"  format="&lt;b>"
+      name_rus="Хосты"  order="Hosts desc"
+      name_eng="Hosts">
+    </item> 
+
+
+    <item
+      name="Hits" align="right" format="&lt;b>"
+      name_rus="Хиты" order="Hits desc" 
+      name_eng="Hits">
+    </item> 
+
+    </header>
+ </select>
+
+
+ <insert
+hint_rus="Начинается предварительный прием заявок на регистрацию гильдий. У гильдии должен быть свой сайт, устав, логотип. Администрация имеет право отказать в регистрации гильдии без объяснения причин."
+    sql="set @error=if((select GuildID from gd_guilds where ShortName=@ShortName; and StatusID&gt;0)&gt;0,concat('Уже есть гильдия с названием ',@ShortName),'')
+#set @error=if((select GuildID from gd_guilds where Name=@Name; and StatusID&gt;0)&gt;0,concat('Уже есть гильдия с названием ',@Name),'')
+#set @error=if((select GuildID from gd_guilds where UserID='$auth->user;' and StatusID&gt;0)&gt;0,'Вы уже являетесь владельцем гильдии','')
+#set @error=if((select GuildID from ut_users where UserID='$auth->user;' and GuildStatusID&gt;0)&gt;0,'Вы уже являетесь членом гильдии','')
+#insert into gd_guilds (NumMembers,Name,Date,UserID,FounderID,Description,Url,StatusID,AdminID,ShortName) values(
+   1,@Name;,unix_timestamp();+@Small;,'$auth->user;','$auth->user;',@Description;,@Url;,0,0,@ShortName;)
+#insert into top_sites(GuildID) values(@insertid)
+#update ut_users set GuildID=@insertid, GuildStatusID=0 where UserID='$auth->user;'"
+    success_rus="Заявка на гильдию подана!"
+    success_eng="Request added"
+    button="Submit">
+
+   <fields>
+
+     <field
+      name="Name"
+      name_rus="Название гильдии"
+      name_eng="Name of guild"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+
+     <field
+      name="ShortName"
+      name_rus="Сокращенное название на английском"
+      preg="/^[0-9a-zA-Z]+[0-9a-zA-Z_-]*$/"
+      name_eng="Short name"
+      type="string"
+      maxlength="20" size="10"
+      needed="1">
+     </field>
+
+
+     <field
+      name="Small"
+      name_rus="Логотип&lt;br>(не более 15x15 пикселей GIF)"
+      name_eng="Logo"
+type="image"
+format="gif"
+      needed="1"
+      width="15" 
+      height="15">
+     </field>
+
+
+     <field
+      name="Url"
+      needed="1"
+      name_rus="Адрес сайта гильдии"
+      name_eng="Guild site url"
+      type="string"
+      maxlength="50">
+     </field>
+
+
+
+
+
+     <field
+      name="Description"
+cols="70"
+rows="10"
+      name_rus="Описание"
+      name_eng="Description"
+      type="text">
+     </field>
+
+    </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Add guild">
+   </button> 
+
+ </insert>
+
+
+
+
+ <join
+    sql="set @error=if((select GuildID from ut_users where UserID='$auth->user;' and GuildStatusID&gt;0)&gt;0,'Вы уже являетесь членом гильдии','')
+#set @error=if((select GuildID from gd_guilds where UserID='$auth->user;' and StatusID&lt;&gt;1)&gt;0,'Вы являетесь владельцем гильдии','')
+#update ut_users set GuildID=@id;, GuildStatusID=0 where UserID='$auth->user;'"
+    success_rus="Заявка на вступление в гильдию подана!"
+    success_eng="Application to join a guild submitted">
+
+   <fields>
+    </fields>
+
+
+ </join>
+
+
+ <leave
+    sql="set @error=if((select GuildID from gd_guilds where UserID='$auth->user;')&gt;0,'Вы являетесь владельцем гильдии и не можете её покинуть','')
+#set @guild=(select GuildID from gd_guilds where UserID='$auth->user;')
+#update gd_guilds set NumMembers=NumMembers-1 where GuildID=@guild
+#delete from gd_posts where UserID='$auth->user;'
+#update ut_users set GuildID=0, GuildStatusID=0 where UserID='$auth->user;'"
+    success_rus="Заявка на вступление в гильдию подана!"
+    success_eng="Application to join a guild submitted">
+
+   <fields>
+    </fields>
+
+
+ </leave>
+
+
+</form>

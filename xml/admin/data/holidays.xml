@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_holidays"  title_rus="Типы гладиаторов" title_eng="gladiator_types">
+
+ <insert
+    sql="insert into ut_holidays(Name_rus, Name_eng, Name_ger, Day1,Month1,Day2,Month2, Description_rus,Description_eng,Description_ger,Image, Small,ImageDate,Rating) 
+  values(@Name_rus;, @Name_eng;, @Name_ger;, @Day1;, @Month1;, @Day2;, @Month2;, @Description_rus;, @Description_eng;, @Description_ger;, @Image;, @Small;, unix_timestamp(),@Rating;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+  <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+   <field
+      name="Rating"
+      name_rus="Рейтинг"
+      name_eng="Rating"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Day1"
+      name_rus="День начала"
+      name_eng="Start day"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Month1"
+      name_rus="Месяц начала"
+      name_eng="Start month"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Day2"
+      name_rus="День окончания"
+      name_eng="End day"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Month2"
+      name_rus="Месяц окончания"
+      name_eng="End month"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      width="100"
+      maxsize="500000">
+    </field> 
+  
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      name_ger="Name(eng)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="editor">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%" sql="select HolidayID,Name_$lang; as Name, concat(Day1,'.',Month1) as Startdate, concat(Day2,'.',Month2) as Enddate, Rating, Description_$lang; as Description
+ from ut_holidays 
+order by Month1,Day1 asc"
+
+action="update ut_holidays set Rating=@Rating; where HolidayID=@HolidayID;">
+
+   <header>
+
+    <item
+      name="HolidayID"
+      type="hidden">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger="Name"/>
+
+    <item
+      name="Startdate"
+      name_rus="Дата начала"
+      name_eng="Start date"
+      name_ger=""/>
+
+    <item
+      name="Enddate"
+      name_rus="Дата окончания"
+      name_eng="End date"
+      name_ger=""/>
+
+    <item
+      name="Rating"
+      name_rus="Рейтинг"
+      name_eng="Rating"
+      name_ger=""/>
+
+    <item
+      name="Description"
+      name_rus="Описание"
+      name_eng="Description"
+      name_ger=""/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_holidays set Day1=@Day1;, Month1=@Month1;, Day2=@Day2;, Month2=@Month2;, Rating=@Rating;,
+ Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,
+Description_rus=@Description_rus;, Description_eng=@Description_eng;, Description_ger=@Description_ger; where HolidayID=$id;
+#update ut_holidays set Image=@Image;,Small=@Small;, ImageDate=unix_timestamp() where @Image;&lt;&gt;'' and HolidayID=$id;"
+    select="select * from ut_holidays where HolidayID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+
+   <fields>
+
+  <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+   <field
+      name="Rating"
+      name_rus="Рейтинг"
+      name_eng="Rating"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Day1"
+      name_rus="День начала"
+      name_eng="Start day"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Month1"
+      name_rus="Месяц начала"
+      name_eng="Start month"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Day2"
+      name_rus="День окончания"
+      name_eng="End day"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Month2"
+      name_rus="Месяц окончания"
+      name_eng="End month"
+      name_ger=""
+      type="numeric">
+    </field> 
+
+   <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      width="100"
+      maxsize="500000">
+    </field> 
+  
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      name_ger="Name(eng)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="editor">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Update record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_holidays where HolidayID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

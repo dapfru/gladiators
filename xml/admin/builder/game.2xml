@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_orders">
+
+ <squad name_rus="Основа" name_eng="Squad">
+ </squad>
+
+ <repl name_rus="Замены" name_eng="Substitutions"></repl>
+
+
+
+ <game name_rus="Матч" name_eng="Game">
+
+   <fields>
+
+   
+    <field
+      name="TournamentID"
+      name_rus="Турнир"
+      name_eng="Tournament"
+      type="sqlist"
+      sql="select * from ut_tournaments where SeasonID=4 order by name_$lang; "
+      needed="1">
+    </field> 
+
+    <field
+      name="Tactic"
+      name_rus="Тактика"
+      name_eng="Tactic"
+      type="list"
+      vars_rus="суперзащитная;защитная;нормальная;атакующая;суператакующая">2
+    </field>
+
+    <field
+      name="Passes"
+      name_rus="Передачи"
+      name_eng="Tactic"
+      type="list"
+      vars_rus="смешанные;дальние;короткие">0
+    </field>
+
+    <field
+      name="Strategy"
+      name_rus="Стратегия"
+      name_eng="Strategy"
+      type="list"
+      vars_rus="нормальная;дальние удары;техничная игра;игра в пас">0
+    </field>
+
+    <field
+      name="Pressing"
+      name_rus="Прессинг"
+      name_eng="Pressing"
+      type="checkbox">
+    </field>
+
+   </fields>
+
+ </game>
+
+ <roles name_rus="Роли" name_eng="Roles">
+
+   <fields>
+
+    <field
+      name="Captain"
+      name_rus="Капитан"
+      name_eng="Captain"
+      type="list"
+      default="players">
+    </field>
+
+    <field
+      name="LeftCorners"
+      name_rus="Угловые слева"
+      name_eng="Left corners"
+      type="list"
+      default="players">
+    </field>
+
+    <field
+      name="RightCorners"
+      name_rus="Угловые справа"
+      name_eng="Right corners"
+      type="list"
+      default="players">
+    </field>
+
+    <field
+      name="FreeKicks"
+      name_rus="Штрафные"
+      name_eng="Free kicks"
+      type="list"
+      default="players">
+    </field>
+
+    <field
+      name="Penalties"
+      name_rus="Пенальти"
+      name_eng="Penalties"
+      type="list"
+      default="players">
+    </field>
+
+   </fields>
+
+ </roles>
+
+ <tasks name_rus="Задания" name_eng="Tasks"></tasks>
+
+</form>

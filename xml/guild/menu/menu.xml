@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<menu>
+   <toolbar 
+    height="30px" 
+bgcolor=""
+rowcolor=""
+
+
+    align="center"
+>
+
+     <item
+       name="/guild/index.php?type=control/newbies"
+       caption_eng="Control"
+       caption_rus="Управление"
+       caption_ger="">
+     </item>
+
+     <item
+       name="/guild/index.php?type=guild/guild&amp;act=update&amp;id=$auth->guild;"
+       caption_eng="Guild"
+       caption_rus="Гильдия"
+       caption_ger="">
+     </item>
+
+
+  </toolbar>
+
+   <toolbar2 
+    height="30px" 
+    border="0"
+    align="center"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="0"
+    cellpadding="2">
+
+  <control>
+
+     <item
+       name="/guild/index.php?type=control/newbies"
+      name_rus="Новички"
+      name_eng="Newbies"
+      name_ger="">
+     </item>
+
+     <item
+       name="/guild/index.php?type=control/members"
+      name_rus="Члены гильдии"
+      name_eng="Members"
+      name_ger="">
+     </item>
+
+     <item
+       name="/guild/index.php?type=control/mail&amp;act=insert"
+      name_rus="Рассылка"
+      name_eng="Mass mail"
+      name_ger="">
+     </item>
+
+  </control>
+
+
+  <guild>
+
+     <item
+       name="/guild/index.php?type=guild/guild&amp;act=update&amp;id=$auth->guild;"
+      name_rus="Информация о гильдии"
+      name_eng="Information"
+      name_ger="">
+     </item>
+
+
+
+     <item
+       name="/guild/index.php?type=guild/post_types"
+      name_rus="Типы должностей"
+      name_eng="Post types"
+      name_ger="">
+     </item>
+
+
+     <item
+       name="/guild/index.php?type=guild/guild&amp;act=code"
+      name_rus="Получить код"
+      name_eng="Get code"
+      name_ger="">
+     </item>
+
+  </guild>
+
+
+
+ </toolbar2>
+</menu>

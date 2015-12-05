@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="lk_messages">
+
+
+
+ <insert
+    sql="insert into lk_messages  values('',@rus;,@eng;,@ger;,@TypeID;)"
+    success_rus="Строка добавлена!"
+    success_eng="Message added"
+>
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="string"
+      maxlength="255"
+      size="40"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить строку"
+       name_eng="Add message">
+   </button> 
+
+ </insert>
+
+ <select pagecount="200"
+
+    sql="select * from lk_messages order by MessageID desc">
+
+   <header>
+
+    <item
+      name="MessageID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian">
+    </item> 
+
+    <item
+      name="eng"
+      name_rus="Английский"
+      name_eng="english">
+    </item> 
+
+    <item
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="german">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update lk_messages  set TypeID=@TypeID;,rus=@rus;,eng=@eng;,ger=@ger; where MessageID=@id;"
+    select="select * from lk_messages where MessageID=@id;"
+    success_rus="Строка изменёна!"
+    success_eng="Message changed"
+
+    error_eng="Cannot find message with this id"
+    error_rus="Не найдена строка с этим id">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="string"
+      maxlength="255"
+      size="40"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      size="40"
+      type="string"
+      maxlength="255">
+    </field> 
+ 
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить текст"
+       name_eng="Change text">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from lk_messages where MessageID=@id;"
+    success_rus="Сообщение удалено!"
+    success_eng="Message deleted">
+ </delete>
+
+</form>

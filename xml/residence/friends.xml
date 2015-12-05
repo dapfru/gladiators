@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="jr_friends" title_rus="Друзья" title_eng="Friends">
+
+ <insert
+    sql="set @FriendID=(select UserID from ut_users where Login=@Login; and @Login&lt;>'' limit 0,1)
+#set @error=if(@FriendID='' or @FriendID=0 or @FriendID is null,'Пользователь не найден',0)
+#set @error=if('$auth->user;'=(select UserID from jr_friends where UserID='$auth->user;' and FriendID=@FriendID limit 0,1),'Этот пользователь уже в списке Ваших друзей',0)
+#set @error=if('$auth->user;'=@FriendID,'Нельзя добавить себя в друзья',0)
+#insert into jr_friends (UserID,FriendID) values(
+   $auth->user;,
+   @FriendID)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="Login"
+      name_rus="Логин"
+      type="string"
+      needed="1">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить друга"
+       name_eng="Add friend">
+   </button> 
+
+ </insert>
+
+ <friends sql="select f.*,u.*,
+
+
+concat('&lt;a href=mailto:',u.Email,'>',u.Email,'&lt;/a>') Email,
+concat(Rang(u.Rang),concat_ws(' ',u.FirstName,u.LastName),'&lt;/a&gt;',' (',u.Login,')') as User
+
+ from jr_friends f 
+left outer join ut_users u on f.FriendID=u.UserID
+
+ where f.UserID='$user;'
+
+ order by Login" width="100%"
+empty_rus="Друзья не добавлены">
+  <header>
+    
+    <item
+      name="User"
+      type="template">
+    </item>
+
+    <item
+      name="User" width="100%">
+    </item> 
+
+
+
+    <item
+      name="Icq"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      type="icq">
+    </item> 
+
+    <item
+      name="Email"
+      name_rus="Email"
+      name_eng="Email">
+    </item> 
+
+
+    <item
+      name="Mail"
+      type="template">
+    </item>
+
+   <item type="delete"/>
+  </header>
+</friends>
+
+
+ <delete
+    sql="delete from jr_friends where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

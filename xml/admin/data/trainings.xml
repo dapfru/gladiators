@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_trainings"  title_rus="Тренировки" title_eng="trainings">
+
+ <insert
+    sql="insert into ut_trainings(Name_rus, Name_eng, Name_ger, Description_rus, Description_eng, Description_ger, TypeID) 
+  values( @Name_rus;, @Name_eng;, @Name_ger;, @Description_rus;, @Description_eng;, @Description_ger;, @TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+  <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="editor">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from ut_training_types order by Name_$lang;"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      name_ger="Name(eng)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="editor">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%" sql="select t.TrainingID, t.Name_$lang; as Name, t.Description_$lang; as Description, tt.Name_$lang; as TypeID 
+from ut_trainings t
+left outer join ut_training_types tt using (TypeID)
+order by t.TrainingID">
+
+   <header>
+
+    <item
+      name="TrainingID"
+      name_rus="N"
+      name_eng="N"
+      name_ger="N"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger="Name"/>
+
+    <item
+      name="Description"
+      name_rus="Описание"
+      name_eng="Description"
+      name_ger="Ueberschrift"/>
+
+    <item
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      name_ger="Type"/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_trainings set Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Description_rus=@Description_rus;, Description_eng=@Description_eng;, Description_ger=@Description_ger;,TypeID=@TypeID; where TrainingID=$id;"
+    select="select * from ut_trainings where TrainingID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+
+   <fields>
+
+   <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      name_ger="Name(rus)"
+      type="string">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from ut_training_types order by Name_$lang;"
+      needed="1">
+    </field>
+
+    <field
+      name="Description_rus"
+      name_rus="Описание(рус)"
+      name_eng="Description(rus)"
+      name_ger="Beschreibung(rus)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      name_ger="Beschreibung(eng)"
+      type="editor">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      name_ger="Name(ger)"
+      type="string">
+    </field>
+
+    <field
+      name="Description_ger"
+      name_rus="Описание(нем)"
+      name_eng="Description(ger)"
+      name_ger="Beschreibung(ger)"
+      type="editor">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Update record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_trainings where TrainingID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

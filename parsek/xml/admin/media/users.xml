@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users">
+
+
+<info width="100%"
+    select="select * from ut_users where UserID=@id;"
+    error_rus="Пользователь не найден"
+    error_eng="User not found"
+    short="1">
+
+   <fields>
+     
+     <field
+      name="Login"
+      name_rus="Логин"
+      name_eng="Login"
+      name_por="" 
+      type="label"
+      maxlength="25"
+      needed="1"
+      unique="1">
+     </field>
+
+     <field
+      name="Pass"
+      name_rus="Пароль"
+      name_eng="Password"
+      name_por="" 
+      type="label"
+      maxlength="25"
+      needed="1">
+     </field>
+
+     <field
+      name="Nick"
+      name_rus="Ник"
+      name_eng="Nick"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+	 
+     <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+
+      <field
+      name="Lastname"
+      name_rus="Отчество"
+      name_eng="Last name"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="50">
+     </field>
+ 
+     <field
+      name="Surname"
+      name_rus="Фамилия"
+      name_eng="Surname"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+
+     <field
+      name="Email"
+      name_rus="Email"
+      name_eng="Email"
+      name_por=""
+      type="emaillabel"
+      maxlength="50"
+      needed="1"
+      unique="1">
+     </field>
+
+      <field
+      name="ICQ"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      name_por=""
+      type="icqlabel"
+      needed="1"
+      maxlength="12">
+     </field>
+
+     <field
+      name="Url"
+      name_rus="Домашняя страница"
+      name_eng="Url"
+      nobr="1"
+      name_por="" 
+      type="urllabel"
+      needed="1"
+      maxlength="60">
+     </field>
+	 
+
+
+     <field
+      name="Sex"
+      name_rus="Пол"
+      name_eng="Sex"
+      name_por=""
+      type="label"
+	  maxlength="50">
+     </field>
+
+     <field
+      name="BirthDate"
+      name_rus="Дата рождения"
+      name_eng=""
+      nobr="1"
+      name_por=""
+      type="label"
+      needed="1">
+     </field>
+     
+     <field
+      name="City"
+      name_rus="Город"
+      name_eng="City"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="20">
+     </field>
+
+     <field
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="20">
+     </field>
+
+
+
+    <field
+      name="Work"
+      name_rus="Место работы"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="study"
+      name_rus="Образование/место учёбы"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="family"
+      name_rus="Семейное положение"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>	
+	
+	 <field
+      name="hobby"
+      name_rus="Хобби"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field> 
+	 
+	 
+	 
+    <field
+      name="Spec"
+      name_rus="'Род занятий (напр. художник)"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="exp"
+      name_rus="Опыт работы по направлению"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="gameexp"
+      name_rus="Опыт работы в геймдеве"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>	
+	
+	 <field
+      name="worktime"
+      name_rus="Сколько времени можете посвящать работе"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field> 
+
+     </fields>
+
+ </info>
+
+ <select sql="select * from ut_users order by UserID desc">
+  <header>
+
+     <item
+     name="Login"
+      name_rus="Логин"
+      name_eng=""
+      name_por="">
+    </item> 
+     <item
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      name_por="">
+    </item>
+     <item
+      name="Surname"
+      name_rus="Фамилия"
+      name_eng="Surname"
+      name_por="">
+    </item>
+
+    <item
+      name="Email"
+      name_rus="Е-маил"
+      name_eng="Email"
+      name_por="">
+    </item> 
+
+    <item
+      name="ICQ"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      name_por="">
+    </item> 
+    <item
+      name="City"
+      name_rus="Город"
+      name_eng="City"
+      name_por="">
+    </item> 
+    <item
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"
+      name_por="">
+    </item> 
+
+
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+
+
+ <update
+   sql="update ut_users set 
+   Nick=@Nick;,
+   Name=@Name;,
+   Lastname=@Lastname;,
+   Surname=@Surname;,
+   Email=@Email;,
+   ICQ=@ICQ;,
+   Url=@Url;,
+   Sex=@Sex;,
+   BirthDate=@BirthDate;,
+   City=@City;,
+   Country=@Country;,
+   Work=@Work;,
+   study=@study;,
+   family=@family;,
+   hobby=@hobby;,
+   Spec=@Spec;,
+   exp=@exp;,
+   gameexp=@gameexp;,
+   worktime=@worktime;   
+   
+   where UserID=@id;"
+   select="select * from ut_users where UserID=@id;"
+
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+ 
+   <fields>
+     
+     <field
+      name="Nick"
+      name_rus="Ник"
+      name_eng="Nick"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+	 
+     <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+
+      <field
+      name="Lastname"
+      name_rus="Отчество"
+      name_eng="Last name"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="50">
+     </field>
+ 
+     <field
+      name="Surname"
+      name_rus="Фамилия"
+      name_eng="Surname"
+      name_por=""
+      type="label"
+      maxlength="50"
+      needed="1">
+     </field>
+
+     <field
+      name="Email"
+      name_rus="Email"
+      name_eng="Email"
+      name_por=""
+      type="emaillabel"
+      maxlength="50"
+      needed="1"
+      unique="1">
+     </field>
+
+      <field
+      name="ICQ"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      name_por=""
+      type="icqlabel"
+      needed="1"
+      maxlength="12">
+     </field>
+
+     <field
+      name="Url"
+      name_rus="Домашняя страница"
+      name_eng="Url"
+      nobr="1"
+      name_por="" 
+      type="urllabel"
+      needed="1"
+      maxlength="60">
+     </field>
+	 
+
+
+     <field
+      name="Sex"
+      name_rus="Пол"
+      name_eng="Sex"
+      name_por=""
+      type="label"
+	  maxlength="50">
+     </field>
+
+     <field
+      name="BirthDate"
+      name_rus="Дата рождения"
+      name_eng=""
+      nobr="1"
+      name_por=""
+      type="label"
+      needed="1">
+     </field>
+     
+     <field
+      name="City"
+      name_rus="Город"
+      name_eng="City"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="20">
+     </field>
+
+     <field
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"
+      name_por=""
+      needed="1"
+      type="label"
+      maxlength="20">
+     </field>
+
+
+
+    <field
+      name="Work"
+      name_rus="Место работы"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="study"
+      name_rus="Образование/место учёбы"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="family"
+      name_rus="Семейное положение"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>	
+	
+	 <field
+      name="hobby"
+      name_rus="Хобби"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field> 
+	 
+
+	 
+    <field
+      name="Spec"
+      name_rus="'Род занятий (напр. художник)"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="exp"
+      name_rus="Опыт работы по направлению"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>
+	 
+    <field
+      name="gameexp"
+      name_rus="Опыт работы в геймдеве"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field>	
+	
+	 <field
+      name="worktime"
+      name_rus="Сколько времени можете посвящать работе"
+      name_eng=""
+      name_por=""
+      type="label">
+     </field> 
+     </fields>
+   <button
+       name_rus="Изменить данные"
+       name_eng="Update info">
+   </button> 
+ </update>
+
+
+
+ <delete
+    sql="delete from ut_users where UserID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

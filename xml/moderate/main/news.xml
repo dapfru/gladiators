@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_news"  title_rus="Новости" title_eng="News">
+
+ <insert
+    sql="insert into ut_news(UserID,Name,Headline,Message,Image,Small,Date,Lang) values($auth->user;,@Name;,@Headline;,@Message;,@Image;,@Small;,@Date;,@Lang;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+    <field
+      name="Name"
+      type="template">
+    </field>   
+
+    <field
+      name="Headline"
+      type="template">
+    </field>   
+
+
+    <field
+      name="Message"
+      name_rus="Текст сообщения(рус)"
+      name_eng="Message text(rus)"
+      name_ger="Text der Nachricht(rus)"
+      type="editor">
+    </field>   
+
+   <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      height="75"
+      maxsize="500000">
+    </field> 
+ 
+    <field
+      name="Lang"
+      type="template">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%" sql="select n.*,concat(u.FirstName,' ',u.LastName, ' (',u.Login,')') as Author from ut_news n left outer join ut_users u on u.UserID=n.UserID order by Date desc">
+
+   <header>
+
+    <item
+      name="Author"
+      name_rus="Автор"
+      name_eng="Author"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"/>
+
+    <item
+      name="DateTime"
+      type="template"/>
+
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_news set Name=@Name;,Headline=@Headline;,Message=@Message;,Lang=@Lang; where NewsID=$id;
+#update ut_news set Image=@Image;,Small=@Small; where @Image;&lt;&gt;'' and NewsID=$id;"
+    select="select * from ut_news where newsID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name"
+      type="template">
+    </field>   
+
+    <field
+      name="Headline"
+      type="template">
+    </field>   
+
+
+    <field
+      name="Message"
+      name_rus="Текст сообщения(рус)"
+      name_eng="Message text(rus)"
+      name_ger="Text der Nachricht(rus)"
+      type="editor">
+    </field>     
+
+    <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      height="75"
+      maxsize="500000">
+    </field> 
+
+
+    <field
+      name="Lang"
+      type="template">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить новость"
+       name_eng="Update news">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_news where newsID=@id;"
+    success_rus="Новость удалена"
+    success_eng="News deleted">
+ </delete>
+
+</form>

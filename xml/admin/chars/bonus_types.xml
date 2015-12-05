@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="ut_bonus_types"> 
+
+ <create
+    sql="create table ut_bonus_types (
+BonusID int auto_increment primary key, 
+SmallName_rus char(2),
+SmallName_eng char(2),
+SmallName_ger char(2),
+Name_rus varchar(20),
+Name_eng varchar(20),
+Name_ger varchar(20),
+Comments_rus text, 
+Comments_eng text,
+Comments_ger text,
+Type tinyint)" success_rus="Запись создана" success_eng="Record created">
+ </create>
+ <insert
+    sql="insert into ut_bonus_types values('',@SmallName_rus;,@SmallName_eng;,@SmallName_ger;,@Name_rus;,@Name_eng;,@Name_ger;,@Comments_rus;,@Comments_eng;,@Comments_ger;,@Type;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+     <field
+      name="SmallName_rus"
+      name_rus="Сокр(рус)"
+      name_eng="SmallName(rus)"
+      type="string"
+      maxlength="2"
+      needed="1">
+    </field> 
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+
+
+    <field
+      name="SmallName_eng"
+      name_rus="Сокр(анг)"
+      name_eng="SmallName(eng)"
+      type="string"
+      maxlength="2">
+    </field>
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field>
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+
+    <field
+      name="SmallName_ger"
+      name_rus="Сокр(нем)"
+      name_eng="SmallName(ger)"
+      type="string"
+      maxlength="2">
+    </field>
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field>
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+      vars_rus="полевые игроки;вратари;все"
+      vars_eng="field players;goalkeepers;either">0
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select * from ut_bonus_types order by BonusID">
+
+   <header>
+
+    <item
+      name="SmallName"
+      name_rus="ИД"
+      name_eng="ID"
+      lang="1">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Comments"
+      name_rus="Комментарии"
+      name_eng="Comments"
+      lang="1">
+    </item> 
+
+    <item type="edit"/>
+
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_bonus_types set SmallName_rus=@SmallName_rus;,SmallName_eng=@SmallName_eng;,SmallName_ger=@SmallName_ger;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Comments_rus=@Comments_rus;,Comments_eng=@Comments_eng;,Comments_ger=@Comments_ger;,Type=@Type; where BonusID=@id;"
+    select="select * from ut_bonus_types where BonusID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+    <fields>
+
+     <field
+      name="SmallName_rus"
+      name_rus="Сокр(рус)"
+      name_eng="SmallName(rus)"
+      type="string"
+      maxlength="2"
+      needed="1">
+    </field> 
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+
+
+    <field
+      name="SmallName_eng"
+      name_rus="Сокр(анг)"
+      name_eng="SmallName(eng)"
+      type="string"
+      maxlength="2">
+    </field>
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field>
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+
+    <field
+      name="SmallName_ger"
+      name_rus="Сокр(нем)"
+      name_eng="SmallName(ger)"
+      type="string"
+      maxlength="2">
+    </field>
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field>
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+      vars_rus="полевые игроки;вратари;все"
+      vars_eng="field players;goalkeepers;either">0
+    </field>
+
+
+   </fields>
+
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_bonus_types where BonusID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

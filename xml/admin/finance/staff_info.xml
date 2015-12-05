@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_staff_info">
+
+
+ <insert
+    sql="insert into fn_staff_info(StaffID,Level,Price,Salary,Name_rus,Name_eng,Name_ger,Comments_rus, Comments_eng,Comments_ger) values(
+@StaffID;,
+@Level;,
+@Price;,
+@Salary;,
+@Name_rus;,
+@Name_eng;,
+@Name_ger;,
+@Comments_rus;,
+@Comments_eng;,
+@Comments_ger;,)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+     <field
+      name="StaffID"
+      name_rus="ID специалиста"
+      name_eng="Staff ID"
+      type="numeric"
+      needed="1"
+      max="100">
+    </field> 
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+     <field
+      name="Salary"
+      name_rus="Зарплата"
+      name_eng="Salary"
+      type="numeric"
+      needed="1">4000
+    </field> 
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Picture"
+width="60"
+
+mix2="frame4.png"
+fix="width"
+      type="image">
+    </field>
+   
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+action="update fn_staff_info set Salary=@Salary;,Price=@Price; where InfoID=@InfoID;"
+    sql="select * from fn_staff_info order by StaffID,Level asc" pagecount="100">
+
+   <header>
+
+
+    <item
+      name="InfoID"
+      type="hidden">
+    </item> 
+
+
+    <item
+      name="StaffID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric" size="5">
+    </item> 
+
+    <item
+      name="Salary"
+      name_rus="Зарплата"
+      name_eng="Salary"
+      type="numeric" size="5">
+    </item> 
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level">
+    </item> 
+
+    <item
+      name="Comments" lang="1"
+      name_rus="Описание" 
+      name_eng="Description">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update
+    sql="update fn_staff_info set 
+
+Level=@Level;,
+Price=@Price;,
+Salary=@Salary;,
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Comments_rus=@Comments_rus;,
+Comments_ger=@Comments_ger;,
+Comments_eng=@Comments_eng; 
+ where InfoID=@id;"
+    select="select * from fn_staff_info where InfoID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+
+   <fields>
+
+     <field
+      name="StaffID"
+      name_rus="ID специалиста"
+      name_eng="Staff ID"
+      type="numeric"
+      needed="1"
+      max="100">
+    </field> 
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+     <field
+      name="Salary"
+      name_rus="Зарплата"
+      name_eng="Salary"
+      type="numeric"
+      needed="1">4000
+    </field> 
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Picture"
+width="60"
+
+mix2="frame4.png"
+fix="width"
+      type="image">
+    </field>
+   
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_staff_info where InfoID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

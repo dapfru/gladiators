@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="tr_types">
+
+ <create
+    sql="CREATE TABLE `tr_types` (
+  `TypeID` int(11) NOT NULL auto_increment,
+  `Name_rus` varchar(50) default NULL,
+  `Name_eng` varchar(50) default NULL,
+  PRIMARY KEY  (`TypeID`))">
+ </create>
+
+ <insert
+    sql="insert into tr_types  values('',@Name_rus;,@Name_eng;)"
+    success_rus="Успешно добавлено!"
+    success_eng="Successfully added"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить"
+       name_eng="Add">
+   </button> 
+
+ </insert>
+
+ <select 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    sql="select * from tr_types order by @Name_lang; asc">
+
+   <header>
+
+    <item
+      name="TypeID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name_rus"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+   </header>
+
+ </select>
+
+ <update
+    sql="update tr_types  set Name_rus=@Name_rus;,Name_eng=@Name_eng; where TypeID=@id;"
+    select="select * from tr_types where TypeID=@id;"
+    success_rus="Успешно изменёно!"
+    success_eng="Successfully changed"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit"
+    error_eng="Cannot find Type with this id"
+    error_rus="Не найдена строка с этим id">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+
+
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить"
+       name_eng="Change">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from tr_types where TypeID=@id;"
+    success_rus="Успешно удалено!"
+    success_eng="Successfully deleted">
+ </delete>
+
+</form>

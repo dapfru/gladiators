@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_posts" title_rus="Должности" title_eng="Posts" privacy="2">
+
+ <insert
+    sql="set @UserID=(if(@UserID;>0,@UserID,(select UserID from ut_users where Login=@Login; and @Login&lt;>'' limit 0,1)))
+#set @error=(if((@UserID='' or @UserID is null) and @Type;&lt;>'*' and @TypeID;='','Пользователь не найден',0))
+#insert into ut_posts(	
+	PostID,
+	UnionID,
+	UserID,
+	StartDate,
+	EndDate,
+	TypeID) values(
+	'',
+	@UnionID;,
+	@UserID,
+	@Date;,
+	'',
+	@TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+       <field
+      name="Login"
+      name_rus="Логин"
+      type="string">
+    </field>
+
+
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      name_eng="Post"
+      type="sqlist"
+      needed="1"
+      sql="select t.TypeID,concat(t.Name_$lang;,' (',c.Name_$lang;,')') from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%"
+   sql="select p.*,c.Name_$lang; as Structure, concat(u.FirstName,' ',u.LastName,' (',u.Login,')') as User,t.Name_$lang; as Type 
+from ut_posts p 
+left outer join ut_post_types t on t.TypeID=p.TypeID 
+left outer join ut_post_classes c on t.ClassID=c.ClassID 
+left outer join ut_users u on u.UserID=p.UserID 
+ order by Structure,Type"
+    pagecount="100">
+
+   <header>
+
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item> 
+    <item
+      name="Type"
+      name_rus="Должность"
+      name_eng="Post">
+    </item> 
+
+    <item
+      name="Structure"
+      name_rus="Структура"
+      name_eng="Structure">
+    </item> 
+
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="set @UserID=(if(@UserID;>0,@UserID,(select UserID from ut_users where Login=@Login; and @Login&lt;>'' limit 0,1)))
+#set @error=(if((@UserID='' or @UserID is null) and @Type;&lt;>'*' and @TypeID;='','Пользователь не найден',0))
+#update ut_posts set  UnionID=@UnionID;,UserID=@UserID,TypeID=@TypeID; where PostID=@id;"
+
+    select="select p.*,u.Login from ut_posts p left outer join ut_users u using(UserID) where p.PostID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+
+   <fields>
+
+       <field
+      name="Login"
+      name_rus="Логин"
+      type="string">
+    </field>
+
+
+
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      name_eng="Post"
+      type="sqlist"
+      needed="1"
+      sql="select t.TypeID,concat(t.Name_$lang;,' (',c.Name_$lang;,')') from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_posts where PostID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+
+</form>

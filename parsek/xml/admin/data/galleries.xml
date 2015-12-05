@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_galleries">
+
+<drop sql="drop table ut_galleries"/>
+
+
+ <insert
+    sql="insert into ut_galleries (Name_rus,Name_eng,ParentID) values(
+   @Name_rus;,
+   @Name_eng;,@ParentID;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select c.*,c2.Name_$lang; as ParentName from ut_galleries c left outer join ut_galleries c2 on c.ParentID=c2.GalleryID order by c.Name_$lang;"
+pagecount="200">
+
+<header>
+    <item
+      name="GalleryID"
+      name_rus="ID"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update ut_galleries set 
+ParentID=@ParentID;,
+Name_rus=@Name_rus;,
+
+Name_eng=@Name_eng;
+ where GalleryID=@id;"
+
+ select="select * from ut_galleries where GalleryID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_galleries where GalleryID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

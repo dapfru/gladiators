@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiators" showlogo="1" mixcolor="3B484C">
+
+
+
+
+<select sql="select"
+hint_rus="Специалисты устают при работе и восстанавливают свою работоспособность по ходу дня.
+&lt;br>&lt;br>&lt;b>Массажист&lt;/b> помогает восстановить силы после боя (здоровье), &lt;b>жрец&lt;/b> повышает мораль, &lt;b>лекарь&lt;/b> исцеляет полученные ранения.
+&lt;br>&lt;br>&lt;b>Здоровье&lt;/b> гладиатора восстанавливается по ходу дня со скоростью, зависящей от &lt;a href=train.php>тренировочной нагрузки&lt;/a>.
+&lt;br>&lt;br>&lt;b>Мораль&lt;/b> со временем возвращается к нулевому значению.
+&lt;br>&lt;br>&lt;b>Срок травмы&lt;/b> измеряется в часах. При травме гладиатор не тренируется."
+
+pagecount="50" maxpages="50" width="100%"
+empty_rus="В отряде нет гладиаторов"
+empty_eng="No gladiators found"
+
+serialize="^get_gladiators('$auth->user;');">
+
+   <header>
+
+    <item
+      name="GladiatorID"
+      type="hidden">
+    </item> 
+
+
+
+
+    <item
+      name="Type"
+      type="template">
+    </item> 
+    <item
+      name="Gladiator"
+      order="Name"
+      type="template">
+    </item> 
+
+
+
+
+    <item
+      name="HealthBar" name_rus=" " name_eng=" " name_ger=" "
+
+tdstyle="width=1px background='/images/health/$bar;.gif'  style='background-repeat:no-repeat;background-position:center center'">
+    </item>
+
+    <item
+      name="Health"
+      type="template"
+      count="avg" colspan="3">
+    </item>
+
+
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+    <item
+align="center"
+      name="Morale"
+name_rus="Мораль"
+name_eng="Morale" colspan="3"
+>
+    </item>
+
+
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+    <item
+align="center"
+      name="Injury"
+name_rus="Травма"
+name_eng="Injury" colspan="3"
+>
+    </item>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+   </header>
+
+
+   <button
+       name_rus="Применить"
+       name_eng="Confirm"
+
+       align="right">
+   </button> 
+
+ </select>
+
+</form>

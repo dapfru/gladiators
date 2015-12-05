@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_bonuses">
+
+ <create
+    sql="create table ut_bonuses(
+RecordID int auto_increment primary key,
+PlayerID int,
+BonusID tinyint,
+Level tinyint,
+index(PlayerID));">
+ </create>
+
+ <insert
+    sql="insert into table ut_bonuses (PlayerID,BonusID,Level) values(
+   @PlayerID;,
+   @BonusID
+   @Level;)"
+success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="PlayerID"
+      name_rus="Id Игрока"
+      name_eng="Player ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+    <field
+      name="BonusID"
+      name_rus="Id Бонуса"
+      name_eng="Bonus ID"
+      type="sqlist"
+      sql="select * from ut_bonus_types order by SmallName_$lang;"
+      needed="1">
+    </field>
+    
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="list"
+      vars_eng="1;2;3"
+      vars_rus="1;2;3"
+      needed="1">
+    </field>
+     
+
+</fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select b.*,p.Name_$lang; as Player, concat(t.Name_$lang;,'-',b.Level) as Bonus from ut_bonuses b left outer join ut_bonus_types t on t.BonusID=b.BonusID left outer join ut_players p on p.PlayerID=b.PlayerID order by Player">
+<header>
+
+    <item
+      name="RecordID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player">
+    </item> 
+
+    <item
+      name="Bonus"
+      name_rus="Бонус"
+      name_eng="Bonus">
+    </item> 
+    
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update ut_bonuses set 
+PlayerID=@PlayerID;,
+BonusID=@BonusID;,
+Level=@Level; 
+where RecordID=@id;"
+
+ select="select * from ut_bonuses where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+  
+<fields>
+
+      <field
+      name="PlayerID"
+      name_rus="Id Игрока"
+      name_eng="Player ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="BonusID"
+      name_rus="Id Бонуса"
+      name_eng="Bonus ID"
+      type="sqlist"
+      sql="select * from ut_bonus_types order by SmallName_$lang;"
+      needed="1">
+    </field>
+    
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="list"
+      vars_eng="1;2;3"
+      vars_rus="1;2;3"
+      needed="1">
+   </field>
+     
+
+</fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_bonuses where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

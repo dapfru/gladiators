@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_links_types">
+
+ <create
+   sql="CREATE TABLE `ut_links_types` (
+  `TypeID` int(11) NOT NULL auto_increment,
+  `Name` varchar(50),
+  `ParentID` int,
+  `LangID` tinyint default 0,
+  PRIMARY KEY  (`TypeID`))">
+ </create>
+
+ <insert
+    sql="insert into ut_links_types  values('',@Name;,@Parent;,@Lang;)"
+    success_rus="Успешно добавлено!"
+    success_eng="Successfully added"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Parent"
+      name_rus="Предок"
+      name_eng="Parent"
+      type="sqlist"
+      sql="select TypeID,Name from ut_links_types order by Name">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить"
+       name_eng="Add">
+   </button> 
+
+ </insert>
+
+ <select 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    sql="select t.*,t2.Name as Parent from ut_links_types t left outer join ut_links_types t2 on t.ParentID=t2.TypeID  order by t.Name asc">
+
+   <header>
+
+    <item
+      name="TypeID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+    <item
+      name="Parent"
+      name_rus="Предок"
+      name_eng="Parent">
+    </item> 
+
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_links_types  set Name=@Name;,ParentID=@Parent;,LangID=@Lang; where TypeID=@id;"
+    select="select * from ut_links_types where TypeID=@id;"
+    success_rus="Успешно изменёно!"
+    success_eng="Successfully changed"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit"
+    error_eng="Cannot find records with this id"
+    error_rus="Не найдены записи с этим id">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+
+  <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Parent"
+      name_rus="Предок"
+      name_eng="Parent"
+      type="sqlist"
+      sql="select TypeID,Name from ut_links_types order by Name">
+    </field>
+
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить"
+       name_eng="Change">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_links_types where TypeID=@id;"
+    success_rus="Успешно удалено!"
+    success_eng="Successfully deleted">
+ </delete>
+
+</form>

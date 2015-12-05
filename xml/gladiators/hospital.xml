@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_players" showlogo="1" title_rus="Лазарет" title_eng="Hospital" title_ger="Lazarett" >
+
+
+
+<select 
+sql="select p.Number,p.PlayerID,p.Age,p.Stamina,p.CountryID,p.Skl,c.Name_$lang; as Country,if(injury=0,null,'blue') as fontcolor,Lnk_Player(p.PlayerID,p.Name_$lang;,p.Injury,'$tournament;','$tour;') as Player,
+round(p.Skl) as Skl,6-round(Morale/4) as Smile,bonus(p.PlayerID,'$lang;') as Bonus,
+round(Skl*Stamina/100) as Power, concat(p.Position,IF(p.Combination='','','/'), Combination) as Pos ,
+m.Name_$lang; as MoraleName, p.Morale
+from ut_players p
+left outer join ut_countries c on c.CountryID=p.CountryID
+left outer join ut_morale_types m on p.Morale&lt;=m.MaxMorale and p.Morale>=m.MinMorale
+ where p.TeamID='$auth->team;' and p.Injury>0  order by p.Position,p.Number"
+pagecount="50" maxpages="50" width="100%"
+empty_rus="У Вас нет травмированных игроков."
+empty_eng="You don't have any injured players."
+empty_ger="Sie haben keine Spieler mit den Verletzungen."
+success_rus="Операция проведена успешно"
+success_eng="The operation was successfull"
+success_ger="Die Operation war erfolgreich"
+>
+
+   <header style="style='color:$fontcolor;'">
+
+    <item
+      name="Number"
+      name_rus="№"
+      name_eng="#"
+	name_ger="№">
+    </item> 
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+
+   <item
+      name="Position"
+      type="template">
+    </item>
+
+   
+    <item
+     name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+  
+    <item
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      order="Skl desc"
+      align="center"
+      format="&lt;b&gt;">
+    </item> 
+   
+    <item
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center">
+    </item>
+
+    <item
+      name="Power"
+      name_rus="М*Ф"
+      align="center"
+      name_eng="Pow"
+	name_ger="Kft"
+      format="&lt;b&gt;&lt;font color=green&gt;"
+      title_rus="Сила"
+      title_eng="Power"
+	title_ger="Kraft">
+    </item>
+
+    <item
+      name="Morale1"
+      align="center"
+      tdstyle="background='/images/smiles/$Smile;.gif' title='$MoraleName; ($Morale;)' style='background-repeat:no-repeat;background-position:center center'"
+      name_rus="Мор"
+      order="Morale desc"
+      name_eng="Mor"
+	name_ger="Mor"
+	title_rus="Мораль"
+      title_eng="Morale"
+	title_ger="Moral">
+    </item>
+
+
+    <item
+      name="Bonus"
+      name_rus="Бонусы"
+      name_eng="Bonus"
+	name_ger="Bonus"
+      align="center"
+      order="BonusCount desc">
+    </item>
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="dots"
+      format=""
+      align="right"
+      order="Price desc">
+    </item>
+
+   </header>
+
+ </select>
+
+<operate select="select count(*) from ut_players where TeamID='$auth->team;' and Injury>(select 7-2*(max(Level)-1) from tm_staff where StaffID=7 and TeamID='$auth->team;')>0"
+sql="call Hirurg(@PlayerID;,'$auth->team;',@error)"
+redirect="hospital.php"
+success="1"
+error_rus="Травмированных нет, или срок травмы больше срока реабилитации."
+error_eng="There are no injured players or injury term is more than reabilitation termю"
+error_ger="Sie haben keine Spieler mit den Verletzungen oder Dauer der Verletzung ist laenger als Dauer der Rehabilitierung"
+>
+
+   <fields>
+
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+	name_ger="Spieler"
+      needed="1"
+      sql="select p.PlayerID,concat(p.Name_$lang;,' (',p.Injury,')') as Player
+from ut_players p
+ where p.TeamID='$auth->team;' and p.Injury>0 and (p.Injury-(select 7-2*(max(Level)-1) from tm_staff where StaffID=7 and TeamID='$auth->team;'))>0 order by p.Position,p.Number"
+      type="sqlist">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Оперировать"
+       name_eng="Operate"
+	 name_ger="Operirien"
+       act="operate2">
+   </button> 
+
+</operate>
+
+<operate2 select="select p.PlayerID,p.Name_$lang; as Player,p.Injury,p.Injury-(select 7-2*(max(Level)-1) from tm_staff where StaffID=6 and TeamID='$auth->team;') as Term from ut_players p where p.PlayerID=@Player;">
+
+   <fields>
+
+    <field
+      name="PlayerID"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+      name_ger="Spieler"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Injury"
+      name_rus="Срок травмы"
+      name_eng="Injury terms"
+	name_ger="Dauer der Verletzung"
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+	name_ger="Frist"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Cost"
+      name_rus="Стоимость"
+      name_eng="Operation cost"
+	name_ger="Preis"
+      needed="1"
+      sql="select $Term;*OperationCost from ut_leagues where LeagueID='$auth->league;'"
+      type="dots">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Продолжить"
+       name_eng="Continue"
+	 name_ger="Weiter"
+       act="operate">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+	 name_ger="Zurueck"
+       type="return">
+   </button> 
+
+</operate2>
+
+
+</form>

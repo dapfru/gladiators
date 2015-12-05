@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_synchronize">
+
+ <insert
+    sql="insert into en_synchronize (TableName, IDName) values(
+   @TableName;,
+   @IDName;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+      <field
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table name"
+      maxlength="30"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Table ID"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from en_synchronize">
+
+  <header>
+
+    <item
+      name="RecordID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table Name">
+    </item> 
+
+     <item
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Name ID">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update en_synchronize set 
+TableName=@TableName;,
+IDName=@IDName;
+ where RecordID=@id;"
+
+ select="select * from en_synchronize where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+  <fields>
+
+      <field
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table name"
+      maxlength="30"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Table ID"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_synchronize where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

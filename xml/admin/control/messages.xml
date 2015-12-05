@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_mail">
+
+<create sql="drop table ut_mail#CREATE TABLE ut_mail(
+	MessageID int auto_increment primary key,
+	UserID1 int,
+	UserID2 int,
+	Subject varchar(255),
+	Body text,
+	Date int,
+        Status tinyint,
+        Support tinyint);"/>
+
+<select sql="select * from ut_mail order by Date desc"
+action="delete from ut_mail where MessageID=@MessageID; and @delete;='on'"
+    mixcolor="f3f3f3" rowcolor="ffffff" pagecount="50" maxpages="10">
+
+   <header>
+
+    <item
+      name="UserID1"
+      name_rus="От"
+      name_eng="From">
+    </item> 
+
+    <item
+      name="UserID2"
+      name_rus="Кому"
+      name_eng="To">
+    </item> 
+
+    <item
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject">
+    </item> 
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+      type="date"
+      format="d.m.Y H:i">
+    </item> 
+
+    <item type="hidden" name="MessageID"/>
+
+    <item type="checkbox" name="delete">&lt;input type='checkbox' onclick='markall(checked)' &gt;
+    </item>
+
+&lt;script&gt;
+
+function markall(checked)
+{
+
+    for(i=0;i&lt;document.forms['select'].elements.length;i++)
+    {
+  	var item = document.forms['select'].elements[i];
+	if(item.type =='checkbox') item.checked = checked;
+    }
+}
+
+&lt;/script&gt;
+   </header>
+
+   <button
+       name_rus="Удалить выделенные"
+       name_eng="Delete selected"
+       align="right">
+   </button> 
+
+ </select>
+
+ <insert
+    sql="set @error=if(@Login;='',if(@TeamID;='','выберите команду или пользователя',0),0) 
+
+#set @error=if(@Login;&lt;&gt;'',if((select UserID from ut_users where Login=@Login;),0,'логин не найден'),0)
+#set @error=if(@TeamID;&lt;&gt;'',if((select UserID from ut_teams where TeamID=@TeamID;),0,'команда не найдена'),0)
+#insert into ut_mail(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support) values('',$auth->user;,@UserID;,@Subject;,@Body;,@Date;,0,0)
+#insert into ut_mail(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support) values('',$auth->user;,@UserID;,@Subject;,@Body;,@Date;,2,0)"
+
+    success_rus="Сообщение отправлено!"
+    success_eng="Message sent!"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="TeamID"
+      name_rus="Команда"
+      name_eng="Team"
+      type="sqlist"
+      sql="select TeamID,Name_$lang; as Name from ut_teams order by Name asc">0
+    </field>   
+
+    <field
+      name="Login"
+      name_rus="или логин"
+      name_eng="or nick"
+      type="string">
+    </field>   
+ 
+
+    <field
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="string"
+      maxlength="255"
+      size="50"
+      needed="1">
+    </field>   
+
+    <field
+      name="Body"
+      name_rus="Сообщение"
+      name_eng="Message"
+      type="text"
+      needed="1"
+      rows="5"
+      cols="40">
+    </field>   
+      
+
+ 
+   </fields>
+
+   <button
+       name_rus="Отправить сообщение"
+       name_eng="Send message">
+   </button> 
+
+ </insert>
+
+</form>

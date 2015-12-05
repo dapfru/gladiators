@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_slaves" showlogo="1" mixcolor="3B484C">
+
+
+
+<select 
+sql="select p.*,
+gt.TypeID as Type, gt.Name_$lang; as TypeName,c.Name_$lang; as Country,
+concat(p.Name,' [',p.Level,']') as Gladiator, gt.TypeID as TypeID
+
+from ut_slaves p
+left outer join ut_countries c on c.CountryID=p.CountryID
+left outer join ut_gladiator_types gt using(TypeID)
+
+ where (p.UserID='$auth->user;') and '$auth->user;'&lt;>'' order by p.Name asc"
+pagecount="50" maxpages="50" width="100%"
+   success_rus="Раб куплен"
+   success_eng="Slave bought"
+empty_rus="Рабы не найдены"
+empty_eng="Slaves not found"
+empty_ger="Es wurden keine Sklaven gefunden"
+hint_rus="При покупке раба, обращайте внимание в первую очередь на талант, возраст, уровень, тип гладиатора и навыки.
+&lt;br>&lt;br>Скорость тренировок будет зависеть от таланта и возраста гладиатора и от уровня тренера. Боевые характеристики - от &lt;a href=/xml/misc/types.php>типа гладиатора&lt;/a>, его уровня и распределения навыков.
+&lt;br>&lt;br>Новая партия рабов будет завтра."
+hint_eng="">
+
+   <header style="style='color:$fontcolor;'">
+
+    <field
+      name="id"
+      type="hidden">
+    </field> 
+
+
+    
+    <item
+      name="Type"
+      type="template" order="gt.TypeID">
+    </item> 
+
+    <item
+      name="Gladiator"
+      type="template">
+    </item> 
+
+
+
+    <item
+      name="Height"
+      type="template">
+    </item> 
+    <item
+      name="Weight"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Vit"
+      type="template">
+    </item>
+
+
+    <item
+      name="Dex"
+      type="template">
+    </item>
+
+    <item
+      name="Acc"
+      type="template">
+    </item>
+
+    <item
+      name="Str"
+      type="template">
+    </item>
+  
+
+
+
+
+
+
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="dots"
+      format=""
+      align="right"
+      order="Price desc">
+    </item>
+
+   <item
+      name=""
+      name_rus=""
+      name_eng=""
+      name_ger=""
+      format="/images/coin.gif"
+      type="icon">?act=buy&amp;id=$GladiatorID;
+   </item> 
+
+   </header>
+
+ </select>
+
+ <buy select="select p.*,gt.TypeID as Type, gt.Name_$lang; as TypeName,c.Name_$lang; as Country from 
+ut_slaves p
+left outer join ut_countries c on c.CountryID=p.CountryID
+left outer join ut_gladiator_types gt using(TypeID)
+ where p.GladiatorID='$id;' and (p.UserID='$auth->user;') "
+
+sql="set @Price=(select Price from ut_slaves where GladiatorID=@id;)
+
+#set @er=(select $lang; from lk_messages where MessageID=84)
+
+#set @error=(SELECT GROUP_CONCAT(if((BuildingID,Level) in (select b.BuildingID,b.Level from tm_buildings b where b.UserID='$auth->user;'),null,concat(@er,': ',Name_$lang;,'-',Level))  SEPARATOR ', ')
+FROM fn_gladiators_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.TypeID=(select TypeID from ut_slaves where GladiatorID=@id;))
+
+#set @error=if((select $auth->money;-@Price)&gt;=0,0,67)
+#^buyslave('$auth->user;','$id;','$Price;');"
+
+   redirect="market.php"
+   success_rus="Раб куплен"
+   success_eng="Slave bought"
+
+>
+
+<fields>
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+      type="label">
+    </field> 
+
+    <field
+      name="TypeName"
+      type="label"
+      name_rus="Тип"
+      name_eng="Type">
+    </field> 
+
+    <field
+      name="Country"
+      type="label"
+      name_rus="Национальность"
+      name_eng="Nationality">
+    </field> 
+  
+    <field
+      type="label"
+      name="Age"
+      name_rus="Возраст"
+      name_eng="Age">
+    </field> 
+
+    <field
+      type="label"
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent">
+    </field> 
+
+
+    <field
+      type="label"
+      name="Weight"
+      name_rus="Вес"
+      name_eng="Weight">
+    </field> 
+
+    <field
+      type="label"
+      name="Height"
+      name_rus="Рост"
+      name_eng="Height">
+    </field> 
+
+
+    <field
+      type="label"
+      name="Vit"
+      name_rus="Выносливость"
+      name_eng="Vitality">
+    </field> 
+
+    <field
+      type="label"
+      name="Dex"
+      name_rus="Ловкость"
+      name_eng="Dexterity">
+    </field> 
+
+    <field
+      type="label"
+      name="Acc"
+      name_rus="Точность"
+      name_eng="Accuracy">
+    </field> 
+
+    <field
+      type="label"
+      name="Str"
+      name_rus="Сила"
+      name_eng="Strength">
+    </field> 
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="label">
+    </field>
+
+</fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+       type="return"
+       redirect="market.php" >
+   </button> 
+
+ </buy>
+
+
+</form>

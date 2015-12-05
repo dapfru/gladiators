@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users" title_rus="Администрирование бана" title_eng="Ban administration">
+
+<select
+sql="select u.*, 
+concat('&lt;a href=/users/',u2.UserID,'>',u2.Login,'&lt;/a>') Admin,
+concat('&lt;a href=/users/',u.UserID,'>',u.Login,'&lt;/a>') Login,
+
+u.BanTime as DateBan 
+from ut_users u 
+left outer join ut_users u2 on u2.UserID=u.AdminID
+where u.BanTime>unix_timestamp(); 
+order by BanTime asc">
+
+ <header>
+
+     <item
+	name="Login"
+	name_rus="Логин"
+	name_eng="Login">
+     </item>
+
+     <item
+	name="DateBan"
+	name_rus="Бан до"
+	name_eng="End for Ban"
+	type="date"
+	format="d.m.Y H:i">
+     </item>
+
+     <item
+	name="Admin"
+	name_rus="Кем забанен"
+	name_eng="Who banned">
+     </item>
+
+
+ </header>
+
+</select>
+
+ <insert
+sql="set @UserID=(select UserID from ut_users where Login=@Login; and @Login&lt;>'' limit 0,1)
+#set @error=(if((@UserID='' or @UserID is null),'Пользователь не найден',0))
+#update ut_users set BanTime=unix_timestamp()+$time_ban;,AdminID='$auth->user;' where UserID=@UserID"
+
+success_rus="Бан на сайте поставлен">
+
+   <fields>
+
+       <field
+      name="Login"
+      name_rus="Логин"
+      type="string"
+      needed="1">
+    </field>
+
+    <field
+      name="time_ban"
+      name_rus="Срок бана"
+      name_eng="Ban time"
+	type="list"
+	vars="снять бан;10 мин;30 мин;1 час;6 часов;1 сутки;5 дней;10 дней;30 дней;2 месяца;3 месяца;6 месяцев;12 месяцев;5 лет"
+	vals="0;600;1800;3600;21600;86400;432000;864000;2592000;5184000;7776000;15552000;31536000;157680000">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm">
+   </button> 
+
+ </insert>
+
+</form>

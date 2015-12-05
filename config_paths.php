@@ -1,0 +1,12 @@
+<?
+$engine_path='/home/localhost/www/';
+//$engine_path=$_SERVER["DOCUMENT_ROOT"].'/';
+$engine_url='/';
+$site_path='/home/localhost/www/';
+//$site_path=$_SERVER["DOCUMENT_ROOT"].'/';
+$site_url='/';
+$path="/";
+$img_url="/cls/images/image.php";
+$php_version=4;
+$project_name="gladiators";
+?>

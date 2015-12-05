@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_rang_prices">
+
+
+ <buy>
+
+   <fields>
+
+     <field
+      name="TypeID"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="sqlradio"
+      sql="select * from vp_rang_types where Level>0 order by Level "
+      needed="1">
+     </field>
+
+
+    <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="radio"
+      vars_rus="1 месяц;3 месяца;полгода;год"
+      format="1;3;6;12"
+      needed="1">0
+    </field>
+
+
+    <field
+      name="Pay"
+      name_rus="Оплата"
+      name_eng="Pay"
+      type="radio"
+      vars_rus="Webmoney - прямой перевод;карточка WebMoney;Сбербанк"
+      needed="1">0
+     </field>
+
+    </fields>
+
+   <button
+       name_rus="Продолжить"
+       act="buy2">
+   </button> 
+
+ </buy>
+
+ <buy2  
+	action="https://merchant.webmoney.ru/lmi/payment.asp"    	
+	sql="set @Price1=(select Price - coalesce((select round(max(p.Price)*floor((`end` - unix_timestamp( )) /(60*60*24*31))/max(p.Term),1)
+from vp_rang_prices p, vp_rangs r
+where p.Term &lt;= r.Term
+and r.UserID = '$auth->user;'
+and r.TypeID = p.TypeID
+AND `end` &gt; unix_timestamp( )),0) from vp_rang_prices where TypeID=@TypeID; and Term=@Term;)
+#set @Price2=(select round(@Price1*$dollar;))
+#set @error=if((select r.TypeID from vp_rangs r where `end`&gt;unix_timestamp() and r.UserID=$auth->user;) &gt; $TypeID;,'Ранг ниже текущего',0)
+#insert into vp_bills(
+	Type,
+	Currency,
+	UserID,
+	Money,
+	Date, TypeID,Term) values(
+	'1',
+	'0',
+	$auth->user;,
+	@Price1,@Date;,@TypeID,@Term)"
+select="select * from `nekki-butsa`.users where id=$auth->user;">
+
+   <header>
+
+   &lt;script&gt;
+   function update(object)
+   {
+    if(object.value=='Z535356068711') 
+    {
+	document.forms['buy2'].LMI_PAYMENT_AMOUNT.value=document.buy2.Price1.value;
+    } 
+    else 
+    {
+	document.forms['buy2'].LMI_PAYMENT_AMOUNT.value=document.buy2.Price2.value;
+    }
+   }
+   &lt;/script&gt;
+
+   </header>
+
+   <fields>
+
+
+     <field
+      name="TypeID"
+      type="hidden">
+     </field>
+
+
+    <field
+      name="Term"
+      type="hidden">
+    </field>
+
+    <field
+      name="Price1"
+      name_rus="Стоимость, $"
+      name_eng="Price"
+      type="label"
+      needed="1"
+      sql="select @Price1">0
+    </field>
+
+    <field
+      name="LMI_PAYMENT_AMOUNT"
+      type="hidden"
+      sql="select @Price1">
+    </field>
+
+    <field
+      name="LMI_PAYMENT_NO"
+      type="hidden">$insertid;
+    </field>
+
+    <field
+      name="TeamID"
+      type="hidden">$auth->team;
+    </field>
+
+    <field
+      name="UserID"
+      type="hidden">$auth->user;
+    </field>
+
+    <field
+      name="TeamName"
+      type="hidden"
+      sql="select ShortName from ut_teams where TeamID=$auth->team;">
+    </field>
+
+
+    <field
+      name="LMI_PAYMENT_DESC"
+      type="hidden">
+    </field>
+
+    <field
+      name="Price2"
+      name_rus="Стоимость, руб"
+      name_eng="Price"
+      type="label"
+      needed="1"
+      sql="select @Price2">0
+    </field>
+
+    <field
+      name="LMI_PAYEE_PURSE"
+      name_rus="Оплата"
+      name_eng="Pay"
+      type="radio"
+      vars_rus="доллары;рубли"
+      format="Z535356068711;R560824750372"
+      needed="1"
+      action="onclick='update(this)'">0
+     </field>
+
+    </fields>
+
+   <button
+       name_rus="Оплатить">
+   </button> 
+
+
+
+ </buy2>
+
+
+ <bank    
+	sql="set @error=if((select r.TypeID from vp_rangs r where `end`&gt;unix_timestamp() and r.UserID=$auth->user;) &gt; $TypeID;,'Ранг ниже текущего',0)
+#insert into vp_bills(
+	Type,
+	Currency,
+	UserID,
+	Money,
+	FirstName,
+	LastName,
+	SurName,
+	City,
+	PostIndex,
+	Address,
+	Date,TypeID,Term) values(
+	'0',
+	'1',
+	$auth->user;,
+	@sum;,
+	@firstname;,
+	@lastname;,
+	@surname;,
+	@city;,
+	@index;,
+	@address;,
+	@Date;,@TypeID;,@Term;)"
+select="select * from `nekki-butsa`.users where id=$auth->user;">
+
+   <fields>
+
+    <field
+      name="TypeID"
+      type="hidden">
+    </field>  
+
+    <field
+      name="Term"
+      type="hidden">
+    </field>  
+
+    <field
+      name="lastname"
+      name_rus="Фамилия"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>   
+      
+    <field
+      name="firstname"
+      name_rus="Имя"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>  
+
+    <field
+      name="surname"
+      name_rus="Отчество"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>  
+
+    <field
+      name="index"
+      name_rus="Индекс"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field>  
+
+    <field
+      name="city"
+      name_rus="Город"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field>  
+
+    <field
+      name="address"
+      name_rus="Адрес"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>  
+
+
+    <field
+      name="sum"
+      name_rus="Сумма(руб)"
+      type="label"
+      needed="1"
+      sql="select round((Price - coalesce((select round(max(p.Price)*floor((`end` - unix_timestamp( )) /(60*60*24*31))/max(p.Term),1)
+from vp_rang_prices p, vp_rangs r
+where p.Term &lt;= r.Term
+and r.UserID = '$auth->user;'
+and r.TypeID = p.TypeID
+AND `end` &gt; unix_timestamp( )),0))*$dollar;) from vp_rang_prices where TypeID=@TypeID; and Term=@Term;"
+      min="100">
+    </field>  
+
+    </fields>
+   <button
+       name_rus="Сформировать квитанцию" >
+   </button> 
+
+ </bank>
+
+
+
+
+ <card>
+
+  <fields>
+
+    <field
+      name="Price1"
+      name_rus="Стоимость, $"
+      name_eng="Price"
+      type="label"
+      sql="select Price - coalesce((select round(max(p.Price)*floor((`end` - unix_timestamp( )) /(60*60*24*31))/max(p.Term),1)
+from vp_rang_prices p, vp_rangs r
+where p.Term &lt;= r.Term
+and r.UserID = '$auth->user;'
+and r.TypeID = p.TypeID
+AND `end` &gt; unix_timestamp( )),0)
+                 from vp_rang_prices where TypeID=@TypeID; and Term=@Term;">0
+    </field>
+
+     <field
+      name="Amount"
+      name_rus="Стоимость карты"
+      type="numeric"
+      needed="1"
+      size="2"
+      min="10"
+      max="100">
+     </field>
+
+   <field
+      name="TypeID"
+      type="hidden">
+    </field>  
+
+    <field
+      name="Term"
+      type="hidden">
+    </field>  
+
+    <field name="Pay"
+      type="hidden">
+    </field>  
+
+
+  </fields>
+
+   <button
+       name_rus="Продолжить"
+       act="card2">
+   </button>
+
+ </card>
+
+ <card2 action="https://w3s.webmoney.ru/asp/wm_card_action.asp"
+sql="set @error=if(@Price;&gt;@Amount;,'Карточка дешевле',0)#
+set @ost=(select round(max(p.Price)*floor((`end` - unix_timestamp( )) /(60*60*24*31))/max(p.Term),1)
+from vp_rang_prices p, vp_rangs r
+where p.Term &lt;= r.Term
+and r.UserID = '$auth->user;'
+and r.TypeID = p.TypeID
+AND `end` &gt; unix_timestamp( ))#
+set @error=if(@Amount;&lt;10,'Стоимость карты не может быть меньше 10',0)#
+set @error=if(
+  (select Price - @ost
+         from vp_rang_prices where  TypeID=@TypeID; and Term=@Term;) &gt; @Amount;,'Нехватает денег - увеличьте стоимость карты, или уменьшите стоимость ранга',0)
+#set @error=if((select r.TypeID from vp_rangs r where `end`&gt;unix_timestamp() and r.UserID=$auth->user;) &gt; $TypeID;,'Ранг ниже текущего',0)
+#set @NewPrice=(select Price - coalesce(@ost,0)
+                    from vp_rang_prices where TypeID=@TypeID; and Term=@Term;)
+#set @NewTerm=(select @Term;+(@Amount;-@NewPrice)/Price from vp_rang_prices  where TypeID=@TypeID; and Term=1)
+#insert into vp_bills(
+	Type,
+	Currency,
+	UserID,
+	Money,
+	Date, TypeID,Term) values(
+	'2',
+	'0',
+	$auth->user;,
+	@Amount;,
+	@Date;,$TypeID;,@NewTerm)">
+
+  <fields>
+
+
+    <field
+      name="Amount"
+      name_rus="Стоимость, $"
+      name_eng="Price"
+      type="label">0
+    </field>
+
+    <field
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="label"
+      sql="select Name_$lang; from vp_rang_types where TypeID=@TypeID;">0
+    </field>
+
+    <field
+      name="NewTerm"
+      name_rus="Срок(мес)"
+      name_eng="Term"
+      type="label"
+      sql="select @NewTerm">
+    </field>
+
+
+
+     <field name="Amount" 
+       type="hidden">
+     </field>
+
+
+     <field
+      name="PN"
+      type="hidden">Z535356068711
+     </field>
+
+     <field
+      name="cardid"
+      type="string"
+      needed="1"
+      name_rus="Номер карты">
+     </field>
+
+     <field
+      name="card_n"
+      name_rus="Код авторизации карты"
+      type="string"
+      needed="1"
+      maxlength="16">
+     </field>
+  </fields>
+
+   <button
+       name_rus="Активировать карту" >
+   </button> 
+
+
+ </card2>
+
+
+
+ <view 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    sql="select b.*,t.Name_$lang; as Rang,t.id as TeamID, concat(b.Money,(case b.Currency when 0 then 'd' when 1 then 'р' end)) as Money,(case b.Type when 0 then 'банк' when 1 then 'wm' when 2 then 'card' end) as Type,u.login as User,t.name as Team from vp_bills b join `nekki-butsa`.users u on b.UserID=u.id  join `nekki-butsa`.teams t on t.manager=b.UserID left outer join `nekki-test`.vp_rang_types t on t.TypeID=b.TypeID order by Date desc">
+
+   <header>
+
+
+    <item
+      name="BillID"
+      name_rus="N">
+    </item> 
+
+    <item
+      name="Type"
+      name_rus="Тип">
+    </item> 
+
+    <item
+      name="Money"
+      name_rus="Сум" order="Money desc">
+    </item> 
+
+    <item
+      name="Rang"
+      name_rus="Ранг">
+    </item> 
+    <item
+      name="Term"
+      name_rus="Срок">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Логин">
+    </item> 
+
+    <item
+      name="Team"
+      name_rus="Команда">
+    </item> 
+
+    <item
+      name="TeamID"
+      name_rus="ИД">
+    </item> 
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      format="d.m.Y H:i"
+      type="date" order="Date desc">
+    </item> 
+
+   </header>
+
+ </view>
+
+
+ <view2 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    pagecount="100"
+    sql="select b.*,t.Name_$lang; as Rang,t.id as TeamID, concat(b.Money,(case b.Currency when 0 then 'd' when 1 then 'р' end)) as Money,(case b.Type when 0 then 'банк' when 1 then 'wm' when 2 then 'card' end) as Type,concat(b.lastname,' ',b.firstname,' ',b.surname) as User,t.name as Team from vp_bills b join `nekki-butsa`.users u on b.UserID=u.id  join `nekki-butsa`.teams t on t.manager=b.UserID left outer join `nekki-test`.vp_rang_types t on t.TypeID=b.TypeID 
+where b.Type=0 order by Date desc">
+
+   <header>
+
+
+    <item
+      name="BillID"
+      name_rus="N">
+    </item> 
+
+    <item
+      name="Type"
+      name_rus="Тип">
+    </item> 
+
+    <item
+      name="Money"
+      name_rus="Сум" order="Money desc">
+    </item> 
+
+    <item
+      name="Rang"
+      name_rus="Ранг">
+    </item> 
+    <item
+      name="Term"
+      name_rus="Срок">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Логин">
+    </item> 
+
+    <item
+      name="Team"
+      name_rus="Команда">
+    </item> 
+
+    <item
+      name="TeamID"
+      name_rus="ИД">
+    </item> 
+
+    <item
+      name="City"
+      name_rus="Город">
+    </item> 
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      format="d.m.Y H:i"
+      type="date" order="Date desc">
+    </item> 
+
+
+
+
+   </header>
+
+ </view2>
+
+
+ <view3 
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    pagecount="100"
+    sql="select t.id,t.name,b.BillID,concat(b.LastName,' ',b.FirstName,' ',b.SurName,' ','(',u.Login,')') as User,b.Money,b.FirstName,b.LastName,b.SurName,b.City,b.Date,r.TypeID,r.Term, u.Login 
+from `vp_bills` b
+ join
+vp_rangs r
+left outer join
+ut_users u on r.UserID=u.UserID
+on b.UserID=r.UserID
+left outer join `nekki-butsa`.teams t 
+on t.manager=u.UserID
+where b.Type=0
+order by Date desc">
+
+   <header>
+
+
+    <item
+      name="BillID"
+      name_rus="N">
+    </item> 
+
+    <item
+      name="id"
+      name_rus="id">
+    </item> 
+
+
+    <item
+      name="name"
+      name_rus="команда">
+    </item> 
+
+
+
+    <item
+      name="Money"
+      name_rus="Сум" order="Money desc">
+    </item> 
+
+
+    <item
+      name="TypeID"
+      name_rus="Тип">
+    </item> 
+ 
+    <item
+      name="Term"
+      name_rus="Срок">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Логин">
+    </item> 
+
+
+    <item
+      name="City"
+      name_rus="Город">
+    </item> 
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      format="d.m.Y H:i"
+      type="date" order="Date desc">
+    </item> 
+
+
+
+
+   </header>
+
+ </view3>
+
+
+
+</form>

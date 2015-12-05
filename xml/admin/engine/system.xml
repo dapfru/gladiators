@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="lk_system">
+
+ <create
+    sql="CREATE TABLE `lk_system` (
+  `MessageID` int(11) NOT NULL auto_increment,
+  `rus` varchar(255) default NULL,
+  `eng` varchar(255) default NULL,
+  `ger` varchar(255) default NULL,
+  `TypeID` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`MessageID`))">
+ </create>
+
+ <insert
+    sql="insert into lk_system  values('',@rus;,@eng;,@ger;,@TypeID;)"
+    success_rus="Строка добавлена!"
+    success_eng="Message added"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="string"
+      maxlength="255"
+      size="40"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_eng from lk_types order by Name_eng;"
+      needed="1">common
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить строку"
+       name_eng="Add message">
+   </button> 
+
+ </insert>
+
+ <select pagecount="200"
+    width="" 
+    height="" 
+    border="0" 
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    sql="select * from lk_system order by @lang; asc">
+
+   <header>
+
+    <item
+      name="MessageID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian">
+    </item> 
+
+    <item
+      name="eng"
+      name_rus="Английский"
+      name_eng="english">
+    </item> 
+
+    <item
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="german">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update lk_system  set TypeID=@TypeID;,rus=@rus;,eng=@eng;,ger=@ger; where MessageID=@id;"
+    select="select * from lk_system where MessageID=@id;"
+    success_rus="Строка изменёна!"
+    success_eng="Message changed"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="1"
+    cellpadding="4"
+    button="Submit"
+    error_eng="Cannot find message with this id"
+    error_rus="Не найдена строка с этим id">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="string"
+      maxlength="255"
+      size="40"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      size="40"
+      type="string"
+      maxlength="255">
+    </field> 
+ 
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="string"
+      size="40"
+      maxlength="255">
+    </field> 
+
+
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_eng; from lk_types order by Name_eng;"
+      needed="1">common
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Изменить текст"
+       name_eng="Change text">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from lk_system where MessageID=@id;"
+    success_rus="Сообщение удалено!"
+    success_eng="Message deleted">
+ </delete>
+
+</form>

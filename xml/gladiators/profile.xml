@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_players" title_rus="Досье игрока" title_eng="Player's info" title_ger="Spielerinfo">
+
+<info  title_rus="Досье игрока" title_eng="Player's info" title_ger="Spielerinfo"
+success_rus="Тренировка проведена успешно" 
+success_eng="Training completed successfully"
+success_ger="Training war erfolgreich">
+
+   <header>
+
+    <item
+      name="Number"
+      type="template">
+    </item> 
+   </header>
+
+</info>
+
+
+<combination select="select if(p.Combination='',t.FreeCombinations,null) as FreeCombinations, p.Position ,p.Combination,
+Player(p.PlayerID,CONCAT(p.Name_$lang;,' ',p.Position,IF(p.Combination='','','/'), p.Combination,' ',p.Age,'/',round(p.Skl)),p.injury) as Player 
+from ut_players p 
+left outer join ut_teams t on t.TeamID=p.TeamID
+where p.TeamID='$auth->team;' and p.PlayerID='$id;'" 
+
+success_rus="Тренировка проведена успешно" 
+success_eng="Training completed successfully"
+success_ger="Training war erfolgreich"
+
+redirect="$site_url;xml/players/info.php?id=$id;"
+
+sql="call Train_Combination('$id;','$auth->team;',@NewCombination;,@error)"
+title_rus="Тренировка совмещения" short="1" title_eng="Combined position training"
+hint_rus="Вы можете натренировать игроку совмещение позиции или сменить текущее совмещение." 
+hint_eng="You can either train your player the combined position or change the current one.">
+hint_ger="Sie koennen dem Spieler Vereinigung der Spielpositionen trainieren oder laufende Positionsvereinigung aendern.">
+
+   <fields>
+
+    <field
+      name="FreeID"
+      name_rus="Бесплатных тренировок"
+      name_eng="Free trainings"
+	name_ger="Kostenlose Trainings"
+      type="dots">0
+    </field> 
+
+    <field
+      name="FreeCombinations"
+      name_rus="Бесплатных тренировок"
+      name_eng="Free trainings"
+	name_ger="Kostenlose Trainings"
+      type="dots">0
+    </field> 
+
+    <field
+      name="TrainPrice"
+      name_rus="Цена тренировки"
+      name_eng="Training price"
+	name_ger="Trainingpreis"
+      sql="select if('$FreeCombinations;'>0,0,if('$Combination;'='',CombinationPrice,CombinationChangePrice)) from ut_leagues"
+      type="money">0
+    </field> 
+
+
+    <field
+      name="Money"
+      type="template">
+    </field> 
+
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+	name_ger="Spieler"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+	name_ger="Spielposition"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="NewCombination"
+      name_rus="Совмещение"
+      name_eng="Combined position"
+	name_ger="Positionsvereinigung"
+      needed="1"
+      sql="select CombinationID,CombinationID from ut_positions_restriction where PositionID='$Position;' order by CombinationID"
+      type="sqlist">$Combination;
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Продолжить"
+       name_eng="Continue"
+	 name_ger="Weiter"
+       act="combination2">
+   </button> 
+
+</combination>
+
+
+<combination2 select="select if(p.Combination='',t.FreeCombinations,null) as FreeCombinations,p.Position,p.Combination,CONCAT(p.Name_$lang;,' ',p.Position,'/&lt;b&gt;', @NewCombination;,'&lt;/b&gt; ',p.Age,'/',round(p.Skl)) as Player 
+from ut_players p 
+left outer join ut_teams t on t.TeamID=p.TeamID
+where p.TeamID='$auth->team;' and p.PlayerID='$id;'" 
+title_rus="Тренировка совмещения" short="1" title_eng="Combined position training" title_ger="Training der Positionsvereinigung"
+
+>
+
+   <fields>
+
+    <field
+      name="FreeCombinations"
+      name_rus="Бесплатных тренировок"
+      name_eng="Free trainings"
+	name_ger="Kostenlose Trainings"
+      type="dots">0
+    </field> 
+
+    <field
+      name="TrainPrice"
+      name_rus="Цена тренировки"
+      name_eng="Training price"
+	name_ger="Trainingpreis"
+      sql="select if('$FreeCombinations;'>0,0,if('$Combination;'='',CombinationPrice,CombinationChangePrice)) from ut_leagues"
+      type="money">
+    </field> 
+
+
+    <field
+      name="Money"
+      type="template">
+    </field> 
+
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+	name_ger="Spieler"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="NewCombination"
+      needed="1"
+      name_rus="Совмещение"
+      name_eng="Combined position"
+	name_ger="Positionsvereinigung"
+      type="hidden">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm"
+	 name_ger="Bestaetigen"
+       act="combination">
+   </button> 
+
+</combination2>
+
+
+<bonus select="select p.Position,bonus(p.PlayerID,'$lang;') as Bonus,CONCAT(p.Name_$lang;,' ',p.Position,IF(p.Combination='','','/'), p.Combination,' ',p.Age,'/',round(p.Skl)) as Player 
+from ut_players p 
+
+where p.TeamID='$auth->team;' and p.PlayerID='$id;'"
+sql="set @error=if('$auth->team;'=(select TeamID from ut_players where PlayerID='$id;' limit 0,1),0,'error')#call Bonusadd('$id;',@NewBonus;,@error)"
+title_rus="Тренировка бонуса" short="1" title_eng="Bonus ability training" title_ger="Bonus trainieren"
+hint_rus="Для тренировки нового бонуса, футболисту требуется набрать необходимое количество бонусных очков. Посмотреть их число можно в ростере, в разделе Характеристики. Игроки получают очки за успешные действия во время матчей." 
+hint_eng=""
+hint_ger="Der Fussballspieler soll benoetigte Zahl der Bonuspunkten bekommen, um neuen Bonus trainieren zu koennen. Die Zahl der Bonuspunkten sind im Roster im Feld 'Charakteristik' vorhanden. Bonuspunkte bekommen die Spieler fuer ihr gutes Spiel."
+
+success_rus="Тренировка проведена успешно" 
+success_eng="Training completed successfully"
+success_ger="Training war erfolgreich"
+redirect="$site_url;xml/players/info.php?id=$id;">
+
+   <fields>
+
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+	name_ger="Spieler"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Bonus"
+      name_rus="Бонусы"
+      name_eng="Bonus"
+	name_ger="Bonus"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="NewBonus"
+      name_rus="Бонус"
+      name_eng="Bonus"
+	name_ger="Bonus"
+      needed="1"
+      sql="select BonusID,Name_$lang; as Name from ut_bonus_types where (Type>0 and '$Position;'='Gk') or ((Type=2 or Type=0) and '$Position;'&lt;>'Gk') order by Name"
+      type="sqlist">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Выбрать"
+       name_eng="Confirm"
+	 name_ger="Waehlen">
+   </button> 
+
+</bonus>
+</form>

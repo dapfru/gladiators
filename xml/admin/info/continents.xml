@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+    table="ut_continents" title_rus="Континенты" title_eng="Continents">
+
+ <create
+    sql="create table ut_continents (
+ContinentID int auto_increment primary key,
+ID_rus char(8),
+ID_eng char(8),
+ID_ger char(8),
+Name_rus varchar(30),
+Name_eng varchar(30),
+Name_ger varchar(30),
+Region_rus varchar(50),
+Region_eng varchar(50),
+Region_ger varchar(50),
+LeagueID int)"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_continents(ID_rus,ID_eng,ID_ger,Name_rus,Name_eng,Name_ger,
+Region_rus,Region_eng,Region_ger,LeagueID,Zone) values(@ID_rus;,@ID_eng;,@ID_ger;,
+@Name_rus;,@Name_eng;,@Name_ger;,@Region_rus;,@Region_eng;,@Region_ger;,@LeagueID;,@Zone;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+   
+
+    <field
+      name="ZoneID"
+      name_rus="Зона"
+      name_eng="Zone"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_zones order by Name_$lang;">
+    </field> 
+
+
+    <field
+      name="ID_rus"
+      name_rus="ID (рус)"
+      name_eng="ID (rus)"
+      type="string"
+      maxlength="8"
+      needed="1">
+    </field> 
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field> 
+    <field
+      name="Region_rus"
+      name_rus="Регион(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+
+    <field
+      name="ID_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="8">
+    </field> 
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+    <field
+      name="Region_eng"
+      name_rus="Регион(анг)"
+      name_eng="Region(eng)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+
+
+    <field
+      name="ID_ger"
+      name_rus="ID (нем)"
+      name_eng="ID (ger)"
+      type="string"
+      maxlength="8">
+    </field> 
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+    <field
+      name="Region_ger"
+      name_rus="Регион(нем)"
+      name_eng="Region(ger)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select c.*,l.Name_$lang; as League,z.Name_$lang; as Zone from ut_continents 
+c left outer join ut_leagues l on l.LeagueID=c.LeagueID
+left outer join ut_zones z on z.ZoneID=c.ZoneID
+ order by Name_$lang;">
+
+   <header>
+
+
+    <item
+      name="ID"
+      name_rus="ИД"
+      name_eng="ID"
+      lang="1">
+    </item> 
+
+
+    <item
+      name="Region"
+      name_rus="Регион"
+      name_eng="Region"
+      lang="1">
+    </item> 
+
+    <item
+      name="Zone"
+      name_rus="Зона"
+      name_eng="Zone">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_continents set  ZoneID=@ZoneID;,ID_rus=@ID_rus;,ID_eng=@ID_eng;,ID_ger=@ID_ger;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Region_rus=@Region_rus;,Region_eng=@Region_eng;,Region_ger=@Region_ger;,LeagueID=@LeagueID; where ContinentID=@id;"
+    select="select * from ut_continents where ContinentID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+
+
+   <fields>
+
+
+    <field
+      name="ZoneID"
+      name_rus="Зона"
+      name_eng="Zone"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_zones order by Name_$lang;">
+    </field> 
+
+
+    <field
+      name="ID_rus"
+      name_rus="ID (рус)"
+      name_eng="ID (rus)"
+      type="string"
+      maxlength="8"
+      needed="1">
+    </field> 
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field> 
+    <field
+      name="Region_rus"
+      name_rus="Регион(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+
+    <field
+      name="ID_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="8">
+    </field> 
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+    <field
+      name="Region_eng"
+      name_rus="Регион(анг)"
+      name_eng="Region(eng)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+
+
+    <field
+      name="ID_ger"
+      name_rus="ID (нем)"
+      name_eng="ID (ger)"
+      type="string"
+      maxlength="8">
+    </field> 
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+    <field
+      name="Region_ger"
+      name_rus="Регион(нем)"
+      name_eng="Region(ger)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_continents where ContinentID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

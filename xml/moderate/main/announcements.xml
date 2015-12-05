@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_announcements"  title_rus="Объявления" title_eng="Announcements">
+
+ <insert
+    sql="update ut_announcements set Active=0 where @Active;=1#insert into ut_announcements(UserID,Message,Date,Active,Name) values($auth->user;,@Message;,@Date;,@Active;,@Name;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+    <field
+      name="Name"
+      type="template">
+    </field>   
+
+    <field
+      name="Message"
+needed="1"
+      name_rus="Текст сообщения(рус)"
+      name_eng="Message text(rus)"
+      type="editor">
+    </field>     
+
+    <field
+      name="Active"
+      name_rus="Активно"
+      name_eng="Active"
+      type="checkbox">1
+    </field>  
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select width="100%" sql="select n.*,if(n.Active=1,'да','нет') Active,concat(u.FirstName,' ',u.LastName, ' (',u.Login,')') as Author from ut_announcements n left outer join ut_users u on u.UserID=n.UserID order by Date desc">
+
+   <header>
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"/>
+
+    <item
+      name="DateTime"
+      type="template"/>
+
+    <item
+      name="Active"
+      name_rus="Активна"
+      name_eng="Active"/>
+
+
+    <item
+      name="Author"
+      name_rus="Автор"
+      name_eng="Author"/>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_announcements set Active=0 where @Active;=1#update ut_announcements set 
+Message=@Message;,
+Name=@Name;,
+Date=@Date;,
+Active=@Active; where AnnouncementID=$id;"
+    select="select * from ut_announcements where AnnouncementID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name"
+      type="template">
+    </field>   
+
+    <field
+needed="1"
+      name="Message"
+      name_rus="Текст сообщения(рус)"
+      name_eng="Message text(rus)"
+      type="editor">
+    </field>     
+
+    <field
+      name="Active"
+      name_rus="Активно"
+      name_eng="Active"
+      type="checkbox">
+    </field>  
+
+   </fields>
+
+   <button
+       name_rus="Изменить новость"
+       name_eng="Update Announcements">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_announcements where AnnouncementID=@id;"
+    success_rus="Новость удалена"
+    success_eng="Announcements deleted">
+ </delete>
+
+</form>

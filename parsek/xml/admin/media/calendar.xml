@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_schedule">
+
+ <create
+   sql="CREATE TABLE `ut_schedule` (
+  `TurID` int(4) NOT NULL auto_increment,
+  `TournamentID` int(8) default NULL,
+  `Tour` tinyint(4) default NULL,
+  `Date` int(11) default NULL,
+  `Comments` text,
+  `Event` tinyint(4) default NULL,
+  `Finished` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`TurID`),
+  KEY `Tur` (`Tour`),
+  KEY `Date` (`Date`),
+  KEY `Type` (`TournamentID`)
+);">
+ </create>
+ <insert
+    sql="insert into ut_schedule (Date,TournamentID, Tour, Comments, Event, Finished) values(
+   @Date;,
+   substring_index(@Tournament;,'|',1),
+   substring_index(@Tournament;,'|',-1),
+   @Comments;,
+   @Event;,
+   @Finished;
+)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="Tournament"
+      name_rus="Турнир"
+      name_eng="Tournament"
+      type="sqlist"
+      sql="select 
+concat(t.TournamentID,'|',c.Number), 
+concat_ws(', ',if(s.StartYear=s.EndYear,s.StartYear,concat(s.StartYear,'/',s.EndYear)), t.Name_$lang;,
+if(r.Name_$lang;='',null,r.Name_$lang;), 
+case r.reglament
+WHEN 0 THEN if(r.Games=2,null,concat(c.Number-r.tour1+1,' Тур'))
+WHEN 1 THEN concat('1/',power(2, floor((r.tour2-c.Number)/r.Games)+1),' финала')
+WHEN 2 THEN if(r.Tour2-r.Tour1 &lt;= r.Games ,null,concat(round((c.Number-r.tour1+1)/r.Games),' Тур'))
+Else  c.Number end ,
+if(r.Games=2, if(mod (r.tour2-c.Number,2),'первый матч','ответный матч'),null) ) 
+from en_numbers c,ut_tournaments t,ut_reglaments r, ut_seasons s
+where r.tour1&lt;=c.Number and r.tour2>=c.Number and s.SeasonID=t.SeasonID
+and (r.TournamentID=t.TournamentID )
+and (s.StartYear=from_unixtime(unix_timestamp(),'%Y') or s.EndYear=from_unixtime(unix_timestamp(),'%Y'))
+order by t.Name_$lang;,c.Number"
+      needed="1">
+    </field> 
+
+
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select c.*,t.Name_$lang; as Tournament, 
+if(StartYear=EndYear,StartYear,concat(StartYear,'/',EndYear)) as Season 
+from ut_schedule c left outer join ut_tournaments t 
+on c.TournamentID=t.TournamentID left outer join ut_seasons s 
+on t.SeasonID=s.SeasonID order by abs(Date-unix_timestamp()) asc,
+s.StartYear desc">
+  <header>
+
+
+
+    <item
+      name="Tournament"
+      name_rus="Турнир"
+      name_eng="Tournament">
+    </item>
+ 
+    <item
+      name="Season"
+      name_rus="Сезон"
+      name_eng="Season">
+    </item>
+
+    <item
+      name="Tour"
+      name_rus="Тур"
+      name_eng="Tour">
+    </item> 
+
+
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+ <update
+   sql="update ut_schedule set 
+   TournamentID=substring_index(@Tournament;,'|',1),
+   Tour=substring_index(@Tournament;,'|',-1),
+   Date=@Date;,
+   Comments=@Comments;
+where TurID=@id;"
+   select="select * from ut_schedule where TurID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+      <fields>
+
+
+    <field
+      name="Tournament"
+      name_rus="Турнир"
+      name_eng="Tournament"
+      type="sqlist"
+      sql="select 
+concat(t.TournamentID,'|',c.Number), 
+concat_ws(', ',if(s.StartYear=s.EndYear,s.StartYear,concat(s.StartYear,'/',s.EndYear)), t.Name_$lang;,
+if(r.Name_$lang;='',null,r.Name_$lang;), 
+case r.reglament
+WHEN 0 THEN if(r.Games=2,null,concat(c.Number-r.tour1+1,' Тур'))
+WHEN 1 THEN concat('1/',power(2, floor((r.tour2-c.Number)/r.Games)+1),' финала')
+WHEN 2 THEN if(r.Tour2-r.Tour1 &lt;= r.Games ,null,concat(round((c.Number-r.tour1+1)/r.Games),' Тур'))
+Else  c.Number end ,
+if(r.Games=2, if(mod (r.tour2-c.Number,2),'первый матч','ответный матч'),null) ) 
+from en_numbers c,ut_tournaments t,ut_reglaments r, ut_seasons s
+where r.tour1&lt;=c.Number and r.tour2>=c.Number and s.SeasonID=t.SeasonID
+and (r.TournamentID=t.TournamentID )
+and (s.StartYear=from_unixtime(unix_timestamp(),'%Y') or s.EndYear=from_unixtime(unix_timestamp(),'%Y'))
+order by t.Name_$lang;,c.Number"
+      needed="1">
+    </field> 
+
+
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from ut_schedule where TurID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

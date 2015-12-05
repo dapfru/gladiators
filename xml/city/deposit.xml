@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  title_rus="Вклады" title_eng="Deposits" title_ger="Guthaben" privacy="1">
+
+   <make sql="call DepositMake ($auth->team;,@Deposit;, @Term;, @error)"
+    redirect="deposit.php"
+    success_rus="Вклад сделан"
+    success_eng="The deposit is invested"
+    success_ger="Guthaben ist gemacht worden"
+    hint_rus="Сроки измеряются в игровых днях (ИД). Максимальный срок - 42 ИД."
+    hint_eng="The terms are counted in GD. The maximum term is 42 days."
+    hint_ger="Als Friste gelten die Spieltage (ST). Maximale Frist ist 42 ST.">
+
+   <fields>
+
+    <field
+      name="Rate"
+      name_rus="Ставка"
+      name_eng="Loan rate"
+      name_ger="Rate"
+      type="label"
+      sql="select concat(DepositPercent,'%') as Percent from ut_leagues where LeagueID='$auth->league;'">
+    </field> 
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Deposit"
+      name_rus="Сумма вклада"
+      name_eng="Deposit sum"
+      name_ger="Guthabenbetrag"
+      type="numeric"
+      needed="1"
+      size="7">
+    </field> 
+
+    <field
+      name="Term"
+      name_rus="Срок вклада"
+      name_eng="Deposit term"
+      name_ger="Guthabenfrist"
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Посчитать"
+       name_eng="Count"
+       name_ger="Zusammenz&amp;auml;hlen"
+       act="approve">
+   </button> 
+
+ </make>
+
+ <approve
+    sql="set @error=if(@Term;&lt;7,109,0)
+#set @error=if(@Term;&gt;42,92,0)
+#set @error=if(@Deposit;&lt;1000000,90,0)
+#set @error=if((select Money-@Deposit; from fn_accounts where AccountID='$auth->user;')&gt;=0,0,67)">
+
+   <fields>
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Deposit"
+      name_rus="Сумма вклада"
+      name_eng="Deposit sum"
+      name_ger="Guthabenbetrag"
+      type="money"
+      needed="1">
+    </field>
+
+    <field
+      name="Term"
+      name_rus="Срок вклада"
+      name_eng="Deposit term"
+      name_ger="Guthabenfrist"
+      type="label"
+      needed="1">
+    </field>
+
+
+    <field
+      name="Summa"
+      name_rus="Сумма выплат"
+      name_eng="Payments total"
+      name_ger="Betrag der Auszahlungen"
+      type="money"
+      needed="1"
+      sql="select round(@Deposit; + @Deposit;*(select DepositPercent/DayCount from ut_leagues where LeagueID='$auth->league;')*@Term;/100) as Summa">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Оформить"
+       name_eng="Confirm"
+       name_ger="Erledigen"
+       act="make">
+   </button> 
+
+ </approve>
+
+ <select pagecount="200" 
+image="/images/main/bank.jpg" 
+sql="select p.* from fn_payments p left outer join fn_operation_types t on t.TypeID=p.TypeID where p.ReceiverID='$auth->user;' and p.TypeID='5' and p.Status=0 order by p.Day asc"
+empty_rus="У Вас нет вкладов в банке"
+empty_eng="You have no deposits"
+empty_ger="Sie haben keine Guthaben"
+    success_rus="Вклад сделан"
+    success_eng="The deposit is invested"
+    success_ger="Guthaben ist gemacht worden">
+	
+<header>
+
+    <item
+      name="Num"
+      type="template">
+    </item>
+
+    <item
+      name="Day"
+      name_rus="ИД"
+      name_eng="Day"
+      name_ger="ST">
+    </item>
+	
+
+    <item
+      name="Money"
+      name_rus="Сумма"
+      name_eng="Money"
+      name_ger="Betrag"
+      type="money"
+      align="right"
+      count="sum">
+    </item>
+
+   </header>
+
+ </select>
+
+
+</form>

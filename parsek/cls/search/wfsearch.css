@@ -1,0 +1,15 @@
+<style type="text/css">
+TABLE { COLOR: #555555; FONT-FAMILY: Tahoma; FONT-SIZE: 7.7pt;}
+TD { COLOR: #555555; FONT-FAMILY: Tahoma; FONT-SIZE: 7.7pt;}
+P { COLOR: #555555; FONT-FAMILY: Tahoma; FONT-SIZE: 7.7pt;}
+A:link {text-decoration: none; color : #0000AF; font-weight: bold}
+A:visited {text-decoration: none; color : #00007F; font-weight: bold}
+A:hover {text-decoration: none; color : #0000FF; font-weight: bold}
+input { font: 8pt 'tahoma'; border: 1px; border-color: black; background-color: #F0F0F0}
+lefttop { padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-LEFT: black 1px solid; BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-BOTTOM: black 1px solid; }
+leftmiddlebottom {  padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-LEFT: black 1px solid; BORDER-RIGHT: black 1px solid;  BORDER-BOTTOM: black 1px solid; }
+middletop { padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-TOP: black 1px solid; BORDER-RIGHT: black 1px solid;  BORDER-BOTTOM: black 1px solid; }
+middlerightmiddlebottom { padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-RIGHT: black 1px solid;  BORDER-BOTTOM: black 1px solid; }
+righttop { padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-RIGHT: black 1px solid;  BORDER-BOTTOM: black 1px solid; BORDER-TOP: black 1px solid; }
+all { padding-left: 10px; padding-right: 10px; padding-bottom: 10px; BORDER-LEFT: black 1px solid; BORDER-RIGHT: black 1px solid; BORDER-BOTTOM: black 1px solid; BORDER-TOP: black 1px solid; }
+</style>

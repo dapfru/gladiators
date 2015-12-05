@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+ <create
+    sql="CREATE TABLE fn_payments(paymentsID int  auto_increment PRIMARY KEY,Money INT,SenderID  CHAR(3),ReceiverID CHAR(3),TypeID int,Day  tinyint,SeasonID int,Date int);"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+
+ <insert
+    sql="insert into fn_payments values('',@Money;,@SenderID;,@ReceiverID;,@TypeID;,@Day;,@SeasonID;,@Date;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+	
+    <field
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      type="numeric"
+      needed="1"
+      size="6">
+    </field>
+	
+     <field
+      name="SenderID"
+      name_rus="Отправитель"
+      name_eng="Sender"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="ReceiverID"
+      name_rus="Получатель"
+      name_eng="Receiver"
+      type="string"
+      size="3"
+      maxsize="3"
+      needed="1">
+    </field>
+	
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from fn_operation_types order by Name_$lang;"
+      needed="1">
+    </field>
+	
+   <field
+      name="Day"
+      name_rus="ИД"
+      name_eng="Day"
+      type="numeric"
+      max="84"
+      needed="1"
+      size="2">
+    </field>
+	
+     <field
+      name="SeasonID"
+      name_rus="Сезон"
+      name_eng="Season"
+      type="sqlist"
+      sql="select SeasonID,Name_$lang; from ut_seasons order by SeasonID desc">0
+    </field> 
+
+	
+    <field
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="hidden"
+      maxsize="30"
+      needed="1">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ 
+ <select sql="select f.*,t1.Name_$lang; as Sender, t2.Name_$lang; as Receiver, t.Name_$lang; as Comment from fn_payments f left outer join ut_teams t1 on f.SenderID=t1.TeamID left outer join ut_teams t2 on f.ReceiverID=t2.TeamID left outer join fn_operation_types t on t.TypeID=f.TypeID order by f.Date desc">
+	
+<header>
+
+
+    <item
+      name="Money"
+      name_rus="Сумма"
+      name_eng="Money"
+      type="money">
+    </item>	
+		
+
+
+    <item
+      name="Sender"
+      name_rus="Отправил"
+      name_eng="Sent">
+    </item>	
+
+    <item
+      name="Receiver"
+      name_rus="Получил"
+      name_eng="Receiver">
+    </item>
+
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment">
+    </item>		
+
+    <item
+      name="Day"
+      name_rus="ИД"
+      name_eng="Day">
+    </item>
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="date"
+      format="d.m.y H:i">
+    </item>	
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update fn_payments set Money=@Money;,SenderID=@SenderID;,ReceiverID=@ReceiverID;,TypeID=@TypeID;,Day=@Day;,SeasonID=@SeasonID;,Date=@Date; where paymentsID=@id;"
+    select="select * from fn_payments where paymentsID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+	
+    <field
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      type="numeric"
+      needed="1"
+      size="6">
+    </field>
+	
+     <field
+      name="SenderID"
+      name_rus="Отправитель"
+      name_eng="Sender"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="ReceiverID"
+      name_rus="Получатель"
+      name_eng="Receiver"
+      type="string"
+      size="3"
+      maxsize="3"
+      needed="1">
+    </field>
+	
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from fn_operation_types order by Name_$lang;"
+      needed="1">
+    </field>
+	
+   <field
+      name="Day"
+      name_rus="ИД"
+      name_eng="Day"
+      type="numeric"
+      max="84"
+      needed="1"
+      size="2">
+    </field>
+	
+     <field
+      name="SeasonID"
+      name_rus="Сезон"
+      name_eng="Season"
+      type="sqlist"
+      sql="select SeasonID,Name_$lang; from ut_seasons order by SeasonID desc">0
+    </field> 
+
+	
+    <field
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="hidden"
+      maxsize="30"
+      needed="1">
+    </field>
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_payments where paymentsID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

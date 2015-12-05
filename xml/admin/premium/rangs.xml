@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_rangs" title_rus="Ранги" title_eng="Vip">
+
+ <create
+    sql="create table vp_rangs(
+     RangID int auto_increment primary key,
+     UserID int,
+     TypeID int,
+     Start int,
+     End int,
+    Term tinyint
+
+);
+     ">
+ </create>
+ <insert
+    sql="insert into vp_rangs (
+UserID, 
+TypeID, 
+Start, 
+End, 
+Term) values(
+   @UserID;,
+   @TypeID;,
+   @Start;,
+   @End;,
+   @Term;
+)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+     </field>
+     <field
+      name="TypeID"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="sqlist"
+      needed="1"
+      sql="select * from vp_rang_types order by Level;">
+     </field>
+      <field
+      name="Start"
+      name_rus="Начало срока"
+      name_eng="Start"
+      type="date"
+      needed="1">
+     </field>
+     <field
+      name="End"
+      name_rus="Конец срока"
+      name_eng="End"
+      type="date"
+      needed="1">
+     </field>
+     <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="numeric"
+      needed="1">
+     </field>
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select  r.*,r1.Name_$lang; as Rang,u.Login as User,t.Name_$lang; as Team from vp_rangs r 
+left outer join ut_users u on u.UserID=r.UserID
+left outer join ut_teams t on t.UserID=r.UserID
+left outer join vp_rang_types r1 on r1.TypeID=r.TypeID">
+  <header>
+
+
+     <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item> 
+
+     <item
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team">
+    </item> 
+
+    <item
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang">
+    </item> 
+    <item
+      name="Start"
+      name_rus="Начало срока"
+      name_eng="Start"
+      type="date"
+      format="d.m.Y H:i">
+    </item> 
+
+     <item
+      name="End"
+      name_rus="Конец срока"
+      name_eng="End"
+      type="date"
+      format="d.m.Y H:i">
+    </item> 
+
+    <item
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term">
+    </item> 
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+ <update
+   sql="update vp_rangs set 
+   UserID=@UserID;,
+   TypeID=@TypeID;,
+   Start=@Start;,
+   End=@End;,
+   Term=@Term; 
+where RangID=@id;"
+   select="select * from vp_rangs where RangID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+  <fields>
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+     </field>
+     <field
+      name="TypeID"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="sqlist"
+      needed="1"
+      sql="select * from vp_rang_types order by Level;">
+     </field>
+      <field
+      name="Start"
+      name_rus="Начало срока"
+      name_eng="Start"
+      type="date"
+      needed="1">
+     </field>
+     <field
+      name="End"
+      name_rus="Конец срока"
+      name_eng="End"
+      type="date"
+      needed="1">
+     </field>
+     <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="numeric"
+      needed="1">
+     </field>
+</fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from vp_rangs where FoulID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_permissions" title_rus="Права доступа" title_eng="Permissions">
+
+
+ <insert hint_rus="&lt;b>Тип&lt;/b> - параметр type из адреса страницы.&lt;br>&lt;b>Название&lt;/b> - параметр act из адреса (или пустое значение, если нужно дать права на все действия в разделе)&lt;br>Также выбирается или должность, или логин, или номер пользователя."
+    sql="set @UserID=(if(@UserID;>0,@UserID,(select UserID from ut_users where Login=@Login; and @Login&lt;>'' limit 0,1)))
+#set @error=(if((@UserID='' or @UserID is null) and @Type;&lt;>'*' and @TypeID;='','Пользователь не найден',0))
+#insert into en_permissions (Type,Site,Act,TypeID,UserID) values(
+   @Type,
+   @Site;,
+   @Act;,
+   @TypeID;,
+   @UserID)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Type"
+      name_rus="Type"
+      type="string"
+      maxlength="40"
+      needed="1">
+    </field>
+
+    <field
+      name="Act"
+      name_rus="Act"
+      type="string"
+      maxlength="30">
+    </field>
+
+    <field
+      name="Site"
+      name_rus="Site"
+      type="string"
+      maxlength="30">
+    </field>
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      type="sqlist"
+      sql="select t.TypeID,if(c.ClassID,concat(t.Name_$lang;,' (',c.Name_$lang;,')'),t.Name_$lang;) from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field>
+
+    <field
+      name="Login"
+      name_rus="Логин"
+      type="string">
+    </field>
+
+    <field
+      name="UserID"
+      name_rus="Пользователь"
+      type="numeric">
+    </field>
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select d.*, t.TypeID,if(c.ClassID,concat(t.Name_$lang;,' (',c.Name_$lang;,')'),t.Name_$lang;) as Post, u.Login
+ from en_permissions d 
+left outer join ut_users u on u.UserID=d.UserID
+left outer join ut_post_types t on d.TypeID=t.TypeID
+left outer join ut_post_classes c on c.ClassID=t.ClassID 
+order by t.Name_$lang;" pagecount="200">
+  <header>
+    
+
+     <item
+      name="Site"
+      name_rus="Site"
+      name_eng="Site">
+    </item>
+
+
+     <item
+      name="Type"
+      name_rus="Type"
+      name_eng="Type">
+    </item>
+
+     <item
+      name="Act"
+      name_rus="Act"
+      name_eng="Act">
+    </item>
+
+     <item
+      name="Post"
+      name_rus="Должность"
+      name_eng="">
+    </item>
+
+
+     <item
+      name="Login"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item>
+
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+</select>
+
+<update
+    sql="update en_permissions set 
+Type=@Type;,
+Act=@Act;,
+Site=@Site;,
+TypeID=@TypeID;,
+UserID=@UserID;
+where PermissionID=@id;"
+
+ select="select * from en_permissions where PermissionID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+    <field
+      name="Type"
+      name_rus="Тype"
+      type="string"
+      maxlength="40"
+      needed="1">
+    </field>
+
+    <field
+      name="Act"
+      name_rus="Act"
+      type="string"
+      maxlength="30">
+    </field>
+
+
+
+    <field
+      name="Site"
+      name_rus="Site"
+      type="string"
+      maxlength="30">
+    </field>
+
+
+    <field
+      name="TypeID"
+      name_rus="Должность"
+      type="sqlist"
+      sql="select t.TypeID,if(c.ClassID,concat(t.Name_$lang;,' (',c.Name_$lang;,')'),t.Name_$lang;) from ut_post_types t left outer join ut_post_classes c on c.ClassID=t.ClassID order by t.Name_$lang;">
+    </field>
+
+    <field
+      name="UserID"
+      name_rus="Пользователь"
+      type="numeric">
+    </field>
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_permissions where PermissionID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

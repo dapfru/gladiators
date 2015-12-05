@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_stadium_expands">
+
+ <create
+    sql="create table fn_stadium_expands (
+ExpandID int auto_increment primary key, 
+InfoID int,
+Capacity int
+)">
+ </create>
+
+ <insert
+    sql="insert into fn_stadium_expands (InfoID, Capacity) values(
+   @InfoID;,
+   @Capacity;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+      <field
+      name="InfoID"
+      name_rus="Постройка"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_stadium_info order by Name">
+    </field>
+
+
+     <field
+      name="Capacity"
+      name_rus="Прибавка"
+      type="numeric">
+    </field>
+
+</fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+<select sql="select p.*,concat(s.Name_$lang;,'-',s.Level) as Stadium, s.InfoID as Post from fn_stadium_expands p left outer join fn_stadium_info s on s.InfoID=p.InfoID">
+<header>
+    <item
+      name="Stadium"
+      name_rus="Стадион">
+    </item> 
+
+    <item
+      name="Capacity"
+      name_rus="Прибавка">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update fn_stadium_expands set 
+InfoID=@InfoID;,
+Capacity=@Capacity;
+ where ExpandID=@id;"
+
+ select="select * from fn_stadium_expands where ExpandID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+      <field
+      name="InfoID"
+      name_rus="Постройка"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_stadium_info order by Name">
+    </field>
+
+
+
+     <field
+      name="Capacity"
+      name_rus="Прибавка"
+      type="numeric">
+    </field>
+
+</fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_stadium_expands where ExpandID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

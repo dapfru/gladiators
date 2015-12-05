@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fp_ip_users">
+
+ <create
+    sql="create table fp_ip_users (
+RecordID int auto_increment primary key, 
+UserID int,
+GroupID int,
+isChecked tinyint)">
+ </create>
+ <insert
+    sql="insert into fp_ip_users (UserID, GroupID, isChecked) values(
+   @UserID;,
+   @GroupID;,
+   @isChecked;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+      <field
+      name="UserID"
+      name_rus="ID пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+    </field>
+
+
+     <field
+      name="GroupID"
+      name_rus="Id группы"
+      name_eng="Group ID"
+      type="numeric"
+      needed="1">
+    </field>
+
+
+      <field
+      name="isChecked"
+      name_rus="Проверен"
+      name_eng="is Checked"
+      type="checkbox"
+      needed="1">
+    </field>
+    </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+
+ <select sql="select g.*,if(g.isChecked=1,'checked','not checked') as Checked,t.Comment,u.Login as User from fp_ip_users g left outer join ut_users u on u.UserID=g.UserID left outer join fp_ip_groups t on t.GroupID=g.GroupID">
+
+<header>
+
+    <item
+      name="RecordID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+     <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item>
+
+    <item
+      name="Comment"
+      name_rus="Группа"
+      name_eng="Group">
+    </item> 
+    
+
+     <item
+      name="Checked"
+      name_rus="Проверен"
+      name_eng="is Checked">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update fp_ip_users set 
+UserID=@UserID;,
+GroupID=@GroupID;,
+isChecked=@isChecked;
+ where RecordID=@id;"
+
+ select="select * from fp_ip_users where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+      <field
+      name="UserID"
+      name_rus="ID пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+    </field>
+
+
+     <field
+      name="GroupID"
+      name_rus="Id группы"
+      name_eng="Group ID"
+      type="numeric"
+      needed="1">
+    </field>
+
+
+      <field
+      name="isChecked"
+      name_rus="Проверен"
+      name_eng="is Checked"
+      type="checkbox"
+      needed="1">
+    </field>
+    </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fp_ip_users where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_post_types" title_rus="Типы должностей" title_eng="Post types">
+
+
+ <insert
+    sql="set @error=if((select TypeID from gd_post_types where GuildID='$auth->guild;' and Name=@Name; limit 0,1)&gt;0,'Уже есть должность с таким названием','')
+#insert into gd_post_types (Name,GuildID,Weight) values(
+   @Name;,'$auth->guild;',@Weight;)"
+    success_rus="Должность добавлена!"
+    success_eng="Post added">
+
+   <fields>
+
+     <field
+      name="Name"
+      name_rus="Название должности"
+      name_eng="Name of post"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+
+     <field
+      name="Weight"
+      name_rus="Вес"
+      name_eng="Weight"
+      type="numeric">
+     </field>
+
+    </fields>
+
+   <button
+       name_rus="Добавить должность"
+       name_eng="Add post">
+   </button> 
+
+ </insert>
+
+ <select 
+hint_rus="Рейтинг, который гильдия дает своим участникам, делится пропорционально весу"
+sql="select *,concat(round(100*Weight/(select sum(Weight) from gd_post_types where GuildID='$auth->guild;'),2),'%') as Percent 
+from gd_post_types where GuildID='$auth->guild;' order by Weight desc,Name" 
+
+action="update gd_post_types set Weight=@Weight; where GuildID='$auth->guild;' and TypeID=@TypeID;">
+  <header>
+
+    <item
+      name="TypeID" type="hidden">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название должности"
+      name_eng="Post name">
+    </item> 
+
+    <item
+      name="Weight" size="2"
+      name_rus="Вес"
+      name_eng="Weight"
+      type="numeric">
+    </item> 
+
+    <item
+      name="Percent"
+      name_rus="В процентах"
+      name_eng="Percent">
+    </item> 
+
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update
+   sql="update gd_post_types set 
+   Name=@Name;,
+   Weight=@Weight;
+   where GuildID='$auth->guild;' and TypeID=@id;"
+   select="select * from gd_post_types where GuildID='$auth->guild;' and TypeID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+
+     <field
+      name="Weight"
+      name_rus="Ранг"
+      name_eng="Weight"
+      type="numeric">
+     </field>
+
+    </fields>
+
+
+   <button
+       name_rus="Изменить должность"
+       name_eng="Change post">
+   </button> 
+ </update>
+
+ <delete
+    sql="set @error=if((select UserID from gd_posts where GuildID='$auth->guild;' and TypeID=@id; limit 0,1)&gt;0,'На этой должности есть люди','')
+#delete from gd_post_types where GuildID='$auth->guild;' and TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

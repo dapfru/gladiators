@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiator_countries2"  title_rus="Типы гладиаторов" title_eng="gladiator_types">
+
+ <insert
+    sql="insert into ut_gladiator_countries2(CountryID,TypeID,Rate) 
+  values(@CountryID;,@TypeID;,@Rate;)"
+
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    width="100%">
+
+   <fields>
+
+   <field
+	name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+sql="select TypeID, Name_$lang; Name from ut_gladiator_types order by Name">
+    </field>
+
+   <field
+      name="CountryID"
+      name_rus="Национальность"
+      name_eng="Nationality"
+      name_ger="Nationality"
+      type="sqlist"
+sql="select CountryID, Name_$lang; from ut_countries order by CountryID">
+    </field>
+
+    <field
+      name="Rate"
+      name_rus="Вероятность"
+      name_eng="Possibiliy"
+      type="numeric">100
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select pagecount="200" width="100%" sql="select t.*,c.Name_$lang; as Country,
+gt.Name_$lang; as Type
+ from ut_gladiator_countries2 t left outer join ut_countries c using(CountryID) 
+left outer join ut_gladiator_types gt using(TypeID) 
+order by Type"
+
+action="update ut_gladiator_countries2 set Rate=@Rate; where RecordID=@RecordID;">
+
+   <header>
+
+    <item
+      name="RecordID"
+      type="hidden">
+    </item> 
+
+
+    <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"/>
+    <item
+      name="Country"
+      name_rus="Страна"
+      name_eng="Country"/>
+    <item
+      name="Rate" size="3"
+      name_rus="Вероятность"
+      name_eng="Possibility" type="numeric"/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update width="100%"
+    sql="update ut_gladiator_countries2 set CountryID=@CountryID;, TypeID=@TypeID;,Rate=@Rate; where RecordID=$id;"
+    select="select t.*,c.Name_$lang; as Country from ut_gladiator_countries2 t 
+left outer join ut_countries c using(CountryID) where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error="Запись не найдена">
+   <fields>
+
+   <field
+	name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+sql="select TypeID, Name_$lang; Name from ut_gladiator_types order by Name">
+    </field>
+
+   <field
+      name="CountryID"
+      name_rus="Национальность"
+      name_eng="Nationality"
+      name_ger="Nationality"
+      type="sqlist"
+sql="select CountryID, Name_$lang; from ut_countries order by CountryID">
+    </field>
+
+    <field
+      name="Rate"
+      name_rus="Вероятность"
+      name_eng="Possibiliy"
+      type="numeric">100
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Update record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_gladiator_countries2 where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

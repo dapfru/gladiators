@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_news">
+
+
+ <create
+    sql="create table ut_news (
+NewsID int auto_increment primary key, 
+UserID int, 
+
+Name_rus varchar(255),
+Header_rus text, 
+Message_rus text, 
+
+Name_eng varchar(255),
+Header_eng text, 
+Message_eng text, 
+
+Name_ger varchar(255),
+Header_ger text, 
+Message_ger text, 
+
+Img blob, 
+Date int)"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_news(NewsID,UserID,Name_rus,Header_rus,Message_rus,Name_eng,Header_eng,Message_eng,Name_ger,Header_ger,Message_ger,Img,Date) values('',$auth->user;,@Name_rus;,@Header_rus;,@Message_rus;,@Name_eng;,@Header_eng;,@Message_eng;,@Name_ger;,@Header_ger;,@Message_ger;,@Img;,@Date;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>   
+      
+
+    <field
+      name="Header_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Header(rus)"
+      type="text"
+      needed="1">
+    </field>   
+
+    <field
+      name="Message_rus"
+      name_rus="Подробно(рус)"
+      name_eng="Message(rus)"
+      type="text">
+    </field>   
+      
+
+    <field
+      name="Img"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="10000">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Header_eng"
+      name_rus="Заголовок(анг)"
+      name_eng="Header(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Message_eng"
+      name_rus="Сообщение(анг)"
+      name_eng="Message(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Header_ger"
+      name_rus="Заголовок(нем)"
+      name_eng="Header(ger)"
+      type="text">
+    </field> 
+
+    <field
+      name="Message_ger"
+      name_rus="Сообщение(нем)"
+      name_eng="Message(ger)"
+      type="text">
+    </field> 
+
+     <field
+      name="Date"
+      type="hidden">
+     </field>   
+      
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select n.*,concat(u.FirstName,' ',u.LastName) as Author from ut_news n left outer join ut_users u on u.UserID=n.UserID order by n.Name_$lang; asc">
+
+   <header>
+
+    <item
+      name="Author"
+      name_rus="Автор"
+      name_eng="Author"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1"/>
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="date"
+      format="d.m.Y H:i"/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_news set Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Header_rus=@Header_rus;,Header_eng=@Header_eng;,Header_ger=@Header_ger;,Message_rus=@Message_rus;,Message_eng=@Message_eng;,Message_ger=@Message_ger;,Date=@Date; where NewsID=$id;
+#update ut_news set Img=@Img; where @Img&lt;&gt;'' and NewsID=$id;"
+    select="select * from ut_news where newsID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+   
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </field>   
+      
+
+    <field
+      name="Header_rus"
+      name_rus="Заголовок(рус)"
+      name_eng="Header(rus)"
+      type="text"
+      needed="1">
+    </field>   
+
+    <field
+      name="Message_rus"
+      name_rus="Подробно(рус)"
+      name_eng="Message(rus)"
+      type="text">
+    </field>   
+      
+
+    <field
+      name="Img"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="10000">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Header_eng"
+      name_rus="Заголовок(анг)"
+      name_eng="Header(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Message_eng"
+      name_rus="Сообщение(анг)"
+      name_eng="Message(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Header_ger"
+      name_rus="Заголовок(нем)"
+      name_eng="Header(ger)"
+      type="text">
+    </field> 
+
+    <field
+      name="Message_ger"
+      name_rus="Сообщение(нем)"
+      name_eng="Message(ger)"
+      type="text">
+    </field> 
+
+     <field
+      name="Date"
+      type="hidden">
+     </field>   
+      
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_news where newsID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

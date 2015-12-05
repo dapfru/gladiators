@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  table="fn_operations" mixcolor="3B484C" title_rus="Финансовый отчет" title_eng="Financial report" title_ger="Finanzenbericht" privacy="1">
+
+ <select 
+
+hint_rus="Приобретите &lt;a href=/xml/residence/buildings.php?id=11>Торговую лавку&lt;/a> и наймите &lt;a href=/xml/residence/staff.php?id=7>Торговца&lt;/a> для обеспечения постоянных доходов. Кроме этого, Вы можете зарабатывать на турнирах, боях и продаже натренированных гладиаторов.
+&lt;br>&lt;br>Для быстрого развития, &lt;a href=/xml/city/usurer.php?act=take>возьмите кредит&lt;/a>, но будьте аккуратны. Излишек денег всегда можно &lt;a href=/xml/city/usurer.php?act=make>вложить&lt;/a> под проценты.
+&lt;br>&lt;br>Ежедневные финансовые операции проходят ночью, во время обновления сайта (примерно в 5 часов ночи). Это зарплаты гладиаторов и специалистов, поддержание построек, выплаты по кредитам и вкладам."
+
+mixcolor="3B484C" sql="select f.*,
+
+t.Name_$lang; as Comment,
+
+if(f.SenderID='$user;',if(f.ReceiverID=1,'Государство',u2.Login),if(f.SenderID=1,'Государство',u1.Login)) as Contragent,
+
+
+
+if(f.SenderID='$user;',concat('-',f.Money),concat('+',f.Money)) as Money,
+if(f.SenderID='$user;','A70000','green') as fontcolor,
+
+if(f.SenderID='$user;',f.SenderBalance,f.ReceiverBalance) as Balance
+
+from fn_operations f 
+
+left outer join fn_accounts a1 on f.SenderID=a1.AccountID 
+left outer join fn_accounts a2 on f.ReceiverID=a2.AccountID 
+
+left outer join ut_users u1 on f.SenderID=u1.UserID 
+left outer join ut_users u2 on f.ReceiverID=u2.UserID 
+
+
+left outer join fn_operation_types t on (t.TypeID=f.TypeID)
+where 
+f.Money>0 and
+'$user;'&lt;&gt;'' and
+(f.SenderID='$user;' or f.ReceiverID='$user;')
+and (@id;='' or f.TypeID=@id or t.Parent=@id)
+order by f.OperationID desc"  
+  
+width="100%">
+	
+   <header style="style='color:$fontcolor;'">
+
+    <item
+      name="OperationDate"
+      name_rus="Дата"
+      name_eng="Date"
+      name_ger="Datum"
+      type="date"
+      format="d.m.y H:i">
+    </item>
+
+	
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment"
+      name_ger="Kommentar">
+    </item>		
+		
+
+
+
+    <item
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      name_ger="Geld"
+      align="right"
+      type="money"
+
+      order="Money desc">$Money;
+    </item>	
+
+    <item
+      name="Contragent"
+      name_rus="Контрагент"
+      name_eng="Contragent"
+      name_ger="Kontrahent">
+    </item>
+
+
+    <item
+      name="Balance"
+      name_rus="Баланс"
+      name_eng="Balance"
+      name_ger="Bilanz"
+      align="right"
+      order="Balance desc"
+      type="money">
+    </item>
+
+
+
+   </header>
+
+ </select>
+
+</form>

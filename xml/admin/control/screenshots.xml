@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_screenshots">
+
+
+ <create
+    sql="create table ut_screenshots (ScreenshotID int auto_increment primary key,
+Name_rus varchar(40),
+Name_eng varchar(40),
+Name_ger varchar(40),
+Comment_rus text,
+Comment_eng text,
+Comment_ger text,
+Date int,
+ScreenshotFile mediumblob,
+Small blob)"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_screenshots(ScreenshotID,ScreenshotFile,Name_rus,Name_eng,Name_ger,Comment_rus,Comment_eng,Comment_ger,Date,Small) values('',@ScreenshotFile;,@Name_rus;,@Name_eng;,@Name_ger;,@Comment_rus;,Comment_eng;,Comment_ger;,@Date;,@Small;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="varchar"
+      maxlength="40">
+    </field>   
+      
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="text">
+    </field>   
+
+
+    <field
+      name="ScreenshotFile"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      needed="1"
+      width="157"
+      mix="img/ramka.gif"
+      maxsize="300000">
+    </field> 
+
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="varchar"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(анг)"
+      name_eng="Comment(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="varchar"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_ger"
+      name_rus="Комментарий(нем)"
+      name_eng="Comment(ger)"
+      type="text">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_screenshots order by Date desc">
+
+   <header>
+
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1"/>
+
+    <item
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+      type="date"
+      format="d.m.Y H:i"/>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_screenshots set Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Comment_rus=@Comment_rus;,Comment_eng=@Comment_eng;,Comment_ger=@Comment_ger; where ScreenshotID=$id;
+#update ut_screenshots set ScreenshotFile=@ScreenshottFile;,Small=@Small;  where @ScreenshotFile&lt;&gt;'' and ScreenshotID=$id;"
+    select="select * from ut_screenshots where ScreenshotID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+   
+   <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="varchar"
+      maxlength="40">
+    </field>   
+      
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="text">
+    </field>   
+
+
+    <field
+      name="ScreenshotFile"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      width="157"
+      mix="img/ramka.gif"
+      maxsize="300000">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="varchar"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(анг)"
+      name_eng="Comment(eng)"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="varchar"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_ger"
+      name_rus="Комментарий(нем)"
+      name_eng="Comment(ger)"
+      type="text">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_screenshots where ScreenshotID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_links" title_rus="Поддержка" title_eng="Support">
+
+
+
+<inbox
+success_rus="Сообщение отправлено"
+success_eng="Message sent"
+ sql="select m.*,u.Login,
+u.Login as Manager,u.UserID,
+
+concat_ws(': ',mt.Name_$lang;,if(m.Subject='' or m.Subject is null,'$message[234];',m.Subject )) as Subject
+from ut_messages m 
+left outer join sp_question_types mt on mt.TypeID=m.TypeID
+left outer join ut_users u on u.UserID=m.UserID1 
+
+where m.Support=1 and m.Status&lt;2
+and (m.UserID2='$auth->user;' or m.UserID2 is null)
+order by m.Date desc"
+action="update ut_messages set Status=3 where MessageID=@MessageID; and @delete;='on' and Support=1 and (UserID2='$auth->user' or UserID2 is null)"
+
+
+    pagecount="50" 
+    maxpages="10"
+    width="100%">
+
+   <header>
+
+
+    <item
+      name="Manager"
+      name_rus="От кого"
+      name_eng="From">
+    </item> 
+
+    <item
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="mail">
+    </item> 
+
+
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+      type="date"
+      order="Date desc"
+      format="d.m H:i">
+    </item> 
+
+    <item type="hidden" name="MessageID"/>
+
+    <item 
+	type="checkbox" 
+	name="delete" 
+	name_rus=" "
+	name_eng=" "
+	name_ger=" "
+	align="center">&lt;input type='checkbox' onclick='markall(checked)' &gt;
+    </item>
+
+&lt;script&gt;
+
+function markall(checked)
+{
+
+    for(i=0;i&lt;document.forms['inbox'].elements.length;i++)
+    {
+  	var item = document.forms['inbox'].elements[i];
+	if(item.type =='checkbox') item.checked = checked;
+    }
+}
+
+&lt;/script&gt;
+   </header>
+
+   <button
+       name_rus="Удалить выделенные"
+       name_eng="Delete selected"
+       align="right">
+   </button> 
+
+ </inbox>
+
+
+ <write
+    width="100%"
+    sql="set @error=if(@Login;='',if(@Team;='',173,0),0) 
+#set @UserID=if(@Login&lt;&gt;'',(select UserID from ut_users where Login=@Login),0)
+
+
+#set @error=if(@UserID&lt;&gt;'',0,174)
+
+#insert into ut_messages(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support) values('',$auth->user;,@UserID,@Subject;,@Body;,@Date;,0,1)
+#insert into ut_messages(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support) values('',$auth->user;,@UserID,@Subject;,@Body;,@Date;,2,1)"
+
+    success_rus="Сообщение отправлено!"
+    success_eng="Message sent!"
+    button="Submit">
+
+   <fields>
+
+
+
+    <field
+      name="Login"
+      name_rus="Логин"
+      name_eng="Nick"
+      type="string">
+    </field>   
+ 
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+      type="string">
+    </field>   
+
+    <field
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="string"
+      maxlength="30"
+      size="35">
+    </field>   
+
+    <field
+      name="Body"
+      name_rus="Сообщение"
+      name_eng="Message"
+      type="text"
+      needed="1"
+      format="wrap='physical'"
+      rows="5"
+      cols="53">
+    </field>
+      
+ 
+   </fields>
+
+   <button
+       name_rus="Отправить сообщение"
+       name_eng="Send message">
+   </button> 
+
+ </write>
+
+
+
+ <respond width="100%"
+    sql="set @UserID=(select UserID from ut_users where Login=@Login;)
+
+#set @error=if(@UserID&lt;&gt;'',0,174)
+
+#insert into ut_messages(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support,AnswerID) values('',$auth->user;,@UserID,@Subject;,@Body;,@Date;,0,2,@id;)
+#insert into ut_messages(	
+        MessageID,
+	UserID1,
+	UserID2,
+	Subject,
+	Body,
+	Date,
+        Status,
+        Support,AnswerID) values('',$auth->user;,@UserID,@Subject;,@Body;,@Date;,2,2,@id;)
+#update ut_messages set Status=4 where MessageID=@id; and Support=1"
+
+    success_rus="Сообщение отправлено!"
+    success_eng="Message sent!"
+    redirect="support.php?act=inbox&amp;ok=1">
+
+   <fields>
+   
+
+
+    <field
+      name="Login"
+      name_rus="Логин"
+      name_eng="Nick"
+      needed="1"
+      type="label">
+    </field>   
+ 
+
+    <field
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="string"
+      maxlength="30"
+      size="35">
+    </field>  
+
+    <field
+      name="Body"
+      name_rus="Сообщение"
+      name_eng="Message"
+      type="text"
+      needed="1"
+      format="wrap='physical'"
+      rows="5"
+      cols="53">
+    </field>
+
+ 
+   </fields>
+
+   <button
+       name_rus="Отправить сообщение"
+       name_eng="Send message">
+   </button> 
+
+ </respond>
+
+<sent sql="select m.*,concat(u.FirstName,' ',u.LastName) as User,
+u.Login as Manager,u.UserID,
+if(m.Subject='' or m.Subject is null,'$message[234];',m.Subject ) as Subject  
+from ut_messages m 
+left outer join ut_users u on u.UserID=m.UserID2 
+where m.Support=2 and Status=2 
+order by m.Date desc"
+
+action="delete from ut_messages where MessageID=@MessageID; and @delete;='on' and UserID1=$auth->user;"
+     pagecount="50" maxpages="10"
+    width="100%">
+
+   <header>
+
+
+
+    <item
+      name="Manager"
+      name_rus="Кому:"
+      name_eng="To:">
+    </item> 
+
+
+    <item
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="mail">
+    </item> 
+
+
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+      type="date"
+      order="Date desc"
+      format="d.m H:i">
+    </item> 
+
+    <item type="hidden" name="MessageID"/>
+
+    <item 
+	type="checkbox" 
+	name="delete" 
+	name_rus=" "
+	name_eng=" "
+	name_ger=" "
+	align="center">&lt;input type='checkbox' onclick='markall(checked)' &gt;
+    </item>
+
+
+&lt;script&gt;
+
+function markall(checked)
+{
+
+    for(i=0;i&lt;document.forms['sent'].elements.length;i++)
+    {
+  	var item = document.forms['sent'].elements[i];
+	if(item.type =='checkbox') item.checked = checked;
+    }
+}
+
+&lt;/script&gt;
+   </header>
+
+   <button
+       name_rus="Удалить выделенные"
+       name_eng="Delete selected"
+       align="right">
+   </button> 
+
+ </sent>
+
+
+ <message
+    select="select m.*,u.Login,FROM_UNIXTIME(m.Date,'%d.%m.%Y %H:%i') as Date,
+u.Login as User
+
+from ut_messages m 
+left outer join ut_users u on u.UserID=m.UserID1 
+
+where MessageID='$id;' and (Support=2 or (Support=1 and (UserID2 is null or (UserID2='$auth->user;' or UserID1='$auth->user;'))))"
+    error_eng="Message not found"
+    error_rus="Сообщение не найдено"
+   width="100%">
+
+   <fields>
+
+
+    <field
+      name="Subject"
+      name_rus="Тема:"
+      name_eng="Subject:"
+      type="safelabel"
+      needed="1">
+    </field>   
+
+    <field
+      name="User"
+      name_rus="От:"
+      name_eng="From:"
+      type="label"
+      needed="1">
+    </field>  
+
+
+
+
+
+    <field
+      name="Date"
+      name_rus="Дата:"
+      name_eng="Date:"
+      type="label"
+      needed="1">
+    </field> 
+
+    <field
+      name="Body"
+      name_rus=" "
+      name_eng=" "
+      name_ger=" "
+      type="safelabel"
+      tdstyle="style='font-size:13px;padding:5px'"
+      colspan="2">
+    </field>
+      
+ 
+   </fields>
+
+ </message>
+
+
+<answered sql="select m.*,u.Login,
+u.Login as Manager,u.UserID,
+
+concat_ws(': ',mt.Name_$lang;,if(m.Subject='' or m.Subject is null,'$message[234];',m.Subject )) as Subject
+from ut_messages m 
+left outer join sp_question_types mt on mt.TypeID=m.TypeID
+left outer join ut_users u on u.UserID=m.UserID1 
+
+where m.Support=1 and m.Status=4
+and (m.UserID2='$auth->user;' or m.UserID2 is null)
+order by m.Date desc"
+
+    pagecount="50" 
+    maxpages="10"
+    width="100%">
+
+   <header>
+
+
+    <item
+      name="Manager"
+      name_rus="От кого"
+      name_eng="From">
+    </item> 
+
+    <item
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="mail">
+    </item> 
+
+
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+      type="date"
+      order="Date desc"
+      format="d.m H:i">
+    </item> 
+
+   </header>
+
+ </answered>
+
+
+<deleted sql="select m.*,u.Login,
+u.Login as Manager,u.UserID,
+
+concat_ws(': ',mt.Name_$lang;,if(m.Subject='' or m.Subject is null,'$message[234];',m.Subject )) as Subject
+from ut_messages m 
+left outer join sp_question_types mt on mt.TypeID=m.TypeID
+left outer join ut_users u on u.UserID=m.UserID1 
+
+where m.Support=1 and m.Status=3
+and (m.UserID2='$auth->user;' or m.UserID2 is null)
+order by m.Date desc"
+
+    pagecount="50" 
+    maxpages="10"
+    width="100%">
+
+   <header>
+
+
+    <item
+      name="Manager"
+      name_rus="От кого"
+      name_eng="From">
+    </item> 
+
+    <item
+      name="Subject"
+      name_rus="Тема"
+      name_eng="Subject"
+      type="mail">
+    </item> 
+
+
+
+
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+      type="date"
+      order="Date desc"
+      format="d.m H:i">
+    </item> 
+
+   </header>
+
+ </deleted>
+</form>

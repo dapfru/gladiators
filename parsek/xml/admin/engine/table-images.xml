@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_staff_info">
+
+ <create
+    sql="create table en_table_images (
+RecordID int auto_increment primary key, 
+TableName varchar(30),
+FieldName varchar(20),
+IDName varchar(20), index(TableName))">
+ </create>
+ <insert
+    sql="insert into en_table_images (TableName, FieldName, IDName) values(
+   @TableName;,
+   @FieldName;,
+   @IDName;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+      <field
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table name"
+      maxlength="30"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="FieldName"
+      name_rus="Название Поля"
+      name_eng="Field name"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Table ID"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from en_table_images">
+
+  <header>
+
+    <item
+      name="RecordID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table Name">
+    </item> 
+
+    <item
+      name="FieldName"
+      name_rus="Название Поля"
+      name_eng="Field Name">
+    </item> 
+    
+
+     <item
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Name ID">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update en_table_images set 
+TableName=@TableName;,
+FieldName=@FieldName;,
+IDName=@IDName;
+ where RecordID=@id;"
+
+ select="select * from en_table_images where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+  <fields>
+
+      <field
+      name="TableName"
+      name_rus="Название таблицы"
+      name_eng="Table name"
+      maxlength="30"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="FieldName"
+      name_rus="Название Поля"
+      name_eng="Field name"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+
+
+<field
+      name="IDName"
+      name_rus="Id таблицы"
+      name_eng="Table ID"
+      maxlength="20"
+      type="string"
+      needed="1">
+    </field>
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_table_images where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

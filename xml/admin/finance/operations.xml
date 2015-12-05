@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+ <create
+    sql="create table fn_operations(OperationID int auto_increment primary key,
+Money int,
+SenderID int,
+ReceiverID int,
+SenderBalance int,
+ReceiverBalance int,
+TypeID int,
+OperationDate int,
+OperationObject )"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+ <insert
+    sql="insert into fn_operations(Money,SenderID,ReceiverID,TypeID,OperationDate) values(@Money;,@SenderID;,@ReceiverID;,@TypeID;,@Date;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+	
+    <field
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      type="numeric"
+      needed="1"
+      size="6">
+    </field>
+	
+    <field
+      name="SenderID"
+      name_rus="Отправитель"
+      name_eng="Sender"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="ReceiverID"
+      name_rus="Получатель"
+      name_eng="Receiver"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from fn_operation_types order by Name_$lang;"
+      needed="1">
+    </field>
+	
+    <field
+      name="OperationDate"
+      type="hidden">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select f.*,t1.Name_rus as Sender, (
+CASE a.TypeID  
+    WHEN 1 Then l.Name_rus
+    WHEN 2 Then t2.Name_rus
+    WHEN 3 Then t2.Name_rus
+end) as Receiver, t.Name_rus as Comment from fn_operations f 
+left outer join ut_teams t1 on f.SenderID=t1.TeamID 
+left outer join ut_leagues l on f.ReceiverID=l.LeagueID 
+left outer join ut_teams t2 on f.ReceiverID=t2.TeamID 
+left outer join fn_operation_types t on t.TypeID=f.TypeID 
+left outer join fn_accounts a on f.ReceiverID=a.AccountID 
+left outer join ut_unions u on f.ReceiverID=u.UnionID 
+order by f.OperationDate asc">
+	
+<header>
+
+
+    <item
+      name="Money"
+      name_rus="Сумма"
+      name_eng="Money"
+      type="money">
+    </item>	
+		
+
+
+    <item
+      name="Sender"
+      name_rus="Отправил"
+      name_eng="Sent">
+    </item>	
+
+    <item
+      name="Receiver"
+      name_rus="Получил"
+      name_eng="Receiver">
+    </item>
+
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment">
+    </item>		
+
+    <item
+      name="OperationDate"
+      name_rus="Дата"
+      name_eng="Date"
+      type="date"
+      format="d.m.y H:i">
+    </item>	
+
+    <item
+      name="SenderBalance"
+      name_rus="Баланс1"
+      name_eng="Balance1"
+      type="money">
+    </item>
+
+    <item
+      name="ReceiverBalance"
+      name_rus="Баланс2"
+      name_eng="Balance2"
+      type="money">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update fn_operations set Money=@Money;,SenderID=@SenderID;,ReceiverID=@ReceiverID;,TypeID=@TypeID;,OperationDate=@Date; where OperationID=@id;"
+    select="select * from fn_operations where OperationID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+	
+    <field
+      name="Money"
+      name_rus="Деньги"
+      name_eng="Money"
+      type="numeric"
+      needed="1"
+      size="6">
+    </field>
+	
+    <field
+      name="SenderID"
+      name_rus="Отправитель"
+      name_eng="Sender"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="ReceiverID"
+      name_rus="Получатель"
+      name_eng="Receiver"
+      type="string"
+      maxsize="3"
+      size="3"
+      needed="1">
+    </field>
+	
+    <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      sql="select TypeID,Name_$lang; from fn_operation_types order by Name_$lang;"
+      needed="1">
+    </field>
+	
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_operations where OperationID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

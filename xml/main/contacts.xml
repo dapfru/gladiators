@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users" title_rus="Контакты" title_eng="Contact">
+
+ <select width="100%" pagecount="100"
+ sql="select u.*,
+concat('&lt;a href=mailto:',u.Email,'&gt;',concat_ws(' ',u.FirstName,u.LastName),'&lt;/a&gt;',' (',u.Login,')') as User,
+t1.Name_$lang; as Post
+
+ from ut_users u 
+join ut_posts p on p.UserID=u.UserID
+join ut_post_types t1 on t1.TypeID=p.TypeID
+join ut_post_classes c on c.ClassID=t1.ClassID
+
+
+ where c.ClassID='$id;'">
+
+
+ <header>
+    
+
+    <item
+      name=""
+      name_rus="Пользователь"
+      name_eng="User"
+      colspan="2"
+      order="Login"
+      align="center"
+      format="/images/icons/info.gif"
+      style="width=10px height=10px"
+      type="icon">/users/$UserID/;
+    </item> 
+
+    <item
+      name="User">
+    </item> 
+
+
+    <item
+      name="Post"
+      name_rus="Должность"
+      name_eng="Post">
+    </item> 
+
+    <item
+      name="Icq"
+      name_rus="ICQ"
+      name_eng="ICQ"
+      type="icq">
+    </item> 
+
+    <item
+      name="Mail"
+      type="template">
+    </item> 
+
+
+
+  </header>
+
+</select>
+
+</form>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+
+<form table="ut_stadiums">
+
+ <create
+    sql="CREATE TABLE ut_stadiums(
+	StadiumID int auto_increment PRIMARY KEY,
+	Name_rus VARCHAR(30),
+	Name_eng VARCHAR(30),
+	Name_ger VARCHAR(30),
+	CityID INT,
+	Capacity int,
+	Photo blob,
+	Small blob);"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_stadiums values('',@Name_rus;, @Name_eng;, @Name_ger;, @CityID;, @Capacity;, @Photo;, @Small;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+  
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="CityID"
+      name_rus="Город"
+      name_eng="City"
+      type="sqlist"
+      needed="1"
+      sql="select CityID,Name_$lang; from ut_cities order by CityID desc">
+    </field> 
+   
+    <field
+      name="Capacity"
+      name_rus="Вместимость"
+      name_eng="Capacity"
+      type="numeric"
+      size="5"
+      needed="1">20000
+    </field> 
+
+    <field
+      name="Photo"
+      name_rus="Фото"
+      name_eng="Photo"
+      type="photo">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select s.*,c.Name_$lang; as City from ut_stadiums s left outer join ut_cities c on c.CityID=s.CityID order by s.Name_$lang; asc"    pagecount="100"
+    mixcolor="f3f3f3" rowcolor="ffffff">
+
+   <header>
+
+
+    <item
+      name="StadiumID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="City"
+      name_rus="Город"
+      name_eng="City">
+    </item> 
+
+    <item
+      name="Capacity"
+      name_rus="Вместимость"
+      name_eng="Capacity">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_stadiums set Name_rus=@Name_rus;,Name_ger=@Name_ger;, Name_eng=@Name_eng;, CityID=@CityID;, Capacity=@Capacity;, Photo=@Photo; where StadiumID=@id;"
+    select="select * from ut_stadiums where StadiumID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+  
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="CityID"
+      name_rus="Город"
+      name_eng="City"
+      type="sqlist"
+      needed="1"
+      sql="select CityID,Name_$lang; from ut_cities order by CityID desc">
+    </field> 
+   
+    <field
+      name="Capacity"
+      name_rus="Вместимость"
+      name_eng="Capacity"
+      type="numeric"
+      size="5"
+      needed="1">20000
+    </field> 
+
+    <field
+      name="Photo"
+      name_rus="Фото"
+      name_eng="Photo"
+      type="photo">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_stadiums where StadiumID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

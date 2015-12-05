@@ -1,0 +1,19 @@
+<table>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="4" style="BORDER: #6677aa 1px solid" bgcolor='#ffffff'>
+<tr><td bgcolor="#88aadd" class=whitesmall align='center' height="25" style="BORDER-BOTTOM: #6677aa 1px solid"><H1><? echo $title; ?></H1></td></tr><tr>
+    <td align='center'>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+<tr><td class=blackvsmall>
+<p align="justify">Здравствуйте! Мы рады приветствовать Вас в нашем <strong>интернет казино</strong>. У нас Вы найдете лучшие <strong>игры</strong> и <strong>лотереи</strong> на <strong>WebMoney</strong>.<br><br>
+<p align="justify">Все скрипты <strong>интернет казино</strong> написаны с использованием внутренних виртуальных счетов, которые позволяют играть, получая <u>мгновенные уведомления о результате игры (без обновления окна)</u> и моментальные выплаты на Ваш счет в реальном времени. У нас установлен очень <strong>высокий процент возврата</strong>! Благодаря этому выигрыши в нашем <strong>интернет казино</strong> бывают гораздо чаще, чем в других подобных <strong>онлайн-казино</strong>.
+<br><br> Все расчеты производятся с помощью системы <a href="http://www.webmoney.ru/" target="_blank" class=section><strong>WebMoney</strong></a> (<strong>WM<font color="green">Z</font></strong>, <strong>WM<font color="red">R</font></strong>, <strong>WM<font color="blue">E</font></strong> и <strong>WM<font color="olive">U</font></strong>). Пополнение игрового счета в нашем казино возможно через <strong>WebMoney</strong> и <strong>E-gold</strong>. Минимальная ставка во всех играх <strong>0.10</strong> <strong><font color="green">WM</font></strong> или эквивалентная сумма в другой валюте. Все скрипты игр <u>постоянно обновляются</u> и <u>усовершенствуются</u>. Каждую неделю проводится <u>розыгрыш <a href="<? echo $url; ?>/?page=week_bonus" class=section>еженедельного бонуса</a></u> среди наиболее активных игроков.<br><br>
+<font color="#ff0000">Каждый новый игрок казино <strong><? echo $copyright; ?></strong> получает бонус на первый депозит в размере <font color="green"><strong>101%</strong></font> от суммы депозита.</font>
+Подробнее о бонусной системе читайте на странице "<a href="<? echo $url; ?>/?page=regainbonus" class="section">Бонусы на депозиты</a>".<br><br>
+<p align="justify">Мы предлагаем Вам <strong>выгодную партнескую программу</strong>! В рамках партнерской программы предоставляется возможность получать премиальные выплаты в размере <strong>50%</strong> от прибыли, полученной с привлеченного Вами игрока. С условиями и правилами участия Вы можете ознакомиться <a href="<? echo $url; ?>/?page=par_prog" class=section title="Партнерская программа"><b>здесь</b></a>.<br><br><p align="justify">Вы новичок и ни разу не играли в подобные <strong>игры и лотереи</strong>? Все предельно просто! Вам необходимо зарегистрироваться в платежной системе WebMoney, пополнить счет и все готово, можно приступать к игре. Подробнее о регистрации на странице "<a href="<? echo $url; ?>/?page=kurs" class=section><strong>Описание WebMoney</strong></a>".<p align="justify">Мы надеемся, что Вам понравится играть в наши игры и лотереи, и Вы станете нашим постоянным посетителем.
+<p align="center"><strong>Желаем удачи!</strong></p></td></td></tr></table></td></tr></table><br>
+
+
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="4" style="BORDER: #6677aa 1px solid" bgcolor='#ffffff'><tr><td bgcolor="#88aadd" class=whitesmall align='center' height="25" style="BORDER-BOTTOM: #6677aa 1px solid"><H1>Новости казино</H1></td></tr><tr>
+    <td align='center'>
+<table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+<tr><td class=blackvsmall><strong>11.06.2007</strong> Состоялось открытие нашего казино! Мы будем рады видеть Вас на страницах своего сайта. Играйте и выигрывайте!</td></tr></td></tr></table></table>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<menu>
+   <toolbar 
+    height="30px" 
+bgcolor=""
+rowcolor=""
+
+
+    align="center"
+>
+
+     <item
+       name="/moderate/index.php?type=main/news"
+       caption_eng="Main"
+       caption_rus="Главная"
+       caption_ger="">
+     </item>
+
+     <item
+       name="/moderate/index.php?type=control/posts"
+       caption_eng="Control"
+       caption_rus="Управление"
+       caption_ger="">
+     </item>
+
+
+     <item
+       name="/moderate/index.php?type=guilds/guilds"
+       caption_eng="Guilds"
+       caption_rus="Гильдии"
+       caption_ger="">
+     </item>
+
+
+     <item
+       name="/moderate/index.php?type=users/ban_users"
+       caption_eng="Users"
+       caption_rus="Пользователи"
+       caption_ger="">
+     </item>
+
+  </toolbar>
+
+   <toolbar2 
+    height="30px" 
+    border="0"
+    align="center"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="0"
+    cellpadding="2">
+
+  <main>
+
+
+     <item
+       name="/moderate/index.php?type=main/news"
+      name_rus="Новости"
+      name_eng="News"
+      name_ger="">
+     </item>
+
+
+
+     <item
+       name="/moderate/index.php?type=main/tournaments"
+       caption_eng="Tournaments"
+       caption_rus="Турниры"
+       caption_ger="">
+    </item>
+
+
+     <item
+       name="/moderate/index.php?type=main/announcements"
+      name_rus="Объявления"
+      name_eng="Annuncements"
+      name_ger="">
+     </item>
+
+     <item
+       name="/xml/moderate/main/support.php"
+       caption_eng="Support"
+       caption_rus="Поддержка"
+       caption_ger="">
+    </item>
+
+
+
+     <item
+       name="/moderate/index.php?type=main/avatars"
+       caption_eng="Avatars"
+       caption_rus="Аватары"
+       caption_ger="">
+    </item>
+
+
+
+  </main>
+
+
+
+  <control>
+
+     <item
+       name="/moderate/index.php?type=control/posts"
+       caption_eng="Posts"
+       caption_rus="Должности"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/xml/moderate/control/tournaments.php"
+       caption_eng="Tournament regulations"
+       caption_rus="Регламенты турниров"
+       caption_ger="">
+    </item>
+
+  </control>
+
+
+
+  <users>
+
+     <item
+       name="/moderate/index.php?type=users/ban_users"
+       caption_eng="Ban in game"
+       caption_rus="Бан на сайте"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/moderate/index.php?type=users/ban_chat"
+       caption_eng="Ban in chat"
+       caption_rus="Бан в чате"
+       caption_ger="">
+    </item>
+
+
+
+  </users>
+
+
+  <guilds>
+
+     <item
+       name="/moderate/index.php?type=guilds/guilds"
+       caption_eng="Guilds"
+       caption_rus="Гильдии"
+       caption_ger="">
+    </item>
+
+  </guilds>
+
+
+
+ </toolbar2>
+</menu>

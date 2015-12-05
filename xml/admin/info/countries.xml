@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_countries" title_rus="Страны" title_eng="Countries">
+
+<create
+    sql="create table ut_countries (
+CountryID int auto_increment primary key,
+ID_eng char(3),
+Name_rus varchar(50),
+Name_eng varchar(50),
+Name_ger varchar(50),
+Flag blob,
+Logo blob,
+ContinentID int)" 
+   success_rus="Запись создана"   
+   success_eng="Record created"> 
+</create>
+
+ <insert
+    sql="insert into ut_countries(ID_eng,Name_rus,Name_eng,Name_ger,Flag,ContinentID) values(@ID_eng;,@Name_rus;,@Name_eng;,@Name_ger;,@Flag;,@Logo;,@ContinentID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="ID_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="3"
+      size="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Flag"
+      name_rus="Флаг"
+      name_eng="Flag"
+      type="flag"
+      format="gif"
+      maxsize="10000">
+    </field> 
+
+    <field
+      name="Logo"
+      name_rus="Лого"
+      name_eng="Logo"
+      type="image"
+      format="jpg"
+      maxsize="30000">
+    </field> 
+
+    <field
+      name="ContinentID"
+      name_rus="Конфедерация"
+      name_eng="Confederations"
+      type="sqlist"
+      sql="select ContinentID,ID_$lang; from ut_continents order by @ID_lang;">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select c.*,k.ID_$lang; as Continent from ut_countries c left outer join ut_continents k on k.ContinentID=c.ContinentID order by c.Name_$lang;"
+    pagecount="100"
+    mixcolor="f3f3f3" rowcolor="ffffff">
+
+   <header>
+
+    <item
+      name="CountryID"
+      name_rus=" "
+      name_eng=" "
+      type="flag">
+    </item> 
+
+    <item
+      name="ID_eng"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Continent"
+      name_rus="Континент"
+      name_eng="Continent">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_countries set ID_eng=@ID_eng;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,ContinentID=@ContinentID; where CountryID=@id;
+    #update ut_countries set Flag=@Flag; where CountryID=@id; and @Flag;&lt;&gt;''
+    #update ut_countries set Logo=@Logo; where CountryID=@id; and @Logo;&lt;&gt;''"
+    select="select * from ut_countries where CountryID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+   <header>
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+   </header>
+
+
+   <fields>
+
+    <field
+      name="ID_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="3"
+      size="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Flag"
+      name_rus="Флаг"
+      name_eng="Flag"
+      type="flag"
+      format="gif"
+      maxsize="10000">
+    </field> 
+
+    <field
+      name="Logo"
+      name_rus="Лого"
+      name_eng="Logo"
+      type="image"
+      format="jpg"
+      maxsize="30000">
+    </field> 
+
+    <field
+      name="ContinentID"
+      name_rus="Конфедерация"
+      name_eng="Confederations"
+      type="sqlist"
+      sql="select ContinentID,ID_$lang; from ut_continents order by @ID_lang;">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_countries where CountryID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

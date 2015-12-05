@@ -1,0 +1,946 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_players_school" title_rus="ДЮСШ" title_eng="School">
+
+
+
+ <list 
+sql="select PlayerID, 
+Position,OldPosition
+, Age, Talent, Stamina, 
+6-round(Morale/4) as Smile,
+round(Skl) as Skl,
+round(Tck) as Tck,
+round(Mrk) as Mrk,
+round(Drb) as Drb,
+round(Rcv) as Rcv,
+round(Edu) as Edu,
+round(Pas) as Pas,
+round(Shp) as Shp,
+round(Sha) as Sha,
+if(TrStatus=0,if(Approved=0,
+concat_ws('','&lt;a href=school.php?act=add&amp;id=',PlayerID,'>выбрать','&lt;/a>'),
+concat_ws('','&lt;a href=school.php?act=remove&amp;id=',PlayerID,'>отказаться','&lt;/a>')),
+if(TrStatus=1,concat_ws('','&lt;a href=school.php?act=edit&amp;id=',PlayerID,'>&lt;b>редактировать&lt;/b>','&lt;/a>'),
+if(TrStatus=2,concat_ws('','&lt;b>ожидает перевода','&lt;/b>'),
+concat_ws('','&lt;b>переведен в клуб','&lt;/b>'))))
+ as Choose
+ from ut_players_school where dyushid='$auth->team;'"
+title_rus="ДЮСШ" 
+title_eng="Shool"
+hint_rus="Вы можете выбрать только двух игроков из предложенных. Вы также можете сменить позицию у одного из игроков.
+ Выбранные игроки поступают на проверку коректности выбора и правильности имени.
+ После проверки они будут переведены в ваш клуб или возвращены для редактирования. Стоимость каждого игрока 150 000 гольденов."
+>
+
+   <header style="style=background-color:$color;">
+
+    <item
+      name="Choose"
+      name_rus="Действие"
+      name_eng="Status">
+    </item>
+
+    <item
+      name="Position"
+      name_rus="Новая позиция"
+      name_eng="Position">
+    </item>
+
+    <item
+      name="OldPosition"
+      name_rus="Старая позиция"
+      name_eng="Old Position">
+    </item>
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      count="avg">
+    </item> 
+
+
+
+    <item
+      name="Talent"
+      name_rus="Тал"
+      name_eng="Tal"
+	name_ger="Tal"
+	title_rus="Талант"
+	title_eng="Talent"
+	title_ger=""
+      format="&lt;b&gt;"
+      order="Talent desc"
+      align="center"
+      count="avg">
+    </item> 
+
+    <item
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      count="avg">
+    </item>
+
+    <item
+      name="Morale1"
+      align="center"
+      name_rus="Мор"
+      order="Morale desc"
+      name_eng="Mor"
+	name_ger="Mor"      
+       tdstyle="width=15 background='http://butsa.ru/images/smiles/$Smile;.gif' title='$MoraleName; ($Morale;)' style='background-repeat:no-repeat;background-position:center center'"
+	title_rus="Мораль"
+	title_eng="Morale"
+	title_ger="Moral">
+    </item>
+
+    <item
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      format="&lt;b&gt;"
+      order="Skl desc"
+      align="center"
+      count="avg">
+    </item> 
+   
+
+    <item
+      name="Tck"
+      name_rus="От"
+      name_eng="Tk"
+	name_ger="Wn"
+      title_rus="Отбор"
+      title_eng="Tackling"
+	title_ger="Wegnahme"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Mrk"
+      name_rus="Оп"
+      name_eng="Mr"
+	name_ger="Bg"
+      title_rus="Опека"
+      title_eng="Marking"
+	title_ger="Begleitung"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Drb"
+      name_rus="Др"
+      name_eng="Dr"
+	name_ger="Dr"
+      title_rus="Дриблинг"
+      title_eng="Dribbling"
+	title_ger="Dribbling"
+      align="right"
+      count="avg">
+    </item> 
+
+
+
+    <item
+      name="Rcv"
+      name_rus="Пм"
+      name_eng="Rv"
+	name_ger="Be"
+      title_rus="Прием мяча"
+      title_eng="Recieving"
+	title_ger="Ballempfang"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Edu"
+      name_rus="Вн"
+      name_eng="Ed"
+	name_ger="Th"
+      title_rus="Выносливость"
+      title_eng="Endurance"
+	title_ger="Tempohaerte"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Pas"
+      name_rus="Пс"
+      name_eng="Ps"
+	name_ger="Ps"
+      title_rus="Пас"
+      title_eng="Passing"
+	title_ger="Pass"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Shp"
+      name_rus="Сл"
+      name_eng="Sp"
+	name_ger="Sk"
+      title_rus="Сила удара"
+      title_eng="Shot Power"
+	title_ger="Schusskraft"
+      align="right"
+      count="avg">
+    </item> 
+
+    <item
+      name="Sha"
+      name_rus="Тч"
+      name_eng="Sa"
+	name_ger="Ts"
+      title_rus="Точность удара"
+      title_eng="Shot Accuracy"
+	title_ger="Treffsicherheit"
+      align="right"
+      count="avg">
+    </item> 
+
+   </header>
+
+
+ </list>
+
+<add select="select PlayerID, Name_rus as PlayerName,
+Position, OldPosition, WantedName as Player,
+Age, Talent, Stamina, Morale, DataLink as Comment,
+round(Skl) as Skl,
+round(Tck) as Tck,
+round(Mrk) as Mrk,
+round(Drb) as Drb,
+round(Rcv) as Rcv,
+round(Edu) as Edu,
+round(Pas) as Pas,
+round(Shp) as Shp,
+round(Sha) as Sha
+ from ut_players_school where dyushid='$auth->team;' and PlayerID='$id;'"
+error_rus="Игрок не найден"
+error_eng=" "
+error_ger=" "
+pagecount="100" cellpadding="2"
+hint_rus="Если вы хотите дать игроку другое имя, введите имя игрока и ссылку на источник данных о нем. Наличие ссылку ускорит процесс получения игрока. Если же вы хотите оставить сгенерированное имя у игрока, просто нажмите подтвердить">
+
+   <fields>
+
+    <field
+      name="PlayerID"
+      name_rus="ID"
+      name_eng="ID"
+      type="hidden">
+    </field>
+
+    <field
+      name="PlayerName"
+      name_rus="Имя"
+      name_eng="Name"
+      align="center"
+      type="label">
+    </field>
+
+    <field
+      name="Player"
+      name_rus="Желаемое имя"
+      name_eng="Wanted name"
+      align="center"
+      type="Tamplate">
+    </field>
+
+
+    <field
+      name="Comment"
+      name_rus="Источник данных"
+      name_eng="Link to player"
+      type="string">
+    </field>
+
+    <field
+      name="Position"
+      name_rus="Новая позиция"
+      name_eng="Position"
+      align="center"
+      type="list"
+      vars_rus="Gk;Ld;Cd;Rd;Lm;Cm;Rm;Lf;Cf;Rf">
+    </field>
+
+    <field
+      name="OldPosition"
+      name_rus="Старая позиция"
+      name_eng="Old Position"
+      align="center"
+      type="label">
+    </field>
+
+    <field
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent"
+      align="center"
+      type="label">
+    </field>
+
+
+    <field
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      type="label">
+    </field>
+
+    <field
+      name="Morale"
+      align="center"
+      name_rus="Мор"
+      name_eng="Mor"
+	name_ger="Mor"      
+	title_rus="Мораль"
+	title_eng="Morale"
+	title_ger="Moral"
+      type="label">
+    </field>
+
+    <field
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      align="center"
+      type="label">
+    </field> 
+   
+
+    <field
+      name="Tck"
+      name_rus="От"
+      name_eng="Tk"
+	name_ger="Wn"
+      title_rus="Отбор"
+      title_eng="Tackling"
+	title_ger="Wegnahme"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Mrk"
+      name_rus="Оп"
+      name_eng="Mr"
+	name_ger="Bg"
+      title_rus="Опека"
+      title_eng="Marking"
+	title_ger="Begleitung"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Drb"
+      name_rus="Др"
+      name_eng="Dr"
+	name_ger="Dr"
+      title_rus="Дриблинг"
+      title_eng="Dribbling"
+	title_ger="Dribbling"
+      align="center"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Rcv"
+      name_rus="Пм"
+      name_eng="Rv"
+	name_ger="Be"
+      title_rus="Прием мяча"
+      title_eng="Recieving"
+	title_ger="Ballempfang"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Edu"
+      name_rus="Вн"
+      name_eng="Ed"
+	name_ger="Th"
+      title_rus="Выносливость"
+      title_eng="Endurance"
+	title_ger="Tempohaerte"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Pas"
+      name_rus="Пс"
+      name_eng="Ps"
+	name_ger="Ps"
+      title_rus="Пас"
+      title_eng="Passing"
+	title_ger="Pass"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Shp"
+      name_rus="Сл"
+      name_eng="Sp"
+	name_ger="Sk"
+      title_rus="Сила удара"
+      title_eng="Shot Power"
+	title_ger="Schusskraft"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Sha"
+      name_rus="Тч"
+      name_eng="Sa"
+	name_ger="Ts"
+      title_rus="Точность удара"
+      title_eng="Shot Accuracy"
+	title_ger="Treffsicherheit"
+      align="center"
+      type="label">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm"
+       act="approve">
+   </button> 
+
+ </add>
+
+ <approve
+sql="set @error=if((select count(*) from ut_players_school 
+where DyushID=$auth->team; and Position&lt;>OldPosition)>=1
+ and 
+if(@Position;=1,'Gk',
+if(@Position;=2,'Ld',
+if(@Position;=3,'Cd',
+if(@Position;=4,'Rd',
+if(@Position;=5,'Lm',
+if(@Position;=6,'Cm',
+if(@Position;=7,'Rm',
+if(@Position;=8,'Lf',
+if(@Position;=9,'Cf','Rf')))))))))
+&lt;>(select OldPosition from ut_players_school where PlayerID=@PlayerID;)
+and @Position;&lt;>0
+,246,0)
+#set @error=if((select sum(approved) from ut_players_school where DyushID=$auth->team;)>=2,245,0)
+#update ut_players_school set WantedName=@Player;, Approved=1, TrainDate=unix_timestamp(), DataLink=@Comment;, TrStatus=0,
+Position =
+if(@Position;=0,Position,
+if(@Position;=1,'Gk',
+if(@Position;=2,'Ld',
+if(@Position;=3,'Cd',
+if(@Position;=4,'Rd',
+if(@Position;=5,'Lm',
+if(@Position;=6,'Cm',
+if(@Position;=7,'Rm',
+if(@Position;=8,'Lf',
+if(@Position;=9,'Cf','Rf'))))))))))
+
+ where PlayerID=@PlayerID;"
+	success_rus="Игрок выбран"
+	success_eng="Player was choosen"
+	error_rus="Ошибка"
+	error_eng="Error"
+	error_ger=" ">
+    <fields>
+    </fields>	
+
+ </approve>
+
+
+<remove select="select PlayerID, Name_rus as Player,
+Position
+, Age, Talent, Stamina, Morale,
+round(Skl) as Skl,
+round(Tck) as Tck,
+round(Mrk) as Mrk,
+round(Drb) as Drb,
+round(Rcv) as Rcv,
+round(Edu) as Edu,
+round(Pas) as Pas,
+round(Shp) as Shp,
+round(Sha) as Sha
+ from ut_players_school where dyushid='$auth->team;' and PlayerID='$id;'"
+error_rus="Игрок не найден"
+error_eng=" "
+error_ger=" "
+pagecount="100" cellpadding="2">
+
+   <fields>
+
+    <field
+      name="PlayerID"
+      name_rus="ID"
+      name_eng="ID"
+      type="hidden">
+    </field>
+
+    <field
+      name="Player"
+      name_rus="Имя"
+      name_eng="Name"
+      type="label">
+    </field>
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+      type="label">
+    </field>
+
+    <field
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent"
+      type="label">
+    </field>
+
+
+    <field
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      type="label">
+    </field>
+
+    <field
+      name="Morale"
+      align="center"
+      name_rus="Мор"
+      name_eng="Mor"
+	name_ger="Mor"      
+	title_rus="Мораль"
+	title_eng="Morale"
+	title_ger="Moral"
+      type="label">
+    </field>
+
+    <field
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      align="center"
+      type="label">
+    </field> 
+   
+
+    <field
+      name="Tck"
+      name_rus="От"
+      name_eng="Tk"
+	name_ger="Wn"
+      title_rus="Отбор"
+      title_eng="Tackling"
+	title_ger="Wegnahme"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Mrk"
+      name_rus="Оп"
+      name_eng="Mr"
+	name_ger="Bg"
+      title_rus="Опека"
+      title_eng="Marking"
+	title_ger="Begleitung"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Drb"
+      name_rus="Др"
+      name_eng="Dr"
+	name_ger="Dr"
+      title_rus="Дриблинг"
+      title_eng="Dribbling"
+	title_ger="Dribbling"
+      align="center"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Rcv"
+      name_rus="Пм"
+      name_eng="Rv"
+	name_ger="Be"
+      title_rus="Прием мяча"
+      title_eng="Recieving"
+	title_ger="Ballempfang"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Edu"
+      name_rus="Вн"
+      name_eng="Ed"
+	name_ger="Th"
+      title_rus="Выносливость"
+      title_eng="Endurance"
+	title_ger="Tempohaerte"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Pas"
+      name_rus="Пс"
+      name_eng="Ps"
+	name_ger="Ps"
+      title_rus="Пас"
+      title_eng="Passing"
+	title_ger="Pass"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Shp"
+      name_rus="Сл"
+      name_eng="Sp"
+	name_ger="Sk"
+      title_rus="Сила удара"
+      title_eng="Shot Power"
+	title_ger="Schusskraft"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Sha"
+      name_rus="Тч"
+      name_eng="Sa"
+	name_ger="Ts"
+      title_rus="Точность удара"
+      title_eng="Shot Accuracy"
+	title_ger="Treffsicherheit"
+      align="center"
+      type="label">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm"
+       act="approve2">
+   </button> 
+
+ </remove>
+
+
+ <approve2 sql="set @error=if((select DyushID from ut_players_school where PlayerID=$id;)&lt;>$auth->team;,182,0)
+#update ut_players_school set Approved=0, Position=OldPosition where PlayerID=$id;"
+	success_rus="Выбор отменен"
+	success_eng="Player removed from list"
+	error_rus="Ошибка"
+	error_eng="Error"
+	error_ger=" ">
+    <fields>
+    </fields>	
+
+ </approve2>
+
+
+<edit select="select PlayerID, Name_rus as PlayerName, WantedName as Player,
+Position, DataLink as Comment
+, Age, Talent, Stamina, Morale,
+round(Skl) as Skl,
+round(Tck) as Tck,
+round(Mrk) as Mrk,
+round(Drb) as Drb,
+round(Rcv) as Rcv,
+round(Edu) as Edu,
+round(Pas) as Pas,
+round(Shp) as Shp,
+round(Sha) as Sha,
+FPComment
+ from ut_players_school where dyushid='$auth->team;' and PlayerID='$id;'"
+error_rus="Игрок не найден"
+error_eng=" "
+error_ger=" "
+pagecount="100" cellpadding="2">
+
+   <fields>
+
+    <field
+      name="PlayerID"
+      name_rus="ID"
+      name_eng="ID"
+      type="hidden">
+    </field>
+
+    <field
+      name="PlayerName"
+      name_rus="Имя"
+      name_eng="Name"
+      type="label">
+    </field>
+
+    <field
+      name="Player"
+      name_rus="Жулаемое имя"
+      name_eng="Wanted name"
+      type="template">
+    </field>
+
+    <field
+      name="Comment"
+      name_rus="Источник данных"
+      name_eng="Link to player"
+      type="string">
+    </field>
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+      type="label">
+    </field>
+
+    <field
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent"
+      type="label">
+    </field>
+
+
+    <field
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+      align="center"
+      type="label">
+    </field>
+
+    <field
+      name="Morale"
+      align="center"
+      name_rus="Мор"
+      name_eng="Mor"
+	name_ger="Mor"      
+	title_rus="Мораль"
+	title_eng="Morale"
+	title_ger="Moral"
+      type="label">
+    </field>
+
+    <field
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+	name_ger="Mst"
+	title_rus="Мастерство"
+	title_eng=""
+	title_ger="Meisterschaft"
+      align="center"
+      type="label">
+    </field> 
+   
+
+    <field
+      name="Tck"
+      name_rus="От"
+      name_eng="Tk"
+	name_ger="Wn"
+      title_rus="Отбор"
+      title_eng="Tackling"
+	title_ger="Wegnahme"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Mrk"
+      name_rus="Оп"
+      name_eng="Mr"
+	name_ger="Bg"
+      title_rus="Опека"
+      title_eng="Marking"
+	title_ger="Begleitung"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Drb"
+      name_rus="Др"
+      name_eng="Dr"
+	name_ger="Dr"
+      title_rus="Дриблинг"
+      title_eng="Dribbling"
+	title_ger="Dribbling"
+      align="center"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Rcv"
+      name_rus="Пм"
+      name_eng="Rv"
+	name_ger="Be"
+      title_rus="Прием мяча"
+      title_eng="Recieving"
+	title_ger="Ballempfang"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Edu"
+      name_rus="Вн"
+      name_eng="Ed"
+	name_ger="Th"
+      title_rus="Выносливость"
+      title_eng="Endurance"
+	title_ger="Tempohaerte"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Pas"
+      name_rus="Пс"
+      name_eng="Ps"
+	name_ger="Ps"
+      title_rus="Пас"
+      title_eng="Passing"
+	title_ger="Pass"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Shp"
+      name_rus="Сл"
+      name_eng="Sp"
+	name_ger="Sk"
+      title_rus="Сила удара"
+      title_eng="Shot Power"
+	title_ger="Schusskraft"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="Sha"
+      name_rus="Тч"
+      name_eng="Sa"
+	name_ger="Ts"
+      title_rus="Точность удара"
+      title_eng="Shot Accuracy"
+	title_ger="Treffsicherheit"
+      align="center"
+      type="label">
+    </field> 
+
+    <field
+      name="FPComment"
+      name_rus="Комментарий ФП"
+      type="label">      
+     </field>
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm"
+       act="approve">
+   </button> 
+
+ </edit>
+
+
+</form>

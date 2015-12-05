@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_morale_types">
+
+ <create
+    sql="create table ut_morale_types (
+TypeID int auto_increment primary key, 
+Name_rus varchar(100),
+Name_eng varchar(100),
+Name_ger varchar(100),
+MinMorale tinyint,
+MaxMorale tinyint
+)"
+    success_rus="Таблица создана">
+ </create>
+
+ <drop
+    sql="drop table ut_morale_types"
+    success_rus="Таблица удалена">
+ </drop>
+
+ <insert
+    sql="insert into ut_morale_types (Name_rus,Name_eng,Name_ger,MinMorale,MaxMorale) values(
+   @Name_rus;,
+   @Name_eng;,
+   @Name_por;,
+   @MinMorale;,
+   @MaxMorale;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      MaxMoralelength="100"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      MaxMoralelength="100">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      type="string"
+      MaxMoralelength="100">
+    </field>
+
+    <field
+      name="MinMorale"
+      name_rus="От"
+      type="numeric">
+    </field>
+    <field
+      name="MaxMorale"
+      name_rus="До"
+      type="numeric">
+    </field> 
+</fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_morale_types">
+  <header>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      name_ger=""
+      lang="1">
+    </item>
+
+    <item
+      name="MinMorale"
+      name_rus="От"
+      name_eng=""
+      name_ger="">
+    </item>
+
+    <item
+      name="MaxMorale"
+      name_rus="До"
+      name_eng=""
+      name_ger="">
+    </item>
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+</select>
+
+<update
+    sql="update ut_morale_types set 
+Name_rus=@Name_rus;,
+Name_ger=@Name_ger;,
+Name_eng=@Name_eng;,
+MinMorale=@MinMorale;,
+MaxMorale=@MaxMorale;
+ where TypeID=@id;"
+
+ select="select * from ut_morale_types where TypeID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      MaxMoralelength="100"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      MaxMoralelength="100">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      type="string"
+      MaxMoralelength="100">
+    </field>
+
+    <field
+      name="MinMorale"
+      name_rus="От"
+      type="numeric">
+    </field>
+    <field
+      name="MaxMorale"
+      name_rus="До"
+      type="numeric">
+    </field> 
+</fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_morale_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

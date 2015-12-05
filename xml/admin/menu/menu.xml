@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<menu>
+   <toolbar 
+    height="30px" 
+bgcolor=""
+rowcolor=""
+
+
+    align="center"
+>
+
+     <item
+       name="/admin/index.php?type=main/news"
+       caption_eng="Main"
+       caption_rus="Главная"
+       caption_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/table-images"
+       caption_eng="Engine"
+       caption_rus="Движок"
+       caption_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=data/gladiator_types"
+       caption_eng="Data"
+       caption_rus="Данные"
+       caption_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=finance/types"
+       caption_eng="Finance"
+       caption_rus="Финансы"
+       caption_ger="">
+     </item>
+
+
+     <item
+       name="/xml/admin/moderation/support.php"
+       caption_eng="Moderation"
+       caption_rus="Модерация"
+       caption_ger="">
+     </item>
+
+  </toolbar>
+
+   <toolbar2 
+    height="30px" 
+    border="0"
+    align="center"
+    rowcolor="f3f3f3"
+    hcolor="e4e4e4"
+    bgcolor="black"
+    cellspacing="0"
+    cellpadding="2">
+
+  <main>
+
+
+     <item
+       name="/admin/index.php?type=main/news"
+      name_rus="Новости"
+      name_eng="News"
+      name_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=main/news_types"
+      name_rus="Типы новостей"
+      name_eng="News types"
+      name_ger="">
+     </item>
+
+
+     <item
+       name="/admin/index.php?type=main/screenshots"
+      name_rus="Скриншоты"
+      name_eng="Screenshots"
+      name_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=main/rules"
+      name_rus="Правила"
+      name_eng="Rules"
+      name_ger="">
+     </item>
+
+     <item
+       name="/admin/index.php?type=main/rules_types"
+      name_rus="Разделы правил"
+      name_eng="Rules types"
+      name_ger="">
+     </item>
+
+  </main>
+
+  <engine>
+
+
+     <item
+       name="/admin/index.php?type=engine/menu"
+       name_eng="Menu"
+       name_ger=""
+       name_rus="Меню">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/tags"
+       caption_eng="Pages"
+       caption_rus="Страницы"
+       caption_ger="">
+     </item>
+
+
+     <item
+       name="/admin/index.php?type=engine/permissions"
+       name_eng="Access permissions"
+       name_ger=""
+       name_rus="Привилегии">
+     </item>
+
+
+     <item
+       name="/admin/index.php?type=engine/post_types"
+       name_eng="Posts"
+       name_ger=""
+       name_rus="Должности">
+     </item>
+
+
+     <item
+       name="/admin/index.php?type=engine/structures"
+       name_eng="Structures"
+       name_ger=""
+       name_rus="Структуры">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/mail"
+       name_eng="Mail"
+       name_rus="Почта">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/templates"
+       name_eng="Templates"
+       name_rus="Шаблоны">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/messages"
+       name_eng="Messages"
+       name_ger="Nachrichten"
+       name_rus="Строки">
+     </item>
+
+     <item
+       name="/admin/index.php?type=engine/system"
+       name_eng="System"
+       name_rus="Системные">
+     </item>
+
+
+
+  </engine>
+
+  <data>
+
+     <item
+       name="/admin/index.php?type=data/gladiator_types"
+       caption_eng="Gladiator types"
+       caption_rus="Типы гладиаторов"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=data/gladiator_countries"
+       caption_eng="Slaves"
+       caption_rus="Рабы"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=data/gladiator_countries2"
+       caption_eng="Mercenaries"
+       caption_rus="Наемники"
+       caption_ger="">
+    </item>
+
+
+     <item
+       name="/admin/index.php?type=data/bonus_types"
+       caption_eng="Bonuses"
+       caption_rus="Бонусы"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=data/bonus_countries"
+       caption_eng="Bonuses for countries"
+       caption_rus="Бонусы по странам"
+       caption_ger="">
+    </item>
+
+
+     <item
+       name="/admin/index.php?type=data/holidays"
+       caption_eng="Holidays"
+       caption_rus="Праздники"
+       caption_ger="">
+    </item>
+
+
+  </data>
+
+  <finance>
+
+     <item
+       name="/admin/index.php?type=finance/types"
+       caption_eng="Operation types"
+       caption_rus="Типы операций"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=finance/buildings_info"
+       caption_eng="Buildings"
+       caption_rus="Постройки"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=finance/staff_info"
+       caption_eng="Staff"
+       caption_rus="Персонал"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=finance/staff_conditions"
+       caption_eng="Staff conditions"
+       caption_rus="Условия для спецов"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=finance/gladiators_conditions"
+       caption_eng="Gladiators conditions"
+       caption_rus="Условия для бойцов"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=finance/buildings_conditions"
+       caption_eng="Buildings conditions"
+       caption_rus="Условия построек"
+       caption_ger="">
+    </item>
+
+
+  </finance>
+
+
+  <moderation>
+
+     <item
+       name="/xml/admin/moderation/support.php"
+       caption_eng="Support"
+       caption_rus="Поддержка"
+       caption_ger="">
+    </item>
+
+
+     <item
+       name="/admin/index.php?type=moderation/question_types"
+       caption_eng="Question types"
+       caption_rus="Типы вопросов"
+       caption_ger="">
+    </item>
+
+     <item
+       name="/admin/index.php?type=moderation/avatars"
+       caption_eng="Avatars"
+       caption_rus="Аватары"
+       caption_ger="">
+    </item>
+
+
+
+  </moderation>
+
+  <misc>
+
+     <item
+       name="/admin/index.php?type=misc/polls"
+       caption_eng="Polls"
+       caption_rus="Вопросы"
+       caption_ger="">
+    </item>
+
+
+  </misc>
+
+ </toolbar2>
+</menu>

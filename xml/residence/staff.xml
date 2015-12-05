@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="tm_staff" privacy="1" title_rus="Персонал" title_eng="Staff" banner="1" width="100%"
+
+empty_rus="У Вас нет специалистов в найме. 
+&lt;br&gt;&lt;br&gt;1. Для найма специалиста, выберите необходимого специалиста из &lt;b>списка слева&lt;/b> и нажмите на него. 
+&lt;br&gt;&lt;br&gt;2. Затем, на открывшейся странице выберите &lt;b>уровень специалиста&lt;/b> 
+для просмотра подробной информации. 
+&lt;br&gt;&lt;br&gt;3. Выбрав необходимый уровень, нажмите кнопку &lt;b>&quot;Нанять&quot;&lt;/b>, затем 
+&lt;b>&quot;Подтвердить&quot;&lt;/b>."
+
+empty_eng="You don't have any employees hired"
+>
+ <list hint_rus="Для найма большинства специалистов необходимо иметь &lt;a href=/xml/residence/buildings.php>постройку&lt;/a> соответствующего уровня, в которой он сможет работать.&lt;br&gt;&lt;br&gt;Нанятые специалисты ежедневно получают от Вас зарплату, указанную в их информации.">
+ </list>
+
+ <info width="100%" sql="set @StaffID=(select StaffID from fn_staff_info where InfoID=@InfoID;)
+#^fire('$auth->user;','$StaffID;');"
+   success_rus="Специалист уволен"
+   success_eng="Employee fired"
+   redirect="staff.php?id=$StaffID;&amp;fire=1">
+
+   <fields>
+
+    <field
+      name="InfoID"
+      type="hidden">$InfoID;
+    </field> 
+
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">$Name;
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">$Level;
+    </field> 
+
+
+    <field
+      name="Staff"
+      name_rus="Описание"
+      name_eng="Description"
+      needed="1"
+      type="label">$Comments;
+    </field> 
+
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      needed="1"
+      name_eng="Price"
+      type="dots">$Price;
+    </field> 
+
+    <field
+      name="Salary"
+      name_rus="Зарплата"
+      needed="1"
+      name_eng="Salary"
+      type="dots">Salary;
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Уволить"
+       name_eng="Fire"
+       act="fire2">
+   </button> 
+
+ </info>
+
+
+ <fire2 width="100%">
+
+   <fields>
+
+    <field
+      name="InfoID"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Staff"
+      name_rus="Описание"
+      name_eng="Description"
+      needed="1"
+      type="label">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Уволить"
+       name_eng="Fire"
+       act="info">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+       type="return">
+   </button> 
+
+
+ </fire2>
+
+ <hire hint_rus="Выберите уровень специалиста для просмотра подробной информации. Затем нажмите кнопку &quot;Нанять&quot; для найма. 
+&lt;br>&lt;br>Чтобы заменить нанятого специалиста на специалиста другого уровня, Вам необходимо сначала уволить его."
+    sql="set @er=(select $lang; from lk_messages where MessageID=84)
+
+#set @StaffID = (select StaffID from fn_staff_info where InfoID=@InfoID;)
+#set @error=(SELECT GROUP_CONCAT(if((BuildingID,Level) in (select b.BuildingID,b.Level from tm_buildings b where b.UserID='$auth->user;'),null,concat(@er,': ',Name_$lang;,'-',Level))  SEPARATOR ', ')
+FROM fn_staff_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.StaffID=@InfoID;)
+#set @error=if(@InfoID;='0',82,'')
+#set @Price = (select Price from fn_staff_info where InfoID=@InfoID;)
+#set @error=if(@StaffID>0,0,83)
+
+#set @error=if('$auth->money;'-@Price > 0,'',67)
+#set @error=if((select StaffID from tm_staff where UserID='$auth->user;' and StaffID=@StaffID limit 0,1)>0,88,'')
+#^hire('$auth->user;','$StaffID;','$Level;','$Price;','$InfoID;');"
+    success_rus="Специалист нанят!"
+    success_eng="The employee hired"
+    button="Submit"
+    width="100%">
+
+
+   <fields>
+
+
+    <field
+      name="id"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">$Name;
+    </field> 
+
+    <field
+      name="Lev"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+horizontal="1"
+      default="0"
+format=" onclick=&quot;document.getElementById('staffinfo').innerHTML='&lt;center>загрузка...&lt;/center>';xajax_getform('staffinfo','residence/staff','hire2',this.value)&quot;"
+      sql="select InfoID,Level from fn_staff_info where StaffID='$StaffID;' and (Level&lt;&gt;'$HaveLevel;' or '$HaveLevel;'='') order by Level"
+      type="sqlradio">
+    </field> 
+
+
+   </fields>
+
+ </hire>
+
+ <hire2
+    sql="set @error=if(@InfoID;='0',82,'')"
+    width="100%"
+select="select StaffID,Level,Name_$lang; Name from fn_staff_info where InfoID='$InfoID;'"
+    short="1">
+
+
+   <fields>
+
+
+    <field
+      name="id"
+      type="hidden">$StaffID;
+    </field> 
+
+    <field
+      name="Level"
+      type="hidden">
+    </field> 
+
+    <field
+      name="InfoID"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Needed"
+      name_rus="Необходимо"
+      name_eng="Needed"
+      needed="1"
+      sql="SELECT GROUP_CONCAT('&lt;a href=/xml/residence/buildings.php?id=',BuildingID,'>',CONCAT(if((BuildingID,Level) in (select b.BuildingID,b.Level from tm_buildings b where b.UserID='$auth->user;'),'','&lt;font color=red&gt;'),Name_$lang;,'-',Level,'&lt;/a>&lt;/font&gt;')  SEPARATOR ', ')
+FROM fn_staff_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.StaffID=@InfoID;"
+      type="label">
+    </field> 
+
+    <field
+      name="Staff"
+      name_rus="Информация"
+      name_eng="Info"
+      needed="1"
+      sql="select Comments_$lang; from fn_staff_info where InfoID='$InfoID;'"
+      type="label">
+    </field> 
+
+    <field
+      name="Money"
+      needed="1"
+      type="template">
+    </field>
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      needed="1"
+      name_eng="Price"
+      sql="select Price from fn_staff_info where InfoID=@InfoID;"
+      type="dots">
+    </field> 
+
+    <field
+      name="Salary"
+      name_rus="Зарплата в день"
+      needed="1"
+      name_eng="Salary"
+      sql="select Salary from fn_staff_info where InfoID=@InfoID;"
+      type="dots">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Нанять"
+       name_eng="Hire"
+       act="hire">
+   </button> 
+
+
+ </hire2>
+
+</form>

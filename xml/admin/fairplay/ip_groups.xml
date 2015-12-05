@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fp_ip_groups">
+
+ <create
+    sql="create table fp_ip_groups (
+GroupID int auto_increment primary key, 
+IP varchar(32),
+Comment text,
+UserID int)">
+ </create>
+
+ <insert
+    sql="insert into fp_ip_groups (IP, Comment, UserID) values(
+   @IP;,
+   @Comment;,
+   @UserID;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+      <field
+      name="IP"
+      name_rus="IP"
+      name_eng="IP"
+      maxlength="32"
+      type="string"
+      needed="1">
+    </field>
+
+
+     <field
+      name="Comment"
+      name_rus="Коментарии"
+      name_eng="Comment"
+      type="text"
+      needed="1">
+    </field>
+
+
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select g.*,u.Login as User from fp_ip_groups g left outer join ut_users u on u.UserID=g.UserID">
+<header>
+
+    <item
+      name="GroupID"
+      name_rus="ID"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="IP"
+      name_rus="IP"
+      name_eng="IP">
+    </item> 
+
+    <item
+      name="Comment"
+      name_rus="Коментарии"
+      name_eng="Comment">
+    </item> 
+    
+
+     <item
+      name="User"
+      name_rus="Координатор"
+      name_eng="User">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update fp_ip_groups set 
+IP=@IP;,
+Comment=@Comment;,
+UserID=@UserID;
+ where GroupID=@id;"
+
+ select="select * from fp_ip_groups where GroupID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+      <field
+      name="IP"
+      name_rus="IP"
+      name_eng="IP"
+      maxlength="32"
+      type="string"
+      needed="1">
+    </field>
+
+
+     <field
+      name="Comment"
+      name_rus="Коментарии"
+      name_eng="Comment"
+      type="text"
+      needed="1">
+    </field>
+
+
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+    </field>
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fp_ip_groups where GroupID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

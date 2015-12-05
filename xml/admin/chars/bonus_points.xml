@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_bonus_points">
+
+ <create
+    sql="create table ut_bonus_points (
+PointID int primary key,
+Points int)"
+    success_rus="Таблица создана">
+ </create>
+
+ <drop
+    sql="drop table ut_bonus_points"
+    success_rus="Таблица удалена">
+ </drop>
+
+ <insert
+    sql="insert into ut_bonus_points (Points) values(
+   @Points;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+
+    <field
+      name="Points"
+      name_rus="Очки"
+      type="numeric"
+      needed="1">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_bonus_points order by Points">
+  <header>
+    
+
+
+     <item
+      name="PointID"
+      name_rus="Номер">
+    </item>
+
+     <item
+      name="Points"
+      name_rus="Очки">
+    </item>
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+</select>
+
+<update
+    sql="update ut_bonus_points set 
+Points=@Points;
+where PointID=@id;"
+
+ select="select * from ut_bonus_points where PointID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+    <field
+      name="PointID"
+      name_rus="Номер"
+      type="label">
+    </field>
+
+    <field
+      name="Points"
+      name_rus="Очки"
+      type="numeric"
+      needed="1">
+    </field>
+
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_bonus_points where PointID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="ut_positions"> 
+
+<create
+    sql="create table ut_positions (
+PositionID char(3) primary key,
+Name_rus varchar(40),
+Name_eng varchar(40),
+Name_ger varchar(40),
+Comment_rus varchar(255),
+Comment_eng varchar(255),
+Comment_ger varchar(255),
+Num tinyint, 
+Type tinyint)"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into ut_positions values(@PositionID;,@Name_rus;,@Name_eng;,@Name_ger;,@Comment_rus;,@Comment_eng;,@Comment_ger;,@Num;,@Type;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+   
+    <field
+      name="PositionID"
+      name_rus="Позиция"
+      name_eng="Position"
+      type="string"
+      maxlength="3"
+      size="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="40"
+      needed="1">
+    </field> 
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(анг)"
+      name_eng="Comment(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_ger"
+      name_rus="Комментарий(нем)"
+      name_eng="Comment(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+   <field
+      name="Num"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric"
+      needed="1">
+    </field> 
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+      vars_rus="позиция;совмещение">позиция
+      vars_eng="position;combination">position
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_positions order by Num asc, PositionID">
+
+   <header>
+
+    <item
+      name="Num"
+      name_rus=" "
+      name_eng=" ">
+    </item> 
+
+
+    <item
+      name="PositionID"
+      name_rus="Позиция"
+      name_eng="Position">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item type="edit"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_positions set  PositionID=@PositionID;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Num=@Num;,Type=@Type; where PositionID=@id;"
+    select="select * from ut_positions where PositionID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+   
+    <field
+      name="PositionID"
+      name_rus="Позиция"
+      name_eng="Position"
+      type="string"
+      maxlength="3"
+      size="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="40"
+      needed="1">
+    </field> 
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(анг)"
+      name_eng="Comment(eng)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="40">
+    </field> 
+    <field
+      name="Comment_ger"
+      name_rus="Комментарий(нем)"
+      name_eng="Comment(ger)"
+      type="string"
+      maxlength="255">
+    </field> 
+
+   <field
+      name="Num"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric"
+      needed="1">
+    </field> 
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+      vars_rus="позиция;совмещение">позиция
+      vars_eng="position;combination">position
+    </field> 
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_positions where PositionID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

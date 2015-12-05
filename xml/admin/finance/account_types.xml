@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_account_types">
+
+ <create
+    sql="CREATE TABLE `fn_account_types` (
+  `TypeID` int(11) NOT NULL default '0',
+  `Name_rus` varchar(30) NOT NULL,
+  `Name_eng` varchar(30) NOT NULL,
+  `Name_ger` varchar(30) NOT NULL,
+  PRIMARY KEY  (`TypeID`)
+) ENGINE=MyISAM DEFAULT CHARSET=cp1251;"
+    success_rus="Запись создана"
+    success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into fn_account_types values(@TypeID;,@Name_rus;,@Name_eng;,@Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="TypeID"
+      name_rus="Типы акаунтов"
+      name_eng="Type accounts"
+      type="numeric"
+      maxlength="30"
+      needed="1">0
+    </field> 
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select TypeID, Name_$lang; from fn_account_types order by TypeID">
+
+   <header>
+
+    <item
+      name="TypeID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update fn_account_types set TypeID=@TypeID;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger; where TypeID=@id;"
+
+    select="select * from fn_account_types  where TypeID=@id; order by TypeID"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+   <fields>
+
+
+    <field
+      name="TypeID"
+      name_rus="Типы Акаунтов"
+      name_eng="Type Account"
+      type="numeric"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+   
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_account_types where TepeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+ </delete>
+
+</form>

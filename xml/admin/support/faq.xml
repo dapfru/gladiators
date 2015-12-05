@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+<create
+ sql="CREATE TABLE sp_faq(
+            QuestionID int auto_increment primary key,
+            Question_rus varchar(255),
+            Question_eng varchar(255),
+            Question_ger varchar(255),
+            Answer_rus text,
+            Answer_eng text,
+            Answer_ger text,
+            TypeID int );"
+            success_rus="Запись создана"
+            success_eng="Record created">
+ </create>
+
+ <insert
+    sql="insert into sp_faq(Question_rus, Question_eng, Question_ger, Answer_rus, Answer_eng, Answer_ger,TypeID) values(
+	@Question_rus;,
+	@Question_eng;,
+	@Question_ger;,
+	@Answer_rus;,
+	@Answer_eng;,
+	@Answer_ger;,
+	@TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+    <field
+      name="Question_rus"
+      name_rus="Вопрос (рус)"
+      name_eng="Question (rus)"
+      type="string"
+      maxsize="255"
+      needed="1">
+    </field>
+
+     <field
+      name="Answer_rus"
+      name_rus="Ответ (рус)"
+      name_eng="Answer (rus)"
+      type="text"
+      needed="1">
+    </field>
+
+    <field
+      name="TypeID"
+      name_rus="Тема"
+      name_eng="Theme"
+      type="sqlist"
+      sql="select * from sp_question_types"
+      needed="1">
+    </field>
+
+	
+    <field
+      name="Question_eng"
+      name_rus="Вопрос (анг)"
+      name_eng="Question (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Answer_eng"
+      name_rus="Ответ (анг)"
+      name_eng="Answer (eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Question_ger"
+      name_rus="Вопрос (нем)"
+      name_eng="Question (ger)"
+      type="string"
+      maxsize="50"> 
+    </field>
+
+    <field
+      name="Answer_ger"
+      name_rus="Ответ (нем)"
+      name_eng="Answer (ger)"
+      type="text">
+    </field>
+
+   </fields>
+
+    
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select s.*,t.Name_$lang; 
+ as Theme from sp_faq s left outer join sp_question_types t on t.TypeID=s.TypeID
+ order by Theme, s.Question_$lang;">
+
+	
+<header>
+		
+    <item
+      name="Question"
+      name_rus="Вопрос"
+      name_eng="Question"
+      lang="1">
+    </item>	
+
+    <item
+      name="Theme"
+      name_rus="Тема"
+      name_eng="Theme">
+    </item>	
+
+   
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update sp_faq set 
+	Question_rus=@Question_rus;,
+	Question_eng=@Question_eng;,
+	Question_ger=@Question_ger;,
+	Answer_rus=@Answer_rus;,
+	Answer_eng=@Answer_eng;,
+	Answer_ger=@Answer_ger;,
+	TypeID=@TypeID;
+	where QuestionID=@id;"
+    select="select * from sp_faq where QuestionID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+    <field
+      name="Question_rus"
+      name_rus="Вопрос (рус)"
+      name_eng="Question (rus)"
+      type="string"
+      maxsize="255"
+      needed="1">
+    </field>
+
+     <field
+      name="Answer_rus"
+      name_rus="Ответ (рус)"
+      name_eng="Answer (rus)"
+      type="text"
+      needed="1">
+    </field>
+
+    <field
+      name="TypeID"
+      name_rus="Тема"
+      name_eng="Theme"
+      type="sqlist"
+      sql="select * from sp_question_types"
+      needed="1">
+    </field>
+
+	
+    <field
+      name="Question_eng"
+      name_rus="Вопрос (анг)"
+      name_eng="Question (eng)"
+      type="string"
+      maxsize="50">
+    </field>
+
+    <field
+      name="Answer_eng"
+      name_rus="Ответ (анг)"
+      name_eng="Answer (eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Question_ger"
+      name_rus="Вопрос (нем)"
+      name_eng="Question (ger)"
+      type="string"
+      maxsize="50"> 
+    </field>
+
+    <field
+      name="Answer_ger"
+      name_rus="Ответ (нем)"
+      name_eng="Answer (ger)"
+      type="text">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from sp_faq where QuestionID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ft_agreements">
+
+
+
+
+<my 
+sql="update ft_agreements set StatusID=1 where RecordID='$RecordID;'"
+select="select *,if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad from ft_agreements f
+where UserID1='$auth->user;' and StatusID=0 limit 0,1">
+
+   <fields>
+
+
+
+    <field
+      name="TypeID"
+      name_rus="Тип боя"
+      type="listlabel"
+	vars_rus="Сражение;Поединок;Серия поединков;Бой на выживание">
+    </field> 
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="label">
+    </field> 
+
+
+
+
+    <field
+      name="ExtraGlad"
+      name_rus="Разрешить лучников,&lt;br>конных и колесничих"
+      type="label">
+    </field> 
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="label">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="label">
+    </field> 
+
+    <field
+      name="RecordID"
+      type="hidden">
+    </field> 
+
+
+   </fields>
+
+
+   <button
+       name_rus="Отказаться"
+       name_eng="Cancel">
+   </button> 
+
+
+ </my>
+
+
+<battles  
+
+
+sql="select f.*,concat('&lt;a href=/users/',u.UserID,'>',u.Login,'&lt;/a>') Login,
+concat(LimitGlad,' (',f.GladCount,')') LimitGlad,
+concat(LimitSkl,' (',f.GladSkl,')') LimitSkl,
+
+if(UserID2 is not null,concat('&lt;a href=arena.php?id=',f.RecordID,'&amp;act=battles&amp;step=1>',concat('&lt;a href=/users/',u2.UserID,'>','» ',u2.Login,'&lt;/a>'),'&lt;/a>'),
+if(UserID1='$auth->user;',
+'',concat('&lt;a href=arena.php?id=',f.RecordID,'&amp;act=battles&amp;step=1>','вызвать »','&lt;/a>'))) as Check1,
+
+concat(round((unix_timestamp()-f.Date)/60),' мин.') Min,
+
+if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad
+ from ft_agreements f
+join ut_users u on f.UserID1=u.UserID
+left outer join ut_users u2 on f.UserID2=u2.UserID
+where TypeID='$typeid;'   and StatusID=0
+order by Date desc"
+pagecount="50" maxpages="10" width="100%">
+
+   <header>
+
+
+ 
+
+
+    <item
+      name="Login"
+      name_rus="Пользователь"
+      name_eng="User"
+      type="label">
+    </item> 
+
+
+    <item
+      name="Win" align="center"
+      name_rus="В"
+      name_eng="W"
+      title_rus="Количество выигранных боев"
+      type="label">
+    </item> 
+
+
+    <item
+      name="Lose" align="center"
+      name_rus="П"
+      name_eng="L"
+      title_rus="Количество проигранных боев"
+      type="label">
+    </item> 
+
+
+
+    <item
+      name="Tie" align="center"
+      name_rus="Н"
+      name_eng="T"
+      title_rus="Количество ничьих"
+      type="label">
+    </item> 
+
+
+
+    <item align="center"
+      name="Timeout"
+      name_rus="Таймаут"
+      type="label">
+    </item> 
+
+
+
+    <item align="center"
+      name="ExtraGlad"
+      name_rus="Спец" title_rus="Разрешены специальные типы гладиаторов (лучники, конные и колесничьи)"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitGlad"
+      name_rus="Глад" title_rus="Максимальное количество гладиаторов в заявке и полное число нетравмированных гладиаторов в отряде"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitSkl"
+      name_rus="Уровень" title_rus="Максимальный суммарный уровень гладиаторов в заявке и суммарный уровень нетравмированных гладиаторов в Вашем отряде"
+      type="label">0
+    </item> 
+
+    <item align="center"
+      name="Min"
+      name_rus="Ждёт" 
+      type="label">
+    </item> 
+
+    <item 
+      name="RecordID"
+      type="hidden">
+    </item> 
+
+    <item 
+      name="Check1"
+	name_rus=" "
+      type="label">
+    </item> 
+
+
+   </header>
+
+
+ </battles>
+
+
+
+   <battlesapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;' and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @Timeout=if(@Timeout;='',20,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl,Win,Lose,Tie,GladCount,GladSkl)
+values(@Date;,'$auth->user;',1,@Timeout,0,@ExtraGlad;,@LimitGlad,@LimitSkl;,'$auth->rst[Win];','$auth->rst[Lose];','$auth->rst[Tie];','$GladCount;','$GladSkl;')"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="5" max="120" >20
+    </field> 
+
+
+
+
+
+    <field
+      name="ExtraGlad"
+      name_rus="Разрешить лучников,&lt;br>конных и колесничих"
+      type="checkbox">
+    </field> 
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+
+      type="numeric" max="7" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </battlesapp>
+
+
+
+   <duelsapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;' and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @Timeout=if(@Timeout;='',20,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl)
+values(@Date;,'$auth->user;',2,@Timeout,0,0,1,@LimitSkl;)"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="5" max="120" >20
+    </field> 
+
+
+
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </duelsapp>
+
+
+
+   <seriesapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;'  and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @error=if((select @LimitGlad mod 2)=0,'Количество гладиаторов должно быть нечетным',0)
+#set @Timeout=if(@Timeout;='',20,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl)
+values(@Date;,'$auth->user;',3,@Timeout,0,0,@LimitGlad,@LimitSkl;)"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="5" max="120" >20
+    </field> 
+
+
+
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="numeric" max="7" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </seriesapp>
+
+
+
+   <survivalapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;'  and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @Timeout=if(@Timeout;='',20,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl)
+values(@Date;,'$auth->user;',4,@Timeout,0,0,@LimitGlad,@LimitSkl;)"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="5" max="120" >20
+    </field> 
+
+
+
+
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="numeric" max="7" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </survivalapp>
+
+</form>

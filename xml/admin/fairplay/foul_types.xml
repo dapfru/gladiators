@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fp_foul_types">
+
+ <create
+    sql="create table fp_foul_types (
+TypeID int auto_increment primary key, 
+Name_rus varchar(100),
+Name_eng varchar(100),
+Name_ger varchar(100),
+Comment_rus text,
+Comment_eng text,
+Comment_ger text,
+Fee int,
+Ban tinyint,
+Level tinyint)">
+ </create>
+ <insert
+    sql="insert into fp_foul_types (Name_rus, Name_eng, Name_ger, Comment_rus, Comment_eng, Comment_ger, Fee, Ban, Level) values(
+   @Name_rus;,
+   @Name_eng;,
+   @Name_ger;,
+   @Comment_rus;,
+   @Comment_eng;,
+   @Comment_ger;,
+   @Fee;,
+   @Ban;,
+   @Level;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+<fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      maxlength="100"
+      type="string"
+      needed="1">
+    </field>
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="text">
+    </field>
+
+    <field
+      name="Fee"
+      name_rus="Штраф"
+      name_eng="Fee"
+      type="numeric"
+      size="15">0
+    </field>
+
+    <field
+      name="Ban"
+      name_rus="Бан(дней)"
+      name_eng="Ban(day)"
+      type="numeric"
+      max="84">0
+    </field>
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="list"
+      vars_eng="0;1;2;3"
+      vars_rus="0;1;2;3"
+      needed="1">0
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      maxlength="100"
+      type="string">
+    </field>
+
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      maxlength="100"
+      type="string">
+    </field>
+
+
+     <field
+      name="Comment_ger"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(ger)"
+      type="text">
+    </field>
+
+
+</fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="
+select * from fp_foul_types">
+<header>
+    <item
+      name="TypeID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment"
+      lang="1">
+    </item> 
+
+
+     <item
+      name="Fee"
+      name_rus="Штраф"
+      name_eng="Fee">
+    </item>
+
+     <item
+      name="Ban"
+      name_rus="Бан"
+      name_eng="Ban">
+    </item>
+
+     <item
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update fp_foul_types set 
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Comment_rus=@Comment_rus;,
+Comment_eng=@Comment_eng;,
+Comment_ger=@Comment_ger;,
+Fee=@Fee ;,
+Ban=@Ban;,
+Level=@Level;
+
+where TypeID=@id;"
+
+ select="select * from fp_foul_types where TypeID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+<fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      maxlength="100"
+      type="string"
+      needed="1">
+    </field>
+    <field
+      name="Comment_rus"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(rus)"
+      type="text">
+    </field>
+
+    <field
+      name="Fee"
+      name_rus="Штраф"
+      name_eng="Fee"
+      type="numeric"
+      size="15">0
+    </field>
+
+    <field
+      name="Ban"
+      name_rus="Бан(дней)"
+      name_eng="Ban(day)"
+      type="numeric"
+      max="84">0
+    </field>
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="list"
+      vars_eng="0;1;2;3"
+      vars_rus="0;1;2;3"
+      needed="1">0
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      maxlength="100"
+      type="string">
+    </field>
+
+    <field
+      name="Comment_eng"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      maxlength="100"
+      type="string">
+    </field>
+
+
+     <field
+      name="Comment_ger"
+      name_rus="Комментарий(рус)"
+      name_eng="Comment(ger)"
+      type="text">
+    </field>
+
+
+</fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fp_foul_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

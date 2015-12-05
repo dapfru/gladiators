@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ft_tournament_types">
+
+
+
+ <select pagecount="100" width="100%"
+
+    sql="select t.*,concat('&lt;a href=/users/',u.UserID,'>',u.Login,'&lt;/a>') User from ft_tournament_types t
+left outer join ut_users u using(UserID)
+ order by t.Date desc">
+   <header>
+
+    <item
+      name="TournamentTypeID"
+      type="hidden">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+
+
+    <item
+      name="User"
+      name_rus="Создан"
+      name_eng="Created by">
+    </item> 
+
+
+    <item
+      name="Date"
+      name_rus="Дата" type="date"
+      name_eng="Date" format="d.m.Y H:i">
+    </item> 
+
+    <item
+      name="NumPlayers"
+      name_rus="Игроков"
+      name_eng="Players">
+    </item> 
+
+    <item
+      name="NumStages"
+      name_rus="Стадий"
+      name_eng="Stages">
+    </item> 
+
+    <item
+      name="NumTours"
+      name_rus="Туров"
+      name_eng="Tours">
+    </item> 
+
+    <item
+      name="NumFights"
+      name_rus="Боев"
+      name_eng="Fights">
+    </item> 
+
+    <item
+      name="TotalTime"
+      name_rus="Время"
+      name_eng="Time">
+    </item> 
+
+    <item type="edit"/>
+    <item type="delete"/>
+
+
+   </header>
+
+
+
+
+ </select>
+
+
+
+ <insert width="100%"
+    sql="set @a=@Name;
+#set @i=@Image;
+#^create_tournament();"
+
+    success_rus="Турнир создан!"
+    success_eng="Tournament created">
+
+   <fields>
+
+
+     <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      type="string"
+      maxlength="50" size="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Prize"
+      name_rus="Призовой фонд"
+      name_eng="Prize fond"
+      type="numeric" size="10">
+    </field>
+
+
+
+    <field
+      name="Description"
+      name_rus="Дополнительная информация" cols="50" rows="5"
+      name_eng="Additional information"
+      type="text">
+    </field>
+   
+
+    <field
+      name="Image"
+      name_rus="Иллюстрация"
+      name_eng="Illustration"
+	width="100"
+      type="image">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Продолжить"
+       name_eng="Continue">
+   </button> 
+
+ </insert>
+
+
+
+ <delete
+    sql="delete from ft_reglaments where StageID in (select StageID from ft_stages where TournamentTypeID=@id;)
+#delete from ft_stages where TournamentTypeID=@id
+#delete from ft_tournament_types where TournamentTypeID=@id"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

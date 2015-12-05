@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  title_rus="Новости" title_eng="News">
+
+ <browse sql="select MaterialID,Date,Headline_$lang; as Headline,
+ Name_$lang; as Title, Message_$lang; as Message,'подробнее' podr, Small from ut_materials where TypeID=7 order by Date desc"
+pagecount="5"
+empty_rus="Новость не найдена">
+
+<![CDATA[
+
+
+            <table cellspacing="10" cellpadding="0" width="100%" border="0">
+                    <tr>
+                        <td valign="top" align="center" width="130"><img alt="" width="69" src="$site_url;images/ut_materials/small/$MaterialID;.jpg" /></td>
+                        <td valign="top">
+                        <h5>$Name;</h5>
+                        <p>$Title;</p>
+                        <p align="right"><a class="lnk" href="$site_url;page.php?id=12&news=$MaterialID;">$podr;</a></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+<br>
+
+
+]]>
+
+  <header>
+
+<item name="Title"/>
+<item name="Headline"/>
+<item name="Message"/>
+
+   </header>
+
+
+
+ </browse>
+
+
+ <message select="select MaterialID,Date,Headline_$lang; as Headline,
+ Name_$lang; as Title, Message_$lang; as Message, Small from ut_materials where MaterialID='$news;'"
+error_rus="Новость не найдена">
+
+<![CDATA[
+
+
+         <img alt="" src="$site_url;images/ut_materials/image/$MaterialID;.jpg" align="right"/>
+        
+                        $Headline;
+ <p>$Message;</p>
+
+<br>
+
+]]>
+
+  <fields>
+<item name="Title"/>
+<item name="Headline"/>
+<item name="Message"/>
+
+
+   </fields>
+
+
+
+ </message>
+
+</form>

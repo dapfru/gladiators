@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<menu>
+   <toolbar 
+height="30px"
+    border="0"
+    rowcolor=""
+    hcolor=""
+    bgcolor="f3f3f3"
+
+    cellspacing="0"
+    cellpadding="3">
+
+  
+
+  <engine>
+
+     <item
+       name="?type=engine/menu"
+       name_eng="Menu"
+       name_ger=""
+       name_rus="Меню">
+     </item>
+
+     <item
+       name="?type=engine/tags"
+       name_eng="Tags"
+       name_rus="Страницы">
+     </item>
+
+     <item
+       name="?type=engine/permissions"
+       name_eng="Permissions"
+       name_ger=""
+       name_rus="Права доступа">
+     </item>
+
+     <item
+       name="?type=engine/table-images"
+       name_eng="Image tables"
+       name_ger=""
+       name_rus="Иллюстрации">
+     </item>
+
+     <item
+       name="?type=engine/mail"
+       name_eng="Mail"
+       name_rus="Почта">
+     </item>
+
+     <item
+       name="?type=engine/search"
+       name_eng="Search"
+       name_ger=""
+       name_rus="Поиск">
+     </item>
+
+     <item
+       name="?type=engine/messages"
+       name_eng="Messages"
+       name_ger=""
+       name_rus="Сообщения">
+     </item>
+
+     <item
+       name="?type=engine/system"
+       name_eng="System Messages"
+       name_ger=""
+       name_rus="Системные сообщения">
+     </item>
+
+  </engine>
+
+
+
+  <media>
+
+
+     <item
+       name="?type=media/news"
+       name_eng="News"
+       name_rus="Новости">
+     </item>
+
+     <item
+       name="?type=media/novelties"
+       name_eng="Novelties"
+       name_rus="Новинки">
+     </item>
+
+     <item
+       name="?type=media/pages"
+       name_eng="Site pages"
+       name_rus="Разделы сайта">
+     </item>
+
+     <item
+       name="?type=media/documents"
+       name_eng="Documents"
+       name_ger=""
+       name_rus="Документация">
+     </item>
+
+     <item
+       name="?type=media/programs"
+       name_eng="Programs"
+       name_ger=""
+       name_rus="Программы">
+     </item>
+
+     <item
+       name="?type=media/texts"
+       name_eng="Texts"
+       name_ger=""
+       name_rus="Тексты">
+     </item>
+
+  </media>
+
+
+   <data>
+
+
+
+     <item
+       name="?type=data/product_types"
+       name_eng="Product types"
+       name_rus="Типы продукции">
+     </item>
+
+     <item
+       name="?type=data/products"
+       name_eng="Products"
+       name_rus="Продукция">
+     </item>
+
+     <item
+       name="?type=data/partners"
+       name_eng="Partners"
+       name_rus="Партнеры">
+     </item>
+
+     <item
+       name="?type=data/workers"
+       name_eng="Workers"
+       name_rus="Сотрудники">
+     </item>
+
+     <item
+       name="?type=data/posts"
+       name_eng="Posts"
+       name_rus="Должности">
+     </item>
+
+     <item
+       name="?type=data/screenshots"
+       name_eng="Screenshots"
+       name_rus="Графика">
+     </item>
+
+     <item
+       name="?type=data/galleries"
+       name_eng="Galleries"
+       name_rus="Галереи">
+     </item>
+
+   </data>
+
+ 
+
+  </toolbar>
+
+
+
+</menu>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiators" showlogo="1" mixcolor="3B484C">
+
+
+
+<select sql="select"
+pagecount="50" maxpages="50" width="100%"
+empty_rus="В отряде нет гладиаторов. Вы можете отправиться в город и &lt;a href=/xml/city/market.php>купить раба на рынке&lt;/a>."
+empty_eng="No gladiators found"
+empty_ger=""
+serialize="^get_gladiators('$user;');">
+
+   <header>
+
+     <item
+      name="Num"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Type"
+      type="template">
+    </item> 
+   
+
+    <item
+      name="Gladiator" 
+      order="Name"
+      type="template">
+    </item> 
+
+    <item
+      name="HealthBar" name_rus=" " name_eng=" " name_ger=" "
+
+tdstyle="width=1px background='/images/health/$bar;.gif'  style='background-repeat:no-repeat;background-position:center center'">
+    </item>
+
+
+    <item
+      name="Health" 
+      type="template"
+      count="avg" 	>
+    </item>
+
+
+
+
+    <item
+      name="Age"
+      type="template"
+      count="avg">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template"
+      count="avg">
+    </item> 
+
+
+    <item
+      name="Vit"
+      type="template"
+      count="avg">
+    </item>
+
+
+    <item
+      name="Dex"
+      type="template"
+      count="avg">
+    </item>
+
+    <item
+      name="Acc"
+      type="template"
+      count="avg">
+    </item>
+
+    <item
+      name="Str"
+      type="template"
+      count="avg">
+    </item>
+  
+
+
+    <item
+      name="Price"
+      type="template"
+      count="sum">
+    </item>
+
+   </header>
+
+
+ </select>
+
+
+
+<recovery sql="select"
+hint_rus="Специалисты устают при работе и восстанавливают свою работоспособность по ходу дня."
+pagecount="50" maxpages="50" width="100%"
+empty_rus="В отряде нет гладиаторов"
+empty_eng="No gladiators found"
+
+serialize="^get_gladiators('$auth->user;');">
+
+   <header>
+
+    <item
+      name="GladiatorID"
+      type="hidden">
+    </item> 
+
+
+
+
+    <item
+      name="Type"
+      type="template">
+    </item> 
+    <item
+      name="Gladiator"
+      order="Name"
+      type="template">
+    </item> 
+
+
+
+
+
+
+    <item
+      name="Health"
+      type="template"
+      count="avg" colspan="3">
+    </item>
+
+
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+    <item
+align="center"
+      name="Morale"
+name_rus="Мораль"
+name_eng="Morale" colspan="3"
+>
+    </item>
+
+
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+    <item
+align="center"
+      name="Injury"
+name_rus="Травма"
+name_eng="Injury" colspan="3"
+>
+    </item>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+       <item name="tmp" name_rus=" " name_eng=" " name_ger=" "/>
+
+
+   </header>
+
+
+   <button
+       name_rus="Применить"
+       name_eng="Confirm"
+
+       align="right">
+   </button> 
+
+ </recovery>
+
+</form>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_abilities"> 
+
+<create
+    sql="create table ut_abilities (
+AbilityID TINYINT auto_increment Primary Key, 
+Ability char(3), 
+ShortName_rus varchar(20), 
+Name_rus varchar(20), 
+ShortName_eng varchar(20), 
+Name_eng varchar(20),
+ShortName_ger varchar(20), 
+Name_ger varchar(20)
+)" 
+   success_rus="Запись создана"   
+   success_eng="Record created"> 
+</create>
+
+ <insert
+    sql="insert into ut_abilities values('',@Ability;,@ShortName_rus;,@Name_rus;,@ShortName_eng;,@Name_eng;,@ShortName_ger;,@Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+
+    <field
+      name="Ability"
+      name_rus="Умение"
+      name_eng="Ability"
+      type="string"
+      maxlength="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="ShortName_rus"
+      name_rus="ID (рус)"
+      name_eng="ShortName (rus)"
+      type="string"
+      maxlength="3"
+
+      unique="1">
+    </field> 
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1"
+      unique="1">
+    </field> 
+
+
+    <field
+      name="ShortName_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="3"
+      unique="1">
+    </field> 
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30"
+      unique="1">
+    </field> 
+
+
+    <field
+      name="ShortName_ger"
+      name_rus="ID (нем)"
+      name_eng="ID (ger)"
+      type="string"
+      maxlength="3"
+      unique="1">
+    </field> 
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30"
+      unique="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select * from ut_abilities order by @Ability; asc">
+
+   <header>
+
+
+    <item
+      name="AbilityID"
+      name_rus=""
+      name_eng="">
+    </item> 
+
+    <item
+      name="Ability"
+      name_rus="ID"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="ShortName"
+      name_rus="Умение"
+      name_eng="Ability"
+      lang="1">
+    </item> 
+ 
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item type="edit"/>
+
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_abilities set Ability=@Ability;,ShortName_rus=@ShortName_rus;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,ShortName_eng=@ShortName_eng;,Name_ger=@Name_ger;,ShortName_ger=@ShortName_ger; where AbilityID=@id;"
+    select="select * from ut_abilities where AbilityID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+   <header>
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+   </header>
+
+
+   <fields>
+
+    <field
+      name="Ability"
+      name_rus="Умение"
+      name_eng="Ability"
+      type="string"
+      maxlength="3"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="ShortName_rus"
+      name_rus="ID (рус)"
+      name_eng="ShortName (rus)"
+      type="string"
+      maxlength="3"
+
+      unique="1">
+    </field> 
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1"
+      unique="1">
+    </field> 
+
+
+    <field
+      name="ShortName_eng"
+      name_rus="ID (анг)"
+      name_eng="ID (eng)"
+      type="string"
+      maxlength="3"
+      unique="1">
+    </field> 
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30"
+      unique="1">
+    </field> 
+
+
+    <field
+      name="ShortName_ger"
+      name_rus="ID (нем)"
+      name_eng="ID (ger)"
+      type="string"
+      maxlength="3"
+      unique="1">
+    </field> 
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="30"
+      unique="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_abilities where AbilityID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

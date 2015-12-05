@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form>
+
+
+       <ShowExp
+order="Exp"
+      name="ShowExp"
+      name_rus="Опыт"
+      name_eng="Exp"
+	name_ger=""
+	title_rus="Накопленный опыт"
+	title_eng="Experience"
+	title_ger=""
+      align="center">
+    </ShowExp> 
+
+ <Exp
+      name="Exp"
+      name_rus="Опыт"
+      name_eng="Exp"
+	name_ger=""
+	title_rus="Накопленный опыт"
+	title_eng="Experience"
+	title_ger=""
+      align="center">
+    </Exp> 
+
+
+    <Vit
+      name="Vit"
+      name_rus="Вын"
+      name_eng="Vit"
+	name_ger=""
+	title_rus="Здоровье"
+	title_eng="Health"
+	title_ger=""
+      align="center">
+    </Vit> 
+
+    <Dex
+      name="Dex"
+      name_rus="Лов"
+      name_eng="Dex"
+	name_ger=""
+	title_rus="Ловкость"
+	title_eng="Dexterity"
+	title_ger=""
+      align="center">
+    </Dex> 
+
+    <Acc
+      name="Acc"
+      name_rus="Точ"
+      name_eng="Acc"
+	name_ger=""
+	title_rus="Точность"
+	title_eng="Accuracy"
+	title_ger=""
+      align="center">
+    </Acc> 
+
+    <Str
+      name="Str"
+      name_rus="Сил"
+      name_eng="Str"
+	name_ger=""
+	title_rus="Сила"
+	title_eng="Strength"
+	title_ger=""
+      align="center">
+    </Str> 
+
+
+    <Games
+      name="Games"
+      name_rus="Игры"
+      name_eng="Games"
+      align="right">
+    </Games> 
+
+
+    <Type
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+	name_ger=""
+      format="/images/types/$TypeID;.gif"
+      type="icon">/xml/misc/types.php?id=$TypeID; title=$TypeName;
+    </Type> 
+
+
+    <TeamID
+      name="TeamID"
+      name_rus="Номер команды"
+      name_eng="Team id"
+      type="numeric">
+    </TeamID>
+
+    <Power
+      name="Power"
+      align="center"
+      name_rus="Р/м"
+      name_eng="Pow"
+      format="&lt;b&gt;&lt;font color=green&gt;"
+      title_rus="Расчетное мастерство, зависит от мастерства, морали и физготовности"
+      title_eng="Power, depends on skill, stamina and morale">
+    </Power>
+
+    <ShortName
+      name="ShortName"
+      name_rus="ИД команды"
+      name_eng="ShortName"
+      size="3"
+      type="string">
+    </ShortName>
+
+    <Sum
+      name="Sum"
+      name_rus="Сумма"
+      name_eng="Sum"
+      type="numeric"
+      min="0"
+      max="50000000"
+      size="6">
+    </Sum>
+
+    <Num
+      name="Num"
+      name_rus=" "
+      name_eng=" "
+      name_ger=" "
+      type="number">
+    </Num> 
+
+    <Country
+      name="CountryID"
+      name_rus="Страна"
+      name_eng="Country"
+      type="sqlist"
+      sql="select CountryID,Name_$lang; from ut_countries order by Name_$lang;">
+    </Country> 
+
+    <Talent
+      name="Talent"
+      name_rus="Tал"
+      name_eng="Tal"
+      format="&lt;b>"
+      title_rus="Талант"
+      title_eng="Talent"
+      order="Talent desc"
+      align="center">
+    </Talent> 
+
+    <Weight
+      name="Weight"
+      name_rus="Вес"
+      name_eng="Weight"
+      align="center">
+    </Weight> 
+
+    <Height
+      name="Height"
+      name_rus="Рост"
+      name_eng="Height"
+      align="center">
+    </Height> 
+
+
+
+    <Price
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="dots"
+      order="Price desc"
+      align="right">
+    </Price> 
+
+    <Skl
+      name="Skl"
+      name_rus="Мас"
+      name_eng="Skl"
+      align="center"
+      format="&lt;b&gt;"
+	title_rus="Мастерство"
+	title_eng="Skill"
+	title_ger=""
+      order="Skl desc">
+    </Skl> 
+
+    <Gladiator
+      name="Gladiator"
+      name_rus="Гладиатор"
+      name_eng="Gladiator"
+      name_ger="Gladiator">
+    </Gladiator>
+
+    <Slave
+      name="Slave"
+      name_rus="Раб"
+      name_eng="Slave"
+      name_ger="Slave">
+    </Slave>
+
+    <Player
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+      name_ger="Spieler">
+    </Player>
+
+    <Flag
+      name="CountryID"
+      name_rus="Нац"
+      name_eng="Nat"
+      align="center"
+      type="flag">
+    </Flag> 
+
+    <Team
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft">
+    </Team>  
+
+    <Mail
+      name="Mail"
+      name_rus="ЛП"
+      name_eng="PM"
+      format="/images/icons/mail.gif"
+      style="width=14px height=11px"
+      type="icon">$site_url;xml/residence/mail.php?act=write&amp;user=$UserID;
+    </Mail>
+
+    <Flag
+      name="CountryID"
+      name_rus="Гр"
+      name_eng="Nat"
+      type="flag"
+      order="Country">
+    </Flag> 
+
+    <User
+      name=""
+      name_rus="Пользователь"
+      name_eng="User"
+	name_ger="Nutzer"
+      colspan="2"
+      order="Login"
+      align="center"
+      format="/images/icons/info.gif"
+      style="width=10px height=10px"
+      type="icon">$site_url;xml/residence/info.php?user=$UserID;
+    </User>
+
+    <Lang
+      name="Lang"
+      name_rus="Язык"
+      name_eng="Language"
+      name_ger="Sprache"
+      type="list"
+      needed="1"
+      vars_rus="Русский;Английский;Немецкий"
+      vars_eng="Russian;English;German"
+      vars_ger="Russisch;Englisch;Deutsch"
+      vals="rus;eng;ger"
+      size="3"
+      sql="select '$lang;'"
+      maxlength="3">
+    </Lang> 
+
+    <BigImg
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+	name_ger="Bild"
+      type="image"
+      maxsize="500000">
+    </BigImg> 
+
+    <Name
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+	name_ger="Name"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </Name>
+
+    <Name_rus
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+	name_ger="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1">
+    </Name_rus>
+
+    <Message_rus
+      name="Message_rus"
+      name_rus="Текст сообщения(рус)"
+      name_eng="Message text(rus)"
+	name_ger="Text der Nachricht(rus)"
+      type="text">
+    </Message_rus> 
+
+    <Name_eng
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+	name_ger="Name(eng)"
+      type="string"
+      maxlength="255">
+    </Name_eng>
+
+    <Message_eng
+      name="Message_eng"
+      name_rus="Текст сообщения(анг)"
+      name_eng="Message text(eng)"
+	name_ger="Text der Nachricht(eng)"
+      type="text">
+    </Message_eng> 
+
+    <Name_ger
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+	name_ger="Name(ger)"
+      type="string"
+      maxlength="255">
+    </Name_ger>
+
+    <Message_ger
+      name="Message_ger"
+      name_rus="Текст сообщения(нем)"
+      name_eng="Message text(ger)"
+	name_ger="Text der Nachricht(ger)"
+      type="text">
+    </Message_ger> 
+
+    <Headline
+      name="Headline"
+      name_rus="Заголовок"
+      name_eng="Headline"
+	name_ger="Titel"
+      type="text"
+      needed="1">
+    </Headline>   
+
+    <Message
+      name="Message"
+      name_rus="Текст сообщения"
+      name_eng="Message text"
+	name_ger="Text der Nachricht"
+      type="text">
+    </Message> 
+
+    <Comment
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment"
+	name_ger="Kommentar"
+      needed="1"
+      type="text">
+    </Comment> 
+
+    <DateTime
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+	name_ger="Datum"
+      type="date"
+      format="d.m.Y H:i">
+    </DateTime>
+
+    <Rang
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang"
+	name_ger="Rang"
+      type="numeric">
+    </Rang>
+
+    <Date
+      name="Date"
+      name_rus="Дата"
+      name_eng="Date"
+	name_ger="Datum"
+      type="date"
+      format="d.m.Y">
+    </Date>
+
+    <Money
+      name="MoneyStatus"
+      name_rus="&lt;nobr&gt;Денег на счету"
+      name_eng="&lt;nobr&gt;Money available"
+	name_ger="&lt;nobr&gt;Geld vorhanden"
+      type="money"
+      sql="select $auth->money;">
+    </Money>
+
+ 	<Stamina
+      name="Stamina"
+      name_rus="Ф/г"
+      name_eng="Sta"
+	name_ger="KZ"
+	title_rus="Физготовность"
+	title_eng="Stamina"
+	title_ger="Koerperlicher Zustand"
+	align="center">
+    </Stamina>
+
+
+ 	<Health
+      name="Health"
+      name_rus="Здоровье"
+      name_eng="Health"
+
+	title_rus="Жизненные силы гладиатора"
+	order="Hits"
+
+	align="center">
+    </Health>
+
+	<Position
+      name="Pos"
+      order="Position"
+      name_rus="Поз"
+      name_eng="Pos"
+	name_ger="Pos"
+	title_rus="Позиция"
+	title_eng="Position"
+	title_ger="Spielposition"
+      align="center">
+    </Position>
+
+	<Age
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </Age>
+
+	<Number
+      name="Number"
+      name_rus="№"
+      name_eng="#"
+	name_ger="№">
+    </Number>
+
+
+</form>

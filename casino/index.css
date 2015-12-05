@@ -1,0 +1,69 @@
+//	FONT-SIZE: 10px; FONT-FAMILY: Arial, helvetica, sans-serif
+}
+
+.button2 {
+	BORDER: #000000 1px solid; FONT-SIZE: 10px; FONT-FAMILY: verdana, Arial; 
+}
+
+.input_text_casino {
+	FONT-SIZE: 11px;
+	font: normal;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+.input_login_casino {
+	FONT-SIZE: 11px;
+	font: normal;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+        BORDER: #7aa46e 1px solid;
+}
+
+TD {
+	FONT-FAMILY: Verdana, Arial Cyr, Arial, Helvetica; FONT-SIZE: 11px
+}
+
+P.none {
+	FONT-FAMILY: Verdana, Arial; TEXT-ALIGN: left
+}
+P {
+        margin: 2px 5px 2px 5px; FONT-FAMILY: Verdana, Arial Cyr, Arial, Helvetica; FONT-SIZE: 11px
+}
+
+H1 { FONT-WEIGHT: 300; FONT-SIZE: 11px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, sans-serif, arial; TEXT-DECORATION: none; MARGIN-BOTTOM: 0pt; MARGIN-TOP: 0pt; TEXT-ALIGN: center; }
+
+.td_title {
+	FONT-SIZE: 12px; COLOR: #223388; FONT-FAMILY: Arial, helvetica, sans-serif
+}
+
+.whitelink {
+	FONT-WEIGHT: 300; FONT-SIZE: 11px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, Sans serif; TEXT-DECORATION: none
+}
+.whitelink:hover {
+	FONT-WEIGHT: 300; FONT-SIZE: 11px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, Sans serif; TEXT-DECORATION: underline
+}
+.blackvsmall {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana, Arial, Helvetica, Sans serif
+}
+.blacksmall {
+	FONT-SIZE: 11px; FONT-FAMILY: "Arial", sans-serif, veranda, arial
+}
+.blacksmall_tree {
+	FONT-SIZE: 11px; CURSOR: hand; FONT-FAMILY: "Arial", sans-serif, veranda, arial
+}
+.white {
+	FONT-WEIGHT: 600; FONT-SIZE: 14px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Arial, Helvetica, Sans serif; TEXT-DECORATION: none
+}
+.white_small {
+	FONT-SIZE: 12px; COLOR: #ffffff; FONT-FAMILY: "Arial", sans-serif, veranda, arial
+}
+.whitesmall {
+	FONT-WEIGHT: 300; FONT-SIZE: 11px; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, sans-serif, arial; TEXT-DECORATION: none
+}
+
+.section {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #223388; FONT-FAMILY: verdana, arial, helvetica, sans-serif
+}
+
+.section:hover {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #223388; FONT-FAMILY: verdana, arial, helvetica, sans-serif; TEXT-DECORATION: underline
+}

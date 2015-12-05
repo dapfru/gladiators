@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_permissions">
+
+
+ <insert
+    sql="insert into en_permissions (Type,Name,TypeID,UserID) values(
+   @Type;,
+   @Name;,
+   @TypeID;,
+   @UserID;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      type="string"
+      maxlength="20"
+      needed="1">
+    </field>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="30">
+    </field>
+
+
+    <field
+      name="UserID"
+      name_rus="Пользователь"
+      type="sqlist"
+         sql="select UserID, Login from ut_users order by UserID">
+    </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select d.*,u.Login as User
+from en_permissions d 
+left outer join ut_users u on u.UserID=d.UserID order by u.Login">
+  <header>
+    
+
+
+
+     <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type">
+    </item>
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item>
+
+
+
+
+     <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item>
+
+   <item type="edit"/>
+   <item type="delete"/>
+  </header>
+</select>
+
+<update
+    sql="update en_permissions set 
+Type=@Type;,
+Name=@Name;,
+
+UserID=@UserID;
+where PermissionID=@id;"
+
+ select="select * from en_permissions where PermissionID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+   <fields>
+
+    <field
+      name="Type"
+      name_rus="Тип"
+      type="string"
+      maxlength="20"
+      needed="1">
+    </field>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      type="string"
+      maxlength="30">
+    </field>
+
+
+
+    <field
+      name="UserID"
+      name_rus="Пользователь"
+      type="sqlist"
+         sql="select UserID, Login from ut_users order by UserID">
+    </field>
+   </fields>
+
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_permissions where PermissionID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

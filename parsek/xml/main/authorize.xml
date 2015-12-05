@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_photos" title_rus="Авторизация" title_eng="Authorization">
+
+ <auth vertical="1" sql="Select @auth_name;,@auth_pass;"
+
+cellspacing="0"
+hcolor="F7F8F6"
+rowcolor="F7F8F6"
+mixcolor="F7F8F6"
+    success_rus="Вы успешно прошли авторизацию!"
+    success_eng="You have passed the authorization">
+
+   <fields>
+     
+     <field
+      name="url"
+      type="hidden">
+     </field>
+
+     <field
+      name="login"
+      type="hidden">1
+     </field>
+
+     <field
+      name="auth_name"
+      name_rus="Ник"
+      name_eng="Nickname"
+      type="string" needed="1">
+     </field>
+
+     <field
+      name="auth_pass"
+      name_rus="Пароль"
+      name_eng="Password"
+      type="password" needed="1">
+     </field>
+
+
+     <field
+      name="remember"
+      name_rus="Запомнить меня"
+      name_eng="Remember me"
+      colspan="2" 
+      type="checkbox">1
+     </field>
+
+</fields>
+
+   <button
+       name_rus="Войти"
+       name_eng="Continue">
+   </button> 
+
+ </auth>
+</form>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_pages">
+
+
+ <insert
+    sql="insert into en_pages (Name_rus,Name_eng,Name_ger,Site,Type,Xml,Date)
+ values(@Name_rus;,@Name_eng;,@Name_ger;,@Site;,@Type;,@Xml;,'unix_timestamp()')"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      type="string"
+      maxlength="255">
+    </field>
+
+    <field
+      name="Site"
+      name_rus="Site"
+      type="string"
+      maxlength="20">
+    </field>
+
+    <field
+      name="Type"
+      name_rus="Type"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Xml"
+      name_rus="Xml"
+      type="text">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select *, Name_$lang; as Name from en_pages order by PageID">
+
+<header>
+    <item
+      name="PageID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item>
+
+    <item
+      name="Site"
+      name_rus="Site"
+      name_eng="Site">
+    </item>
+
+    <item
+      name="Type"
+      name_rus="Type"
+      name_eng="Type">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update en_pages set 
+Name_rus=@Name_rus;,
+
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Site=@Site;,
+Type=@Type;,
+Xml=@Xml;,
+Date='unix_timestamp()'
+ where PageID=@id;"
+
+ select="select * from en_pages where PageID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="255"
+      >
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="255">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      type="string"
+      maxlength="255">
+    </field>
+
+    <field
+      name="Site"
+      name_rus="Site"
+      type="string"
+      maxlength="20">
+    </field>
+
+    <field
+      name="Type"
+      name_rus="Type"
+      type="string"
+      maxlength="50">
+    </field>
+
+     <field
+      name="Xml"
+      name_rus="Xml"
+      name_eng="Xml"
+      type="text"  >
+     </field>
+
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+
+ <translate sql="select x.*,t.Act from lk_xml x join en_tags t using(TagID) where x.PageID='$id;'" pagecount="100"
+action="update lk_xml set rus=@rus;,eng=@eng;,ger=@ger; where TextID=@TextID;">
+  <header>
+
+     <item
+      name="TextID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+     <item
+      name="TextID"
+      type="hidden">
+    </item> 
+
+     <item
+      name="Act"
+      name_rus="Act"
+      name_eng="Act"
+      name_ger="Act">
+    </item> 
+
+    <item
+      name="rus"
+      name_rus="рус"
+      name_eng="rus"
+      name_ger="rus" type="text">
+    </item> 
+
+    <item
+      name="eng"
+      name_rus="анг"
+      name_eng="eng"
+      name_ger="eng" type="text">
+    </item>
+
+    <item
+      name="ger"
+      name_rus="нем"
+      name_eng="ger"
+      name_ger="ger" type="text">
+    </item>
+
+
+   </header>
+
+   <button
+       name_rus="Изменить"
+       name_eng="Change"
+       name_por="">
+   </button> 
+
+ </translate>
+
+ <delete
+    sql="delete from en_pages where PageID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

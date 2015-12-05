@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_news"  title_rus="Новости" title_eng="News">
+
+
+ <select width="100%" sql="select u.Login, concat(u.FirstName,' ',u.LastName) as Author,n.* 
+from ut_news n left outer join ut_users u on u.UserID=n.UserID where n.Lang='$lang;' and '$id;'='' or NewsID='$id;' order by n.Date desc">
+
+   <header>
+
+    <item
+      name="Author"
+      name_rus="Автор"
+      name_eng="Author"/>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"/>
+
+    <item
+      name="DateTime"
+      type="template"/>
+
+   </header>
+
+ </select>
+
+
+
+ <comments sql="select c.*,u.Login,u.Approved,u.FirstName,u.LastName from ut_news_comments c left outer join ut_users u on u.UserID=c.UserID where c.NewsID='$id;' order by c.Date desc">
+  <header>
+
+
+     <item
+      name="Theme"
+      name_rus="Тема"
+      name_eng="Theme"
+      name_ger="">
+    </item>
+
+
+
+  </header>
+</comments>
+
+ <addcomment
+    sql="insert into ut_news_comments (NewsID, UserID, Date, Comment,ParentID) values(
+   @id;,
+   '$auth->user;',
+   @Date;,
+   @Comment;,
+   @ParentID;)"
+    success_rus="Комментарий добавлен!"
+    success_eng="Comment added">
+
+   <fields>
+     
+
+     <field
+      name="id"
+      type="hidden">
+     </field>
+
+     <field
+      name="do"
+      type="hidden">
+     </field>
+
+     <field
+      name="Comment"
+      type="template">
+     </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       act="addcomment">
+   </button> 
+
+ </addcomment>
+
+</form>

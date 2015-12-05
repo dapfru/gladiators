@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_gladiators" width="50px" mixcolor="3B484C">
+
+
+
+
+
+
+
+<info width="100%" short="1"  title_rus="Информация о гладиаторе" title_eng="Gladiator's info" title_ger=""
+    
+    success_rus="Информация обновлена"   
+    success_eng="Information chenged"
+    success_ger="Information wurde erneuert">
+
+   <fields> 
+
+    <field
+      name="Name"
+      name_rus="Гладиатор"
+      name_eng="Gladiator"
+      type="label">
+    </field>
+
+    <field
+      name="Owner"
+      name_rus="Владелец"
+      name_eng="Owner"
+      name_ger="Besitzer"
+      type="label">
+    </field> 
+
+
+    <field
+      name="TypeName"
+      name_rus="Тип"
+      name_eng="Type"
+      type="label">
+    </field> 
+
+    <field
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Health"
+      name_rus="Здоровье"
+      name_eng="Health"
+      name_ger=""
+      type="label">
+    </field>
+
+
+    <field
+      name="Morale"
+      name_rus="Мораль"
+      name_eng="Morale"
+      name_ger=""
+      type="label">
+    </field>
+
+    <field
+      name="Injury"
+      name_rus="Травма"
+      name_eng="Injury"
+      name_ger=""
+      type="label">
+    </field> 
+
+
+
+
+    <field
+      name="Characteristics"
+      name_rus="&lt;b>Тренировка" 
+      name_eng="&lt;b>Training" align="center"
+      name_ger="" colspan="2"
+      type="label">
+    </field> 
+
+    <field
+      name="Age"
+      name_rus="Возраст"
+      name_eng="Age"
+      name_ger="Age"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent"
+      name_ger=""
+      type="label">
+    </field> 
+
+
+    <field
+      name="ShowExp"
+      name_rus="Опыт"
+      name_eng="Experience"
+      name_ger=""
+      type="label">
+    </field>
+
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Characteristics"
+      name_rus="&lt;b>Боевые навыки" 
+      name_eng="&lt;b>Fighting skills" align="center"
+      name_ger="" colspan="2"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Vit"
+      name_rus="Выносливость"
+      name_eng="Vitality"
+      name_ger=""
+      type="label">
+    </field> 
+
+    <field
+      name="Dex"
+      name_rus="Ловкость"
+      name_eng="Dexterity"
+      name_ger=""
+      type="label">
+    </field>
+  
+
+    <field
+      name="Acc"
+      name_rus="Точность"
+      name_eng="Accuracy"
+      name_ger=""
+      type="label">
+    </field> 
+
+    <field
+      name="Str"
+      name_rus="Сила"
+      name_eng="Strength"
+      name_ger=""
+      type="label">
+    </field>
+
+
+
+    <field
+      name="Data"
+      name_rus="&lt;b>Персональные данные" 
+      name_eng="&lt;b>Data" align="center"
+      name_ger="" colspan="2"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Country"
+      name_rus="Национальность"
+      name_eng="Nationality"
+
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Height"
+      name_rus="Рост"
+      name_eng="Height"
+      name_ger="Height"
+      type="label">
+    </field> 
+
+    <field
+      name="Weight"
+      name_rus="Вес"
+      name_eng="Weight"
+      name_ger="Weight"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      name_ger=""
+      type="label">
+    </field> 
+
+    <field
+      name="Salary"
+      name_rus="Зарплата"
+      name_eng="Salary"
+      name_ger=""
+      type="label">
+    </field>
+
+
+
+
+    <field
+      name="Statistics"
+      name_rus="&lt;b>Статистика боев" 
+      name_eng="&lt;b>Statistics" align="center"
+      name_ger="" colspan="2"
+      type="label">
+    </field> 
+
+
+
+
+    <field
+      name="Fights"
+      name_rus="Бои"
+      name_eng="Fights"
+      type="label">
+    </field> 
+
+
+
+
+    <field
+      name="Win"
+      name_rus="Победы"
+      name_eng="Win"
+      type="label">
+    </field> 
+
+    <field
+      name="Lose"
+      name_rus="Поражения"
+      name_eng="Lose"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Rating"
+      name_rus="Рейтинг"
+      name_eng="Rating"
+      name_ger=""
+      type="label">
+    </field> 
+
+
+
+   </fields>
+
+
+ </info>
+
+
+
+ <sell width="100%" sql="set @StaffID=(select StaffID from fn_staff_info where InfoID=@InfoID;)
+#^sell_slave('$auth->user;','$GladiatorID;');"
+   success_rus="Гладиатор продан"
+   success_eng="Gladiator sold" hint_rus="Гладиатор будет продан за половину начальной стоимости">
+
+   <fields>
+
+    <field
+      name="GladiatorID"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Gladiator"
+      name_rus="Гладиатор"
+      name_eng="Gladiator"
+      needed="1"
+      type="label">
+    </field> 
+
+
+
+    <field
+      name="NewPrice" sql="select round('$Price;'/2)"
+      name_rus="Цена продажи"
+      needed="1"
+      name_eng="Selling price"
+      type="dots">
+    </field> 
+
+
+
+   </fields>
+
+   <button
+       name_rus="Продать"
+       name_eng="Sell">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+      format= " onclick='document.location.href=&quot;info.php?id=$id;&quot;'" >
+   </button> 
+
+ </sell>
+
+
+
+ <fire width="100%" sql="set @StaffID=(select StaffID from fn_staff_info where InfoID=@InfoID;)
+#^fire_mercenary('$auth->user;','$GladiatorID;');"
+   success_rus="Наемник уволен"
+   success_eng="Mercenary fired" >
+
+   <fields>
+
+    <field
+      name="GladiatorID"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Gladiator"
+      name_rus="Гладиатор"
+      name_eng="Gladiator"
+      needed="1"
+      type="label">
+    </field> 
+
+
+
+   </fields>
+
+   <button
+       name_rus="Уволить"
+       name_eng="Fire">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+      format= " onclick='document.location.href=&quot;info.php?id=$id;&quot;'" >
+   </button> 
+
+ </fire>
+
+
+</form>

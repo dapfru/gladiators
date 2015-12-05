@@ -1,0 +1,7 @@
+1 - injury
+2 - time (C - min)
+3 - injury + time (C - min)
+4 - goals (C - znak, C - goals count)
+5 - injury + goals (C - znak, C - goals count)
+6 - time + goals (C -min, C - znak, C - goals count)
+7 - injury + time + goals (C -min, C - znak, C - goals count)

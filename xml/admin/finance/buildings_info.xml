@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_buildings_info">
+
+ <insert
+    sql="insert into fn_buildings_info(BuildingID,
+Level,
+Price,
+Slots,
+Name_rus,
+Name_eng,
+Name_ger,
+Comments_rus,
+Comments_eng,
+Comments_ger,
+Type,
+Expand,
+Attendance)
+ 
+values(
+@BuildingID;,
+@Level;,
+@Price;,
+@Slots;,
+@Name_rus;,
+@Name_eng;,
+@Name_ger;,
+@Comments_rus;,
+@Comments_eng;,
+@Comments_ger;,
+@Type;,
+@Expand;,
+@Attendance;)"
+
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="BuildingID"
+      name_rus="ID постройки"
+      name_eng="Building ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+     <field
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      type="numeric">
+    </field> 
+
+    <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="numeric"
+      size="2">
+    </field> 
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+
+
+     <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+
+      vars_rus="Постройки;Стадион"
+      vars_eng="Buildings;Stadium">0
+    </field> 
+
+     <field
+      name="Expand"
+      name_rus="Добавка к вместимости"
+      name_eng="Additional capacity"
+      type="numeric"
+      size="8">
+    </field> 
+
+     <field
+      name="Attendance"
+      name_rus="Добавка к посещаемости (%)"
+      name_eng="Additional attendance (%)"
+      type="numeric">
+    </field> 
+
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Illustration"
+	width="150"
+
+        mix2="frame3.png"
+      type="image">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select pagecount="100"
+
+    sql="select * from fn_buildings_info order by BuildingID,Level asc"
+action="update fn_buildings_info set Price=@Price;,Slots=@Slots; where InfoID=@InfoID;">
+   <header>
+
+    <item
+      name="InfoID"
+      type="hidden">
+    </item> 
+
+    <item
+      name="BuildingID"
+      name_rus="ИД"
+      name_eng="ID"
+      align="center">
+    </item> 
+
+
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric" size="5">
+    </item> 
+
+    <item
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      type="numeric" size="5">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+    <item
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level">
+    </item> 
+
+    <item
+      name="Comments" lang="1"
+      name_rus="Описание" 
+      name_eng="Description">
+    </item> 
+
+    <item type="edit"/>
+    <item type="delete"/>
+
+
+   </header>
+
+
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+
+ </select>
+
+ <update
+    sql="update fn_buildings_info set 
+
+BuildingID=@BuildingID;,
+Level=@Level;,
+Price=@Price;,
+Slots=@Slots;,
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Term=@Term;,
+Comments_rus=@Comments_rus;,
+Comments_eng=@Comments_eng;, 
+Comments_ger=@Comments_ger; ,
+Type=@Type;,
+Expand=@Expand;,
+Attendance=@Attendance;
+
+where InfoID=@id;"
+    select="select * from fn_buildings_info where InfoID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="BuildingID"
+      name_rus="ID постройки"
+      name_eng="Building ID"
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+     <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      type="numeric"
+      needed="1">
+    </field> 
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1"
+      size="8">
+    </field> 
+
+     <field
+      name="Slots"
+      name_rus="Слоты"
+      name_eng="Slots"
+      type="numeric">
+    </field> 
+
+    <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="numeric"
+      size="2">
+    </field> 
+
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field> 
+
+    <field
+      name="Comments_rus"
+      name_rus="Комментарии(рус)"
+      name_eng="Comments(rus)"
+      type="text">
+    </field>
+   
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Comments_eng"
+      name_rus="Комментарии(анг)"
+      name_eng="Comments(eng)"
+      type="text">
+    </field>
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50">
+    </field> 
+
+    <field
+      name="Comments_ger"
+      name_rus="Комментарии(нем)"
+      name_eng="Comments(ger)"
+      type="text">
+    </field>
+
+     <field
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+      type="list"
+      vars_rus="Постройки;Стадион"
+      vars_eng="Buildings;Stadium">0
+    </field> 
+
+     <field
+      name="Expand"
+      name_rus="Добавка к вместимости"
+      name_eng="Additional capacity"
+      type="numeric"
+      size="8">
+    </field> 
+
+     <field
+      name="Attendance"
+      name_rus="Добавка к посещаемости (%)"
+      name_eng="Additional attendance (%)"
+      type="numeric">
+    </field> 
+
+
+
+    <field
+      name="Img"
+      name_rus="Иллюстрация"
+      name_eng="Illustration"
+	width="150"
+
+        mix2="frame3.png"
+      type="image">
+    </field>
+
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Edit record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_buildings_info where InfoID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form title_rus="Типы новостей" title_ger="News types">
+
+
+ <insert
+    sql="insert into ut_news_types(Rang,Name_rus,Name_eng,Name_ger) values(
+	@Rang;,
+	@Name_rus;,
+	@Name_eng;,
+	@Name_ger;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+    <field
+      name="Rang"
+      type="template">
+    </field>
+	
+    <field
+      name="Name_rus"
+      type="template">
+    </field>
+	
+    <field
+      name="Name_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Name_ger"
+      type="template">
+    </field>
+
+   </fields>
+    
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select * from ut_news_types order by Rang">
+	
+<header>
+		
+    <item
+      name="Rang"
+      name_rus="Ном"
+      name_eng="Num">
+    </item>	
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item>	
+
+   
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_news_types set 
+Rang=@Rang;,
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;
+where TypeID=@id;"
+    select="select * from ut_news_types where TypeID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+    <field
+      name="Rang"
+      type="template">
+    </field>
+	
+    <field
+      name="Name_rus"
+      type="template">
+    </field>
+	
+    <field
+      name="Name_eng"
+      type="template">
+    </field>
+
+    <field
+      name="Name_ger"
+      type="template">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_news_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

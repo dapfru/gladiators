@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_kits" title_rus="Форма" title_eng="Kits">
+
+
+
+ <insert
+    sql="insert into ut_kits(Kit,UserID,isChecked,Status,Number) values(
+@Kit;,
+$auth->id;,
+'1',
+@Status;,@Number;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+   
+    <field
+      name="Kit"
+      name_rus="Форма"
+      name_eng="Kit"
+      type="image"
+      maxsize="10000"
+      format="gif"
+      needed="1">
+    </field>
+   
+    <field
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status"
+      type="list"
+      vars_rus="показывать всем;показывать випам;vip 2 и 3;только vip-3"
+      vars_eng="show to all;show to vip;vip 2 and 3;vip-3 only">0
+    </field>
+
+    <field
+      name="Number"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric" needed="1">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select *,(case Status when 0 then 'show to all' when 1 then 'show to vip'
+when 2 then 'vip 2 and 3' when 3 then 'vip-3 only' end) as Status,if(isChecked=1,'checked','&lt;b&gt;not checked&lt;/b&gt;') as Checked from ut_kits order by Status,isChecked,KitID">
+
+   <header>
+
+    <item
+      name="Number"
+      name_rus=" "
+      name_eng=" ">
+    </item> 
+
+    <item
+      name="Checked"
+      name_rus="Проверка"
+      name_eng="Checked">
+    </item> 
+
+    <item
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status">
+    </item> 
+
+
+    <item
+      name="Kit"
+      name_rus=" "
+      name_eng=" "
+      type="kit">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update ut_kits set 
+isChecked=@isChecked;,
+Status=@Status;,Number=@Number;
+ where KitID=@id;#
+update ut_kits set Kit=@Kit; where @Kit;&lt;&gt;'' and KitID=@id;"
+    select="select * from ut_kits where KitID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+   
+    <field
+      name="Kit"
+      name_rus="Форма"
+      name_eng="Kit"
+      type="image"
+      maxsize="10000"
+      format="gif">
+    </field>
+   
+   
+    <field
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status"
+      type="list"
+      vars_rus="показывать всем;показывать випам;vip 2 и 3;только vip-3"
+      vars_eng="show to all;show to vip;vip 2 and 3;vip-3 only">0
+    </field>
+
+    <field
+      name="isChecked"
+      name_rus="Проверена"
+      name_eng="Checked"
+      type="checkbox">
+    </field>
+
+
+    <field
+      name="Number"
+      name_rus="Номер"
+      name_eng="Number"
+      type="numeric" needed="1">
+    </field>
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_kits where KitID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

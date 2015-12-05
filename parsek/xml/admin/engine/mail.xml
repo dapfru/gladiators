@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_mail" title_rus="Шаблоны сообщений" title_eng="Mail templates">
+
+ <create
+    sql="create table en_mail(
+MailID int auto_increment primary key, 
+Name_rus varchar(255),
+Message_rus text,
+Name_eng varchar(255),
+Message_eng text,
+Name_ger varchar(255),
+Message_ger text
+)">
+ </create>
+ <insert
+    sql="insert into en_mail (Name_rus, Message_rus, Name_eng, Message_eng, Name_ger, Message_ger) values(
+   @Name_rus;,
+   @Message_rus;,
+   @Name_eng;,
+   @Message_eng;,
+   @Name_ger;,
+   @Message_ger;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+  <fields>
+
+<field name="Name_rus" type="template"/>
+<field name="Message_rus" type="template"/>
+
+<field name="Name_eng" type="template"/>
+<field name="Message_eng" type="template"/>
+
+<field name="Name_ger" type="template"/>
+<field name="Message_ger" type="template"/>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+<select sql="select * from en_mail order by Name_$lang;">
+<header>
+    <item
+      name="MailID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update en_mail set 
+Name_rus=@Name_rus;,
+Message_rus=@Message_rus;,
+Name_eng=@Name_eng;,
+Message_eng=@Message_eng;,
+Name_ger=@Name_ger;,
+Message_ger=@Message_ger;
+ where MailID=@id;"
+
+ select="select * from en_mail where MailID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+     <fields>
+
+<field name="Name_rus" type="template"/>
+<field name="Message_rus" type="template"/>
+
+<field name="Name_eng" type="template"/>
+<field name="Message_eng" type="template"/>
+
+<field name="Name_ger" type="template"/>
+<field name="Message_ger" type="template"/>
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_mail where MailID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

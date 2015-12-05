@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_guilds" title_rus="Гильдии" title_eng="Guilds">
+
+
+
+
+ <select sql="select g.*,
+concat_ws('','&lt;a href=&quot;/users/',u.Login,'&quot;>',u.Login,'&lt;/a>' ) as Manager,
+concat('&lt;a href=',g.Url,'>',g.Url,'&lt;/a>') Url,
+if(g.StatusID=0,'не проверена',if(StatusID=1,'активна','закрыта')) Status 
+from gd_guilds g
+left outer join ut_users u on g.UserID=u.UserID
+order by g.Name desc">
+  <header>
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+    <item
+      name="Manager"
+      name_rus="Владелец"
+      name_eng="Owner">
+    </item> 
+
+    <item
+      name="Url"
+      name_rus="Url"
+      name_eng="Url">
+    </item> 
+
+    <item
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status">
+    </item> 
+
+    <item type="edit"/>
+    <item type="delete"/>
+    </header>
+ </select>
+
+ <update
+   sql="set @error=if((select GuildID from ut_users where UserID='$auth->user;' and GuildID&lt;&gt;@id; and GuildStatusID&lt;0)&lt;0,'Пользователь уже являетесь членом другой гильдии','')
+#update gd_guilds set 
+   ShortName=@ShortName;,
+   Name=@Name;,
+   Description=@Description;,
+   UserID=@UserID;,
+   Url=@Url;,
+   StatusID=@StatusID;,
+   AdminID='$auth->user;'
+   where GuildID=@id;#update ut_users set GuildID=@id,GuildStatusID=if(@StatusID=1,1,0) where UserID=@UserID"
+   select="select * from gd_guilds where GuildID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="Name"
+      name_rus="Название гильдии"
+      name_eng="Name of guild"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+
+
+     <field
+      name="ShortName"
+      name_rus="Сокращенное название на английском"
+      preg="/^[a-zA-Z]+[0-9a-zA-Z_-]*$/"
+      name_eng="Short name"
+      type="string"
+      maxlength="20" size="10"
+      needed="1">
+     </field>
+
+
+    <field
+      name="UserID"
+      name_rus="Владелец"
+      name_eng="Owner"
+      type="numeric"
+      needed="1">
+    </field> 
+
+
+     <field
+      name="Small"
+      name_rus="Логотип&lt;br>(не более 15x15 пикселей GIF)"
+      name_eng="Logo"
+type="image"
+format="gif"
+
+      width="15" 
+      height="15">
+     </field>
+
+
+     <field
+      name="Url"
+      needed="1"
+      name_rus="Адрес сайта гильдии"
+      name_eng="Guild site url"
+      type="string"
+      maxlength="50">
+     </field>
+
+
+
+
+
+     <field
+      name="Description"
+cols="80"
+rows="10"
+      name_rus="Описание"
+      name_eng="Description"
+      type="text"
+     >
+     </field>
+    <field
+      name="StatusID"
+      name_rus="Статус"
+      name_eng="Status"
+     type="list"
+     vars="не активна;активна;закрыта"
+      needed="1">0
+    </field> 
+
+    </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+ </update>
+
+ <delete
+    sql="set @error=if((select GuildID from ut_users where GuildID='$id;' and GuildStatusID=1)&gt;0,'В гильдии есть активные члены - удалить нельзя','')
+#delete from gd_guilds where GuildID=@id;
+#update ut_users set GuildID=0 where GuildID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

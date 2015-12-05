@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_post_types" title_rus="Типы должностей" title_eng="Post types" privacy="2">
+
+ <insert
+    sql="insert into ut_post_types(TypeID,Name_rus,Name_eng,Name_ger,Salary,ClassID)
+	 values('',@Name_rus;,@Name_eng;,@Name_ger;,@Salary;,@ClassID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+	
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Salary"
+      name_rus="Оклад"
+      name_eng="Salary"
+      type="numeric"
+      size="10">
+    </field> 
+
+    <field
+      name="ClassID"
+      name_rus="Класс"
+      name_eng="Class"
+      type="sqlist"
+      sql="select * from ut_post_classes order by @Name_lang;">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select pagecount="150" width="100%" sql="select t.*,p.Name_$lang; as Structure from ut_post_types t left outer join ut_post_classes p on p.ClassID=t.ClassID order by Structure,t.Name_$lang;"
+action="update ut_post_types set Salary=@Salary; where TypeID=@TypeID;">
+	
+<header>
+
+    <item
+      name="TypeID"
+      type="hidden">
+    </item>
+
+    <item
+      name="TypeID"
+      name_rus=" "
+      name_eng=" ">
+    </item>	
+
+
+    <item
+      name="Name"
+      name_rus="Должность"
+      name_eng="Post"
+      lang="1">
+    </item>	
+
+
+    <item
+      name="Structure"
+      name_rus="Cтруктура"
+      name_eng="Structure">
+    </item>	
+
+
+
+    <item
+      name="Salary"
+      name_rus="Оклад"
+      name_eng="Salary"
+      type="numeric"
+      size="10"
+      max="50000000">
+    </item>
+
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+   <button
+       name_rus="Изменить"
+       name_eng="Update">
+   </button> 
+
+ </select>
+
+ <update
+    sql="update ut_post_types set ClassID=@ClassID;,Name_rus=@Name_rus;,Name_eng=@Name_eng;,Name_ger=@Name_ger;,Salary=@Salary; where TypeID=@id;"
+    select="select * from ut_post_types where TypeID=@id;"
+    success_rus="Запись изменена!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+
+   <fields>
+	
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="50"
+      needed="1"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Name_ger"
+      name_rus="Название(нем)"
+      name_eng="Name(ger)"
+      type="string"
+      maxlength="50"
+      unique="1">
+    </field> 
+
+    <field
+      name="Salary"
+      name_rus="Оклад"
+      name_eng="Salary"
+      type="numeric"
+      size="10"
+      max="50000000">
+    </field> 
+
+    <field
+      name="ClassID"
+      name_rus="Класс"
+      name_eng="Class"
+      type="sqlist"
+      sql="select * from ut_post_classes order by @Name_lang;">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_post_types where TypeID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

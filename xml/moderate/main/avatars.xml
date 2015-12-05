@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form  title_rus="Графика" title_eng="Graphics" privacy="2">
+
+
+
+
+ <select table="ut_users" width="100%"
+    sql="select u.UserID,u.Approved,
+
+u.Login as User
+ from ut_users u
+where u.Approved='0'"
+    action="update ut_users set Approved=1 where @Yes;='on' and UserID=@UserID; and Approved='0'#
+update ut_users set Approved=2 where @No;='on' and UserID=@UserID; and Approved='0'
+#^deleteimage('ut_users/avatar/$UserID;.jpg','$No;');
+#^deleteimage('ut_users/small/$UserID;.jpg','$No;');"
+
+success_rus="Данные обновлены"
+succerss_eng="Information changed">
+
+
+   <header>
+
+    <item
+      name="Number"
+      name_rus="№"
+      name_eng="#" type="number">
+    </item> 
+
+
+
+    <item
+      name="UserID"
+      type="hidden">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Игрок"
+      name_eng="Player">
+    </item> 
+
+
+
+
+    <item
+      name="Small"
+      type="showimage"
+      name_rus="Аватар"
+      name_eng="Avatar">
+    </item> 
+
+    <item
+      name="Yes"
+      name_rus="Да"
+      name_eng="Yes"
+      type="checkbox"
+      align="center">
+    </item> 
+
+    <item
+      name="No"
+      name_rus="Нет"
+      name_eng="No"
+      type="checkbox"
+      align="center">
+    </item> 
+
+   </header>
+
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Confirm"
+       name_ger=""
+       align="right">
+   </button> 
+
+ </select>
+</form>

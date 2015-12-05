@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ft_tournaments">
+
+<select pagecount="10"
+sql="select t.*,count(m.UserID) Players,
+t.NumPlayers-count(m.UserID) PlayersLeft from ft_tournaments t
+left outer join ft_tournament_members m on m.TournamentID=t.TournamentID
+where ('$id;'='' or '$id;'=t.TournamentID)
+group by t.TournamentID
+order by t.StatusID asc,t.Date desc">
+
+
+   <header>
+
+
+   </header>
+
+
+
+ </select>
+
+
+<group
+sql="select *,concat(Score1,'-',Score2) Score,concat('&lt;a href=/users/',UserID,'>',
+Login,'&lt;/a>') User from ft_groups where
+ TournamentID='$tournament;' and Stage='$stage;' and Name='$group;' and UserID>0 order by Points desc, Score1-Score2 desc, ScorePoints desc, rand('$tournament;'*'$stage;'*'$group;')">
+
+
+   <header>
+
+    <item colspan="2" name_rus="Группа $group;"
+      name=" " type="number" order="no">
+    </item> 
+
+    <item
+      name="User" align="center"
+      order="no" 
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+    <item
+      name="Fights" align="center"
+      order="no"
+      name_rus="Туров"
+      name_eng="Played"
+      title_rus="Количество сыгранных туров"
+      type="label">
+    </item> 
+
+    <item
+      name="Points" align="center"
+      order="no" format="&lt;b>"
+      name_rus="Побед"
+      name_eng="Win"
+      title_rus="Количество выигранных туров"
+      type="label">
+    </item> 
+
+    <item
+      name="Score" align="center"
+      order="no"
+      name_rus="Разница"
+      name_eng="Difference"
+      title_rus="Разница побед и поражений во всех боях"
+      type="label">
+    </item> 
+
+    <item
+      name="ScorePoints" align="center"
+      order="no"
+      name_rus="Очки"
+      name_eng="Score"
+      title_rus="Набранные за все бои очки"
+      type="label">
+    </item> 
+
+
+   </header>
+
+
+
+ </group>
+
+
+
+   <join sql="set @numplayers = (select NumPlayers from ft_tournament_types t where TournamentTypeID=(select TournamentTypeID from ft_tournaments where TournamentID='$id;'))
+#set @members = (select count(UserID) from ft_tournament_members where TournamentID='$id;')
+#set @error=if(@numplayers>0 and @members is not null,'','Турнир не найден')
+#set @error=if(@members>=@numplayers,'В турнире уже не осталось свободных мест, все участники набраны','')
+#insert ignore into ft_tournament_members(UserID,TournamentID,Login) values ('$auth->user;','$id;','$auth->fullnick;')
+#^first_schedule('$id;','$members;','$numplayers;');"
+    
+success_rus="Вы заявились в турнир">
+
+   <fields>
+ 
+
+   </fields>
+
+
+ </join>
+
+
+
+
+   <cancel sql="set @numplayers = (select NumPlayers from ft_tournament_types t where TournamentTypeID=(select TournamentTypeID from ft_tournaments where TournamentID='$id;'))
+#set @members = (select count(UserID) from ft_tournament_members where TournamentID='$id;')
+#set @error=if(@numplayers>0 and @members is not null,'','Турнир не найден')
+#set @error=if(@members>=@numplayers,'Турнир уже начался','')
+#delete from ft_tournament_members where UserID='$auth->user;' and TournamentID='$id;'"
+    
+success_rus="Вы покинули турнир">
+
+   <fields>
+ 
+
+   </fields>
+
+ </cancel>
+
+</form>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_products">
+
+
+ <insert
+    sql="insert into ut_products (Name_rus, Name_eng, TypeID, Price, Image, Small, Description_rus, Description_eng) values(
+  
+   @Name_rus;,
+   @Name_eng;,
+   @TypeID;,
+   @Price;,
+   @Image;,
+   @Small;,
+   @Description_rus;,
+   @Description_eng;
+)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_product_types order by Name_$lang;">
+     </field>
+
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1" nobr="1"
+      size="40">
+     </field>
+
+     <field
+      name="Description_rus"
+      name_rus="Описание"
+      name_eng="Description"
+      type="text">
+     </field>
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric">
+     </field>
+
+     <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="150000"
+      width="124">
+     </field>
+
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       name_por="">
+   </button> 
+
+ </insert>
+
+ <select sql="select n.*,.t.Name_$lang; as Type, Price
+from ut_products n
+left outer join ut_product_types t on (t.TypeID=n.TypeID)
+
+order by ProductID desc
+">
+  <header>
+
+     <item
+      name="ProductID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+     <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      lang="1">
+    </item> 
+
+
+    <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type">
+    </item> 
+
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price">
+    </item> 
+
+     <item type="edit"/>
+    <item type="delete"/>
+
+   </header>
+ </select>
+
+
+
+ <update
+   sql="update ut_products set 
+
+
+   Name_rus=@Name_rus;, 
+   Description_rus=@Description_rus;,
+ 
+   Name_eng=@Name_eng;, 
+   Description_eng=@Description_eng;, 
+
+Price=@Price;
+
+where ProductID=@id;
+#update ut_products set Image=@Image;,Small=@Small; where ProductID=@id; and @Image;&lt;&gt;''"
+   select="select * from ut_products where ProductID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+        <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+      needed="1"
+      sql="select * from ut_product_types order by Name_$lang;">
+     </field>
+
+     <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="255"
+      needed="1" nobr="1"
+      size="40">
+     </field>
+
+     <field
+      name="Description_rus"
+      name_rus="Описание"
+      name_eng="Description"
+      type="text">
+     </field>
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric">
+     </field>
+
+     <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+      maxsize="150000"
+      width="124">
+     </field>
+
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record"
+       name_por="">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from ut_products where ProductID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    success_por="">
+ </delete>
+
+</form>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users">
+
+
+ <insert
+    sql="insert into ut_users (Login, Password) values(@Login;, @pwd;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+>
+
+   <fields>
+
+     <field
+      name="Login"
+      name_rus="Логин"
+      name_eng="Login"
+      type="string"
+      needed="1"
+      maxlength="25"
+      size="40">
+     </field>
+
+     <field
+      name="Password"
+      name_rus="Пароль"
+      name_eng="Password"
+      type="Password"
+      needed="1"
+      maxlength="32"
+      size="40">
+     </field>
+
+</fields>
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record"
+       name_por="">
+   </button> 
+
+ </insert>
+
+ <select sql="select UserID, Login
+from ut_users
+order by UserID desc
+">
+  <header>
+
+     <item
+      name="UserID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+     <item
+      name="Login"
+      name_rus="Логин"
+      name_eng="Login">
+    </item> 
+
+
+   </header>
+ </select>
+
+
+
+ <update
+   sql="update ut_users set Login=@Login;, Password=@Password; where UserID=@id;
+   select="select Login from ut_users where UserID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="Login"
+      name_rus="Логин"
+      name_eng="Login"
+      type="string"
+      needed="1"
+      maxlength="25"
+      size="40">
+     </field>
+
+     <field
+      name="Password"
+      name_rus="Пароль"
+      name_eng="Password"
+      type="Password"
+      needed="1"
+      maxlength="32"
+      size="40">
+     </field>
+
+   
+</fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record"
+       name_por="">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from ut_users where UserID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted"
+    success_por="">
+ </delete>
+
+</form>

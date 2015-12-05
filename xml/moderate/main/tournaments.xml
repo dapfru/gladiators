@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ft_tournaments">
+
+ <insert width="100%"
+    sql="set @num=(select count(*)+1 from ft_tournaments where TournamentTypeID=@TournamentTypeID;)
+#set @n=if(@num>1,'^printdec2roman($num;);','')
+#insert into ft_tournaments(TournamentTypeID,UserID,StatusID,Date,Name,NumPlayers,NumStages,NumTours,NumFights,TotalTime,Description,Reglament) 
+(select @TournamentTypeID;,'$auth->user;',0,unix_timestamp(),(select if(@n&lt;>'',concat(Name,'-',@n),Name) from ft_tournament_types where TournamentTypeID=@TournamentTypeID),NumPlayers,NumStages,NumTours,NumFights,TotalTime,Description,Reglament from ft_tournament_types where TournamentTypeID=@TournamentTypeID)
+#^make_schedule($insertid;);"
+
+    success_rus="Турнир создан!"
+    success_eng="Tournament created">
+
+   <fields>
+
+
+     <field
+      name="TournamentTypeID"
+      name_rus="Турнир"
+      name_eng="Tournament"
+      type="sqlist"
+	sql="select TournamentTypeID,Name from ft_tournament_types order by Name"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+
+ <select pagecount="100" width="100%"
+
+    sql="select t.*,concat('&lt;a href=/users/',u.UserID,'>',u.Login,'&lt;/a>') User
+from ft_tournaments t 
+left outer join ut_users u on u.UserID=t.UserID
+ order by t.Date desc">
+   <header>
+
+
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+
+
+    <item
+      name="User"
+      name_rus="Создан"
+      name_eng="Created by">
+    </item> 
+
+
+    <item
+      name="Date"
+      name_rus="Дата" type="date"
+      name_eng="Date" format="d.m.Y H:i">
+    </item> 
+
+    <item
+      name="NumPlayers"
+      name_rus="Игроков"
+      name_eng="Players">
+    </item> 
+
+    <item
+      name="NumStages"
+      name_rus="Стадий"
+      name_eng="Stages">
+    </item> 
+
+    <item
+      name="NumTours"
+      name_rus="Туров"
+      name_eng="Tours">
+    </item> 
+
+    <item
+      name="NumFights"
+      name_rus="Боев"
+      name_eng="Fights">
+    </item> 
+
+    <item
+      name="TotalTime"
+      name_rus="Время"
+      name_eng="Time">
+    </item> 
+
+    <item type="delete"/>
+
+
+   </header>
+
+
+
+
+ </select>
+
+
+ <delete
+    sql="set @status=(select StatusID from ft_tournaments where TournamentID=@id;)
+#set @error=if(@status=0,'','Нельзя удалить турнир')
+#delete from ft_tmp_agreements where TournamentID=@id;
+#delete from ft_groups where TournamentID=@id;
+#delete from ft_tournaments where TournamentID=@id; and StatusID=0"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

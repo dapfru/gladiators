@@ -1,0 +1,159 @@
+html, body {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	margin: 0px;
+	padding: 0px;
+}
+td, div, span, p {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+p {
+	margin: 2px 0px 2px 0px;
+	padding: 0px;
+}
+form {
+	margin: 0px;
+	padding: 0px;
+}
+input {
+	font-size: 10px;
+}
+a {
+	text-decoration: underline;
+	color: #0079fa;	
+	font-weight: bold;
+}
+a:hover {
+	text-decoration: underline;
+}
+img {
+	border: none;
+}
+h1, h2, h3, h4, h5 {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	margin: 0px;	
+}
+h1 {
+	font-size: 14px;
+	color: #000000;
+	padding: 24px 0px 14px 20px;
+}
+h2 {
+	color: #ff8800;
+	font-weight: bold;
+	font-size: 11px;
+	text-transform: uppercase;
+}
+h3 {
+	font-size: 11px;
+	color: #1670ce;
+	padding: 14px 0px 0px 24px;
+	text-transform: uppercase;
+}
+h6 {
+	font-size: 11px;
+	color: #1670ce;
+
+	text-transform: uppercase;
+}
+h3 a {
+	font-size: 11px;
+	color: #1670ce;
+	text-decoration: underline;
+}
+h4 {
+	font-size: 11px;
+	color: #1670ce;
+	padding: 20px 0px 20px 48px;
+	margin: 0px;
+	text-transform: uppercase;
+}
+h4 a {
+	font-size: 11px;
+	color: #1670ce;
+	text-decoration: underline;
+}
+h5 {
+	font-size: 11px;
+	font-weight: bold;
+	color: #000000;
+	padding: 0px;
+	margin: 0px;
+}
+p {
+	padding: 0px;
+	margin: 8px 0px 8px 0px;
+}
+hr {
+	height: 1px;
+	border-top: none;
+	border-bottom: #6D6D6D 1px  solid;
+}
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+	padding: 12px 0px 4px 18px;
+}
+li {
+	list-style-image: url(images/prod/marker.gif);
+	margin: 0px;
+}
+table.tm {
+	background-image: url(images/tm/tm-bg.gif); 
+	background-repeat: repeat-x;
+	background-position: left top;
+}
+.tm-items, .tm-items a {
+	font-size: 11px;
+	font-weight: bold;
+	text-transform: lowercase;
+	color: #000000;
+	text-decoration: none;
+}
+.tm-items a:hover {
+	text-decoration: underline;
+}
+.copy {
+	background-image: url(images/bott/copy.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	padding: 26px 0px 0px 104px;
+	font-size: 10px;
+}
+.bott td {
+	font-size: 10px;
+}
+.details td {
+	font-size: 10px;
+}
+.subs {
+	font-size: 11px;
+	margin: 8px 0px 8px 0px;
+}
+.subs td {
+	font-size: 11px;
+}
+.subs-frm {
+	color: #0062cb;
+	font-weight: bold;
+	margin-top: 6px;
+}
+.lnews {
+	font-size: 11px;
+	color: #76788f;
+	padding: 4px 0px 4px 0px;
+	font-weight: normal;
+}
+.lnews a {
+	font-size: 11px;
+	color: #76788f;
+	text-decoration: none;
+	font-weight: normal;	
+}
+a.lnk {
+	color: #1670ce;
+	font-size: 10px;
+}

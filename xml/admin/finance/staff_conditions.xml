@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_staff_conditions">
+
+
+ <insert
+    sql="insert into fn_staff_conditions values('',
+	@StaffID;,
+	@InfoID;)"
+
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+   <fields>
+
+     <field
+      name="StaffID"
+      name_rus="Специалист"
+      name_eng="Specialist"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_staff_info order by Name asc"
+      needed="1">
+    </field> 
+
+     <field
+      name="InfoID"
+      name_rus="Постройка"
+      name_eng="Building"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_buildings_info order by Name asc"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select 
+    sql="select c.ConditionID,concat(s.Name_$lang;,'-',s.Level) as Staff,concat(b.Name_$lang;,'-',b.Level) as Building from fn_staff_conditions c left outer join fn_buildings_info b on (b.InfoID=c.InfoID) left outer join fn_staff_info s on (s.InfoID=c.StaffID) order by Staff, Building"
+pagecount="100">
+
+   <header>
+
+    <item
+      name="ConditionID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="Staff"
+      name_rus="Специалист"
+      name_eng="Specialist">
+    </item> 
+
+    <item
+      name="Building"
+      name_rus="Постройка"
+      name_eng="Building">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update fn_staff_conditions set 
+StaffID=@StaffID;,
+InfoID=@InfoID;
+ where ConditionID=@id;"
+    select="select * from fn_staff_conditions where ConditionID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+   <header>
+
+     <item
+      name_rus="поле"
+      name_eng="field">
+     </item>
+
+     <item
+      name_rus="значение"
+      name_eng="value">
+     </item>
+
+   </header>
+
+
+   <fields>
+
+     <field
+      name="StaffID"
+      name_rus="Специалист"
+      name_eng="Specialist"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_staff_info order by Name asc"
+      needed="1">
+    </field> 
+
+     <field
+      name="InfoID"
+      name_rus="Постройка"
+      name_eng="Building"
+      type="sqlist"
+      sql="select InfoID,concat(Name_$lang;,'-',Level) as Name from fn_buildings_info order by Name asc"
+      needed="1">
+    </field> 
+
+
+   </fields>
+
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from fn_staff_conditions where ConditionID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

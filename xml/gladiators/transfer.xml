@@ -1,0 +1,2425 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="tr_list" title_rus="Трансфер" title_eng="Transfer" title_ger="Transfer">
+
+<info success_rus="Игрок выставлен на трансфер"
+success_eng="The player was placed on the transfer market"
+success_ger="Der Spieler wurde in die Transferliste eingegeben">
+<header>
+</header>
+</info>
+
+<first>
+<header>
+</header>
+</first>
+
+<select sql="select p.CountryID,p.Age,p.Skl,
+if(
+'$auth->rang;'=0 and '$priv;'=0,
+
+'-',p.Talent) as Talent,
+p.Price,
+
+if(bs.Lot>0,'DCF8DE',if(t.TeamID='$auth->team;','FDFACB','null')) as color,
+
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',tm.TeamID,'&gt;',tm.Name_$lang;,'&lt;/a&gt;')
+ as Team,tm.TeamID 
+ 
+from tr_list t
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm on tm.TeamID=t.TeamID 
+left outer join ut_countries c on c.CountryID=p.CountryID 
+left outer join tr_bids bs on (bs.Lot=t.Lot and bs.TeamID='$auth->team;')
+
+
+where t.TrStatus=0 
+group by t.Lot order by t.Lot desc"
+pagecount="100" cellpadding="2"
+empty_rus="Игроки не найдены"
+empty_eng="Players not found"
+empty_ger="Es sind keine Spieler gefunden"
+
+    width="100%">
+
+   <header style="style=background-color:$color;">
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="LotTime"
+      name_rus="Дата"
+      name_eng="Date"
+	name_ger="Datum"
+      type="date"
+      format="d.m H:i">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Team"
+      type="template">
+    </item> 
+
+    <item
+      name="Position"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+      name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Bids"
+      name_rus="Ставки"
+      name_eng="Bids"
+	name_ger="Einsaetze"
+      order="Bids desc"
+      align="center"
+      colspan="2">
+    </item> 
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID; target=_blank
+    </item> 
+
+
+   </header>
+
+
+ </select>
+
+
+
+<wait sql="select p.*, t.Bid as Price,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+Team(tm1.TeamID ,tm1.Name_$lang;) as Seller,
+Team(t.BuyerID ,tm2.Name_$lang;) as Buyer
+
+
+from tr_list t
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm1 on tm1.TeamID=t.TeamID 
+left outer join ut_teams tm2 on tm2.TeamID=t.BuyerID
+left outer join ut_countries c on c.CountryID=p.CountryID 
+where t.TrStatus=1 
+group by t.Lot,b.Lot order by t.SellTime desc"
+pagecount="100" cellpadding="2"
+    width="100%">
+
+   <header>
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="SellTime"
+      name_rus="Продан"
+      name_eng="Sold"
+	name_ger="Verkauft"
+      type="date"
+      format="d.m.y">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Seller"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer">
+    </item>  
+
+    <item
+      name="Buyer"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer">
+    </item>  
+
+     <item
+      name="Position"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID;
+    </item> 
+
+
+   </header>
+
+
+ </wait>
+
+
+<history sql="select p.*,t.Bid as Price,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+Team(t.TeamID ,tm1.Name_$lang;) as Seller,
+Team(t.BuyerID ,tm2.Name_$lang;) as Buyer
+
+from tr_list t 
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm1 on tm1.TeamID=t.TeamID 
+left outer join ut_teams tm2 on tm2.TeamID=t.BuyerID
+left outer join ut_countries c on c.CountryID=p.CountryID 
+where t.TrStatus>=2 and t.TrStatus&lt;>10 and t.TeamID &lt;> t.BuyerID
+group by t.Lot,b.Lot order by t.SellTime desc"
+
+pagecount="100" cellpadding="2"
+    width="100%">
+
+   <header>
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="SellTime"
+      name_rus="Продан"
+      name_eng="Sold"
+	name_ger="Verkauft"
+      type="date"
+      format="d.m.y">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Seller"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer">
+    </item>  
+
+    <item
+      name="Buyer"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer">
+    </item>  
+
+    <item
+      name="Position"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID;&amp;archieve=1
+    </item> 
+
+
+
+   </header>
+
+
+ </history>
+
+<my2 sql="select p.*,
+if(t.TrStatus=1,'DCF8DE',if(t.TrStatus=10,'FF9999','')) as color,
+
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',tm.TeamID,'&gt;',tm.Name_$lang;,'&lt;/a&gt;') as Team,tm.TeamID  
+from tr_list t 
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join tr_bids bt on (t.Lot=bt.Lot) 
+left outer join ut_teams tm on tm.TeamID=t.TeamID 
+left outer join ut_countries c on c.CountryID=p.CountryID 
+where (t.TrStatus&lt;2 or t.TrStatus=10) 
+and bt.TeamID='$auth->team;'
+group by t.Lot,b.Lot order by p.Position"
+
+pagecount="100" cellpadding="2"
+empty_rus="Ваших ставок нет на трансфере"
+empty_eng="You don't have any bids on the transfer list."
+empty_ger="Sie haben keine Einsaetze in der Transferliste."
+    width="100%">
+
+   <header style="style=background-color:$color;">
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="LotTime"
+      name_rus="Дата"
+      name_eng="Date"
+	name_ger="Datum"
+      type="date"
+      format="d.m H:i">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Team"
+      type="template">
+    </item> 
+
+    <item
+      name="Position"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Bids"
+      name_rus="Ставки"
+      name_eng="Bids"
+	name_ger="Einsaetze"
+      order="Bids desc"
+      align="center"
+      colspan="2">
+    </item> 
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID;
+    </item> 
+
+
+   </header>
+
+
+ </my2>
+
+<my sql="select p.*,
+if(t.TrStatus=1,'DCF8DE',if(t.TrStatus=10,'FF9999','')) as color,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',tm.TeamID,'&gt;',tm.Name_$lang;,'&lt;/a&gt;') as Team,tm.TeamID  
+from tr_list t
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm on tm.TeamID=t.TeamID 
+left outer join ut_countries c on c.CountryID=p.CountryID 
+where (t.TrStatus&lt;2 or t.TrStatus=10) and t.TeamID='$auth->team;'
+group by t.Lot,b.Lot order by p.Position"
+
+pagecount="100" cellpadding="2"
+empty_rus="Игроков Вашей команды нет на трансфере"
+empty_eng="There are no players from your team on the transfer list."
+empty_ger="In der Transferliste sind keine Spieler Ihrer Mannschaft vorhanden."
+    width="100%">
+
+
+   <header style="style=background-color:$color;">
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="Lot"
+	name_ger="Lot"
+      align="right">
+    </item> 
+
+
+    <item
+      name="LotTime"
+      name_rus="Дата"
+      name_eng="Date"
+	name_ger="Datum"
+      type="date"
+      format="d.m H:i">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Team"
+      type="template">
+    </item> 
+
+    <item
+      name="Position"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Bids"
+      name_rus="Ставки"
+      name_eng="Bids"
+	name_ger="Einsaetze"
+      order="Bids desc"
+      align="center"
+      colspan="2">
+    </item> 
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID;
+    </item> 
+
+
+   </header>
+
+
+ </my>
+
+<bids sql="select b.*,b.Bid as Bid,t.TeamID,
+
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',b.TeamID,'&gt;',t.Name_$lang;,'&lt;/a&gt;')
+ as Team,
+if('$priv;'=0,'',TeamIP) as TeamIP,
+if('$priv;'=0,'hidden','') as ip
+from tr_bids b
+left outer join ut_teams t on t.TeamID=b.TeamID
+where b.Lot='$lot;' order by b.Bid desc "
+    pagecount="50" >
+
+   <header>
+
+
+
+    <item
+      name="Num"
+      name_rus=" "
+      name_eng=" "
+	name_ger=" "	
+      align="center"
+      type="number">
+    </item> 
+
+
+    <item
+      name="BidTime"
+      name_rus="Время"
+      name_eng="Time"
+	name_ger="Zeit"
+      align="center"
+      type="date"
+      format="d.m.y H:i">
+    </item> 
+
+
+    <item
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft">
+    </item> 
+
+    <item
+      name="Bid"
+      name_rus="Ставка"
+      name_eng="Bid"
+	name_ger="Einsatz"
+      type="dots">
+    </item> 
+
+    <item
+      name="TeamIP"
+      name_rus="IP"
+      name_eng="IP"
+	name_ger="IP"
+      type="$ip;">
+    </item> 
+
+   </header>
+
+
+ </bids>
+
+
+
+
+<check sql="select c.*,concat(u.FirstName,' ',u.LastName,' (',u.Login,')') as User,
+t.TeamID,t.Name_$lang; as Team
+from tr_check c 
+left outer join ut_users u on u.UserID=c.UserID
+left outer join ut_teams t on t.UserID=u.UserID
+where c.Lot='$lot;' 
+order by CheckTime"
+privacy="2"
+    pagecount="50" >
+
+   <header>
+
+
+
+    <item
+      name="Num"
+      name_rus=" "
+      name_eng=" "
+	name_ger=" "
+      align="center"
+      type="number">
+    </item> 
+
+
+    <item
+      name="CheckTime"
+      name_rus="Время"
+      name_eng="Time"
+	name_ger="Zeit"
+      align="center"
+      type="date"
+      format="d.m.y H:i">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User"
+	name_ger="Nutzer">
+    </item> 
+
+
+    <item
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+     >
+    </item> 
+
+    <item
+      name="TrStatus"
+      name_rus="Статус"
+      name_eng="Status"
+	name_ger="Status">
+    </item> 
+
+
+    <item
+      name="Comment"
+      name_rus="Комментарий"
+      name_eng="Comment"
+	name_ger="Kommentar">
+    </item> 
+
+
+   </header>
+
+
+ </check>
+
+
+
+<seller width="100%" select="select 
+ManagerRang(u1.UserID,concat(u1.FirstName,' ',u1.LastName),u1.Rang) as User,
+TeamFlag(t1.TeamID,t1.Name_$lang;,c.CountryID,c.Name_$lang;) as Team ,
+t1.TeamID,l.MinPrice as MinPrice,FROM_UNIXTIME(l.LotTime ,'%d.%m.%Y') as LotTime,
+
+if(checkpriv($auth->user;,'players/transfer','check')=0,null,LotIP) as LotIP
+
+from tr_list l left outer join ut_teams t1  on t1.TeamID=l.TeamID
+               left outer join ut_users u1  on u1.UserID=t1.UserID
+               left outer join ut_countries c  on c.CountryID=t1.CountryID
+where Lot='$lot;'"
+short="1">
+
+
+   <fields>
+
+
+    <field
+      name="Lot"
+      name_rus="Лот"
+      name_eng="Lot"
+	name_ger="Lot"
+      needed="1"
+      type="label">$lot;
+    </field>
+
+    <field
+      name="User"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer"
+      needed="1"
+      type="label">0
+    </field>   
+   
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      needed="1"
+      type="label">
+    </field>   
+
+    <field
+      name="MinPrice"
+      name_rus="Мин. цена"
+      name_eng="Min. price"
+	name_ger="Min. Preis"
+      needed="1"
+      nobr="1"
+      type="money">
+    </field> 
+
+
+    <field
+      name="LotTime"
+      name_rus="Выставлен"
+      name_eng="Lot time"
+	name_ger="Eingetragen"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="LotIP"
+      name_rus="IP"
+      name_eng="IP"
+	name_ger="IP"
+      needed="1"
+      type="label">
+    </field> 
+
+   </fields>
+
+
+
+ </seller>
+
+
+
+<buyer width="100%" select="select 
+ManagerRang(u1.UserID,concat(u1.FirstName,' ',u1.LastName),u1.Rang) as User,
+TeamFlag(l.BuyerID,t1.Name_$lang;,c.CountryID,c.Name_$lang;) as Team ,t.Name_$lang; as Status,
+t1.TeamID,l.Bid as Bid,FROM_UNIXTIME(l.SellTime ,'%d.%m.%Y') as SellTime,
+if(checkpriv($auth->user;,'players/transfer','check')=0,null,SellIP) as SellIP,
+ManagerRang(u2.UserID,concat(u2.FirstName,' ',u2.LastName),u2.Rang) as FPUser,
+l.FpComment as FPComment
+from tr_list l left outer join ut_teams t1  on t1.TeamID=l.BuyerID
+               left outer join ut_users u1  on u1.UserID=t1.UserID
+               left outer join ut_users u2  on u2.UserID=l.FpUserID
+               left outer join ut_countries c  on c.CountryID=t1.CountryID
+               left outer join tr_status_types t  on t.Number=l.TrStatus
+where Lot='$lot;'"
+short="1">
+
+
+   <fields>
+
+
+    <field
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status"
+	name_ger="Status"
+      needed="1"
+      type="label">0
+    </field>   
+
+
+    <field
+      name="User"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer"
+      needed="1"
+      type="label">0
+    </field>   
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      needed="1"
+      type="label">
+    </field>   
+
+    <field
+      name="Bid"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      needed="1"
+      type="money">
+    </field> 
+
+
+    <field
+      name="SellTime"
+      name_rus="Продан"
+      needed="1"
+      name_eng="Sold at"
+	name_ger="Verkauft"
+      type="label">
+    </field> 
+
+    <field
+      name="SellIP"
+      name_rus="IP"
+      name_eng="IP"
+	name_ger="IP"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="FPUser"
+      name_rus="FairPlay"
+      name_eng="FairPlay"
+	name_ger="FairPlay"
+      needed="1"
+      type="label">0
+    </field> 
+
+    <field
+      name="FPComment"
+      name_rus="Комментарий FairPlay"
+      name_eng="Comment"
+	name_ger=""
+      needed="1"
+      type="label">0
+    </field> 
+
+
+   </fields>
+
+
+
+ </buyer>
+
+
+<bid width="100%" 
+
+sql="Call tr_bid ('$auth->team;', '$lot;', @Bid;,@IP;,@error)" 
+    success_rus="Ставка сделана"
+    success_eng="Bid made"
+    success_ger="Eingesetzt">
+
+
+   <fields>
+
+
+
+    <field
+      name="TrFond"
+      name_rus="Трансферный фонд: "
+      name_eng="Transfer fond: "
+	name_ger="Transferfonds: "
+      type="money"
+      colspan="2"
+      sql="select tr_fond('$auth->team;')">
+    </field>
+
+    <field
+      name="Bid"
+      name_rus="Ставка"
+      name_eng="Bid"
+	name_ger="Einsatz"
+      format="class=input"
+      needed="1"
+      size="10"
+      type="numeric">
+    </field> 
+
+
+    <field
+      name="id"
+      type="hidden">
+    </field>     
+
+   </fields>
+
+   <button
+       name_rus="Сделать ставку"
+       name_eng="Make bid"
+	 name_ger="Einsetzen"
+       act="bid2">
+   </button>
+
+
+ </bid>
+
+
+<cancel width="100%" 
+select="select Bid from tr_bids where Lot='$lot;' and TeamID='$auth->team;'"
+sql="Call tr_bid ('$auth->team;', '$lot;', 0,@IP;,@error)" 
+error_rus=" "
+error_eng=" "
+error_ger=" "
+    success_rus="Ставка отменена"
+    success_eng="Bid canceled"
+    success_ger="">
+
+
+   <fields>
+
+
+    <field
+      name="Bid"
+      name_rus="Ставка"
+      name_eng="Bid"
+      name_ger="Einsatz"
+      needed="1"
+     type="money">
+    </field> 
+
+    <field
+      name="id"
+      type="hidden">
+    </field>     
+
+   </fields>
+
+   <button
+       name_rus="Отменить ставку"
+       name_eng="Cancel bid"
+	 name_ger="">
+   </button>
+
+
+ </cancel>
+
+
+<bid2 sql="set @staff_level:=coalesce((select level from tm_staff where TeamID='$auth->team;' and StaffID=9),0);
+#set @error=if(@staff_level = 0,243,0)
+#set @error=if(@Bid;&lt;(select MinPrice from tr_list where Lot='$lot;') and @Bid;&lt;>0,114,0)
+#set @error=if(@Bid;>(select tr_fond($auth->team;)),117,0)
+#set @legioner=(select if(coalesce(t1.CountryID,0)=coalesce(t2.CountryID,0)
+                         or coalesce(t1.CountryID,0)=coalesce(p.CountryID,0),0,1)
+                        from tr_list l
+                        left outer join ut_teams t1 on t1.TeamID='$auth->team;'
+                        left outer join ut_teams t2 on l.TeamID=t2.TeamID
+                        left outer join ut_players p on l.PlayerID=p.PlayerID
+ where  l.Lot='$lot;')"
+
+select="select Manager(u1.UserID,concat(u1.FirstName,' ',u1.LastName)) as User, Team(t1.TeamID,t1.Name_rus) as Team ,t1.TeamID,l.*,
+l1.Tr_SenderPerc,l1.Tr_ReceiverPerc, l1.Tr_LeaguesPerc,
+if(@legioner>0,l1.Tr_LegionerPerc,0) as Tr_LegionerPerc,
+round((@Bid;*l1.Tr_ReceiverPerc/100)) as Sum1,
+round((@Bid*l1.Tr_LeaguesPerc/100)) as Sum2,
+if(@legioner>0,round((@Bid*l1.Tr_LegionerPerc/100)),0) as Sum3,
+round(@Bid+(@Bid*l1.Tr_ReceiverPerc/100)+(@Bid*l1.Tr_LeaguesPerc/100)+if(@legioner>0,round((@Bid*l1.Tr_LegionerPerc/100)),0)) as Sum
+from tr_list l 
+	       left outer join ut_teams t1  on t1.TeamID=l.TeamID
+               left outer join ut_users u1  on u1.UserID=t1.UserID
+	       left outer join ut_leagues l1 on l1.LeagueID='$auth->league;'
+where l.Lot='$lot;'">
+
+
+   <fields>
+
+
+
+
+    <field
+      name=""
+      align="center"
+      bgcolor="D3E1EC"
+      name_rus="Подтверждение ставки"
+      name_eng="Approve yout bid"
+	name_ger="Einsatz bestaetigen"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+ 
+ 
+
+    <field
+      name="id"
+      type="hidden">
+    </field>   
+
+
+
+    <field
+      name="User"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer"
+      type="label">
+    </field>   
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      type="label">
+    </field>   
+
+    <field
+      name="MinPrice"
+      name_rus="Мин. Цена"
+      name_eng="Min. Price"
+	name_ger="Min. Preis"
+      type="money">
+    </field> 
+
+    <field
+      name="Bid"
+      name_rus="Ваша ставка"
+      name_eng="Your bid"
+	name_ger="Ihr Einsatz"
+      type="money"
+      sql="select truncate(@Bid;,-3)">
+    </field> 
+
+
+    <field
+      name=""
+      name_rus="Налог Лиги"
+      name_eng="League tax"
+	name_ger="League-Steuer"
+      type="label"
+      align="center"
+      bgcolor="D3E1EC"
+      needed="1"
+      colspan="2">
+    </field>
+ 
+
+    <field
+      name=""
+      name_rus="Ставка"
+      name_eng="Rate"
+	name_ger="Einsatz"
+      type="label">$Tr_ReceiverPerc;%
+    </field>
+ 
+    <field
+      name="Sum1"
+      name_rus="Всего"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+    <field
+      name=""
+      name_rus="Налог футсоюза"
+      name_eng="Union tax"
+	name_ger="Fussballverein-Steuer"
+      align="center"
+      bgcolor="D3E1EC"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+
+    <field
+      name=""
+      name_rus="Ставка"
+      name_eng="Rate"
+	name_ger="Einsatz"
+      type="label">$Tr_LeaguesPerc;%
+    </field>
+ 
+    <field
+      name="Sum2"
+      name_rus="Всего"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+
+    <field
+      name=""
+      name_rus="Налог на легионера"
+      name_eng="A tax for a foreign player"
+	name_ger="Steuer auf den auslaendischen Spieler"
+      align="center"
+      bgcolor="D3E1EC"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+
+    <field
+      name=""
+      name_rus="Ставка"
+      name_eng="Rate"
+	name_ger="Einsatz"
+      type="label">$Tr_LegionerPerc;%
+    </field>
+ 
+    <field
+      name="Sum3"
+      name_rus="Всего"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+
+    <field
+      name=""
+      name_rus="С учётом налогов: "
+      name_eng="Including taxes:"
+	name_ger="Incl. Steuer:"
+      type="label"
+      align="center"
+      needed="1"
+      bgcolor="D3E1EC"
+      colspan="2">
+    </field>
+
+    <field
+      name="Sum"
+      name_rus="Итого"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Approve"
+	 name_ger="Bestaetigen"
+       act="bid">
+   </button> 
+
+ </bid2>
+
+<choose width="100%" 
+
+action="update tr_list set 
+BuyerID=@BuyerID;,
+Bid=(select Bid from tr_bids where Lot=@Lot; and TeamID=@BuyerID;),
+SellTime=unix_timestamp(),
+LotIP=@IP;,
+SellIP=(select TeamIP from tr_bids where Lot=@Lot; and TeamID=@BuyerID;),
+TrStatus=1
+where Lot=@Lot; and TrStatus=0
+#call tr_del_bids(@BuyerID)" 
+
+sql="select b.*, b.Bid as Bid,b.TeamID as BuyerID,t.TeamID,Team(b.TeamID,t.Name_$lang;) as Team from tr_bids b
+left outer join ut_teams t on t.TeamID=b.TeamID
+where b.Lot='$lot;' order by b.Bid desc"
+success_rus="Покупатель выбран"
+success_eng="Customer chosen"
+success_ger="Kaeufer wurde gewaehlt"
+success="1"
+
+empty_rus="Ставок на игрока нет"
+empty_eng="There are no bids for this player"
+empty_ger="Keine Einsaetze auf diesen Spieler sind vorhanden"
+
+
+    pagecount="50" >
+
+   <header>
+
+
+
+    <item
+      name="lot"
+      type="hidden">
+    </item> 
+
+
+    <item
+      name="Num"
+      name_rus=" "
+      name_eng=" "
+	name_ger=" "
+      align="center"
+      type="number">
+    </item> 
+
+    <item
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+     >
+    </item> 
+
+    <item
+      name="Bid"
+      name_rus="Ставка"
+      name_eng="Bid"
+	name_ger="Einsatz"
+      type="dots">
+    </item> 
+
+    <item
+      name="BuyerID"
+      name_rus=" "
+      name_eng=" "
+	name_ger=" "
+      type="radio">
+    </item> 
+
+
+   </header>
+
+   <button
+       name_rus="Выбрать"
+       name_eng="Select"
+	 name_ger="Waehlen"
+       act="choose2">
+   </button> 
+
+ </choose>
+
+
+<choose2 sql="set @error=if(@BuyerID;>0,0,'выберите команду')
+#set @player=@id;#set @l=@lot;#set @Buyer=if(@BuyerID;>0,@BuyerID,@Buyer)"  
+
+select="select Manager(u1.UserID,concat(u1.FirstName,' ',u1.LastName)) as User,
+Team(b.TeamID,t1.Name_rus) as Team
+ ,t1.TeamID,b.*,b.Bid as Bid,FROM_UNIXTIME(l.SellTime ,'%d.%m.%Y') as SellTime,SellIP,
+l1.Tr_SenderPerc,l1.Tr_ReceiverPerc, l1.Tr_LeaguesPerc,l1.Tr_LegionerPerc ,
+round((b.Bid*l1.Tr_SenderPerc/100)) as Sum1,
+round((b.Bid*l1.Tr_LeaguesPerc/100)) as Sum2,
+round(b.Bid-(b.Bid*l1.Tr_SenderPerc/100)-(b.Bid*l1.Tr_LeaguesPerc/100)) as Sum
+from tr_list l left outer join tr_bids b  on b.TeamID='$Buyer;' and b.Lot='$l;'
+	       left outer join ut_teams t1  on t1.TeamID=b.TeamID
+               left outer join ut_users u1  on u1.UserID=t1.UserID
+	       left outer join ut_leagues l1 on l1.LeagueID='$auth->league;'
+where l.Lot='$l;'">
+
+
+   <fields>
+
+
+
+
+    <field
+      name=""
+      align="center"
+      bgcolor="D3E1EC"
+      name_rus="Продажа игрока"
+      name_eng="Selling player"
+	name_ger="Spielerverkauf"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+ 
+    <field
+      name="id"
+      type="hidden">$player;
+    </field>   
+
+    <field
+      name="Lot"
+      type="hidden">$l;
+    </field>   
+
+    <field
+      name="BuyerID"
+      type="hidden">$Buyer;
+    </field> 
+
+    <field
+      name="User"
+      name_rus="Покупатель"
+      name_eng="Customer"
+	name_ger="Kaeufer"
+      type="label">
+    </field>   
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      type="label">
+    </field>   
+
+    <field
+      name="Bid"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="money">
+    </field> 
+
+
+    <field
+      name=""
+      name_rus="Налог Лиги"
+      name_eng="League tax"
+	name_ger="League-Steuer"
+      type="label"
+      align="center"
+      bgcolor="D3E1EC"
+      needed="1"
+      colspan="2">
+    </field>
+ 
+
+    <field
+      name=""
+      name_rus="Ставка"
+      name_eng="Rate"
+	name_ger="Einsatz"
+      type="label">$Tr_SenderPerc;%
+    </field>
+ 
+    <field
+      name="Sum1"
+      name_rus="Всего"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+    <field
+      name=""
+      name_rus="Налог футсоюза"
+      name_eng="Union tax"
+	name_ger="Fussballverein-Steuer"
+      align="center"
+      bgcolor="D3E1EC"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+
+    <field
+      name=""
+      name_rus="Ставка"
+      name_eng="Rate"
+	name_ger="Einsatz"
+      type="label">$Tr_LeaguesPerc;%
+    </field>
+ 
+    <field
+      name="Sum2"
+      name_rus="Всего"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+    <field
+      name=""
+      name_rus="За вычетом налогов: "
+      name_eng="With the deduction of taxes"
+	name_ger="Exl. Steuer:"
+      type="label"
+      align="center"
+      needed="1"
+      bgcolor="D3E1EC"
+      colspan="2">
+    </field>
+ 
+
+    <field
+      name="Sum"
+      name_rus="Итого"
+      name_eng="Sum"
+	name_ger="Gesammt"
+      type="dots">
+    </field>
+
+    <field
+      name=""
+      name_rus="При продаже в лигу налог не снимается"
+      name_eng="When you sell to the League, no taxes are kept"
+	name_ger="Der Spielerverkauf an League ist steuerfrei"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Approve"
+	 name_ger="Bestaetigen"
+       act="choose">
+   </button> 
+
+ </choose2>
+
+
+<place  select="select *,Price as Price, Price as MPrice, CONCAT(p.Name_$lang;,' ',p.Position,IF(p.Combination='','','/'), p.Combination,' ',p.Age,'/',round(p.Skl)) as Player
+from ut_players p where PlayerID='$id;'" 
+sql="set @TeamID=(select TeamID from ut_players where PlayerID='$id;')
+#set @Price=(select Price from ut_players where PlayerID='$id;')
+#set @Age=(select Age from ut_players where PlayerID='$id;')
+#set @staff_level:=coalesce((select level from tm_staff where TeamID='$auth->team;' and StaffID=9),0);
+#set @error=if(@staff_level = 0,243,0)
+#set @error=if((select u.TrStatus from ut_users u left outer join ut_teams t on t.UserID=u.UserID where t.TeamID='$auth->team;')=3,127,0)
+#set @error=if(@TeamID='$auth->team;',0,129)
+#set @error=if('$id;'=(select PlayerID from tr_list where PlayerID='$id;' and TrStatus&lt;2),153,0 )
+#set @error=if((select count(*)-(select count(*) from tr_list where TeamID='$auth->team;' and TrStatus &lt;2) from ut_players where TeamID='$auth->team;')&lt;=18,130,0)
+#set @error=if(@MPrice;>0 and @MPrice;>round(@Price*(3-(@Age-15)*0.05)),131,0)
+#set @error=if(@MPrice;>0 and @MPrice;&lt;@Price,115,0)
+#insert into tr_list(PlayerID,TeamID,LotTime,LotIP,MinPrice) values('$id;','$auth->team;',unix_timestamp(),@IP;,@MPrice)"
+success_rus="Игрок выставлен на трансфер"
+success_eng="The player was placed on the transfer market"
+success_ger="Der Spieler wurde in die Transferliste eingetragen"
+redirect="$site_url;xml/players/info.php?id=$id;">
+
+
+   <fields>
+
+
+
+    <field
+      name=""
+      align="center"
+      bgcolor="D3E1EC"
+      name_rus="Продажа игрока"
+      name_eng="Selling player"
+	name_ger="Spielerverkauf"
+      type="label"
+      needed="1"
+      colspan="2">
+    </field>
+ 
+
+  
+
+    <field
+      name="Player"
+      name_rus="Игрок"
+      name_eng="Player"
+	name_ger="Spieler"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Price"
+      name_rus="Номинал"
+      name_eng="Price"
+	name_ger="Nominalwert"
+      needed="1"
+      type="dots">
+    </field>
+
+
+    <field
+      name="MPrice"
+      name_rus="Мин. цена"
+      name_eng="Min. price"
+	name_ger="Min. Preis"
+      format="class=input"
+      size="10"
+      type="numeric">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Выставить игрока на трансфер"
+       name_eng="Place on the transfer market"
+	 name_ger="Den Spieler in die Transferliste eintragen">
+   </button> 
+
+ </place>
+
+
+
+<search vip="2"
+ sql="select p.CountryID,p.Age,p.Skl,
+
+if('$auth->rang;'=0 and '$priv;'=0,'-',p.Talent) as Talent,
+p.Price,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+if(cs.Lot>0,'FDCBCB',if(bs.Lot>0,'DCF8DE',if(t.TeamID='$auth->team;','FDFACB','null'))) as color,
+
+
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',tm.TeamID,'&gt;',tm.Name_$lang;,'&lt;/a&gt;') as Team,tm.TeamID  
+from tr_list t 
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm on tm.TeamID=t.TeamID 
+left outer join ut_countries c on c.CountryID=p.CountryID 
+left outer join 
+(select playerid, count(*) from ut_bonuses bn where
+@BonusID;='' or bn.BonusID= @BonusID group by playerid)
+ bn on bn.PlayerID=p.PlayerID
+left outer join tr_bids bs on (bs.Lot=t.Lot and bs.TeamID='$auth->team;')
+left outer join tr_check cs on (cs.Lot=t.Lot and cs.TrStatus=3) 
+
+where t.TrStatus=0 
+
+and 
+(@Skl_1;='' or Skl $Skl_sign1; @Skl_1)
+and
+(@Skl_2;='' or Skl $Skl_sign2; @Skl_2)
+
+and 
+(@Age_1;='' or Age $Age_sign1; @Age_1)
+and
+(@Age_2;='' or Age $Age_sign2; @Age_2)
+
+and 
+(@Price_1;='' or Price $Price_sign1; @Price_1)
+and
+(@Price_2;='' or Price $Price_sign2; @Price_2)
+
+and 
+(@Talent_1;='' or Talent $Talent_sign1; @Talent_1)
+and
+(@Talent_2;='' or Talent $Talent_sign2; @Talent_2)
+
+and 
+(@Morale_1;='' or Morale $Morale_sign1; @Morale_1)
+and
+(@Morale_2;='' or Morale $Morale_sign2; @Morale_2)
+
+and 
+(@Height_1;='' or Height $Height_sign1; @Height_1)
+and
+(@Height_2;='' or Height $Height_sign2; @Height_2)
+
+and 
+(@Weight_1;='' or Weight $Weight_sign1; @Weight_1)
+and
+(@Weight_2;='' or Weight $Weight_sign2; @Weight_2)
+
+
+and
+(@Position;='' or p.Position like '%$Position;%'  or p.Combination like '%$Position;%')
+
+and
+(@Name;='' or p.Name_$lang; like '%$Name;%' or p.PlayerID like '%$Name;%')
+
+and
+(@Team;='' or tm.Name_$lang; like '%$Team;%' or p.TeamID like '%$Team;%')
+
+and
+(@CountryID;='' or p.CountryID = @CountryID)
+
+and 
+(@tck_1;='' or tck $tck_sign1; @tck_1)
+and
+(@tck_2;='' or tck $tck_sign2; @tck_2)
+
+and 
+(@mrk_1;='' or mrk $mrk_sign1; @mrk_1)
+and
+(@mrk_2;='' or mrk $mrk_sign2; @mrk_2)
+
+and 
+(@drb_1;='' or drb $drb_sign1; @drb_1)
+and
+(@drb_2;='' or drb $drb_sign2; @drb_2)
+
+and 
+(@rcv_1;='' or rcv $rcv_sign1; @rcv_1)
+and
+(@rcv_2;='' or rcv $rcv_sign2; @rcv_2)
+
+and 
+(@edu_1;='' or edu $edu_sign1; @edu_1)
+and
+(@edu_2;='' or edu $edu_sign2; @edu_2)
+
+and 
+(@pas_1;='' or pas $pas_sign1; @pas_1)
+and
+(@pas_2;='' or pas $pas_sign2; @pas_2)
+
+and 
+(@shp_1;='' or shp $shp_sign1; @shp_1)
+and
+(@shp_2;='' or shp $shp_sign2; @shp_2)
+
+and 
+(@sha_1;='' or sha $sha_sign1; @sha_1)
+and
+(@sha_2;='' or sha $sha_sign2; @sha_2)
+
+and (t.Lot=@Lot; or @Lot;='')
+
+group by t.Lot,b.Lot
+
+having
+(@Bids_1;='' or count(b.Lot) $Bids_sign1; @Bids_1)
+and
+(@Bids_2;='' or count(b.Lot) $Bids_sign2; @Bids_2)
+ order by p.Position">
+
+
+   <fields>
+
+
+    <field
+      name="Skl"
+      name_rus="Мастерство"
+      name_eng="Skill"
+	name_ger="Meisterschaft"
+      type="between">
+    </field>   
+
+    <field
+      name="Age"
+      name_rus="Возраст"
+      name_eng="Age"
+	name_ger="Alter"
+      type="between">
+    </field>  
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="between">
+    </field>  
+
+    <field
+      name="Talent"
+      name_rus="Талант"
+      name_eng="Talent"
+	name_ger="Talent"
+      type="between">
+    </field> 
+
+    <field
+      name="Morale"
+      name_rus="Мораль"
+      name_eng="Morale"
+	name_ger="Moral"
+      type="between">
+    </field> 
+
+    <field
+      name="Bids"
+      name_rus="Ставок"
+      name_eng="bids"
+	name_ger="Zahl der Einsaetze"
+      type="between">
+    </field> 
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+	name_ger="Spielposition"
+      type="string"
+      size="3"
+      maxlength="3">
+    </field> 
+
+    <field
+      name="Country"
+      type="template">
+    </field> 
+
+    <field
+      name="BonusID"
+      name_rus="Бонус"
+      name_eng="Bonus"
+	name_ger="Bonus"
+      sql="select BonusID,Name_$lang; as Name from ut_bonus_types order by Name"
+      type="sqlist">
+    </field> 
+
+    <field
+      name="Height"
+      name_rus="Рост"
+      name_eng="Height"
+	name_ger="Groesse"
+      type="between">
+    </field>
+
+
+    <field
+      name="Weight"
+      name_rus="Вес"
+      name_eng="Weight"
+	name_ger="Gewicht"
+      type="between">
+    </field>
+
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+	name_ger="Name"
+     type="string">
+    </field> 
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      type="string">
+    </field> 
+
+
+    <field
+      name="Lot"
+      name_rus="Лот"
+      name_eng="Lot"
+	name_ger="Lot"
+      type="numeric">
+    </field> 
+
+    <field
+      name="tck"
+      name_rus="Отбор"
+      name_eng="Tackling"
+	name_ger="Wegnahme"
+      type="between">
+    </field> 
+
+    <field
+      name="mrk"
+      name_rus="Опека"
+      name_eng="Marking"
+	name_ger="Begleitung"
+      type="between">
+    </field> 
+
+    <field
+      name="drb"
+      name_rus="Дриблинг"
+      name_eng="Dribbling"
+	name_ger="Dribbling"
+      type="between">
+    </field> 
+
+    <field
+      name="rcv"
+      name_rus="Приём мяча"
+      name_eng="Recieving"
+	name_ger="Ballempfang"
+      type="between">
+    </field>
+
+    <field
+      name="edu"
+      name_rus="Выносливость"
+      name_eng="eduurance"
+	name_ger="Tempohaerte"
+      type="between">
+    </field>
+
+    <field
+      name="pas"
+      name_rus="Пас"
+      name_eng="Passing"
+	name_ger="Pass"
+      type="between">
+    </field>
+
+    <field
+      name="shp"
+      name_rus="Сила удара"
+      name_eng="Shot Power"
+	name_ger="Schusskraft"
+      type="between">
+    </field>
+
+    <field
+      name="sha"
+      name_rus="Точность удара"
+      name_eng="Shot accuracy"
+	name_ger="Treffsicherheit"
+      type="between">
+    </field>
+
+
+
+
+   </fields>
+
+
+   <button
+       name_rus="Поиск"
+       name_eng="Search"
+	 name_ger="Suchen">
+   </button> 
+
+ </search>
+
+
+
+
+<search2 
+act="search"
+ sql="select p.CountryID,p.Age,p.Skl,if('$auth->rang;'=0,'-',p.Talent) as Talent,p.Price,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+if(cs.Lot>0,'FDCBCB',if(bs.Lot>0,'DCF8DE',if(t.TeamID='$auth->team;','FDFACB','null'))) as color,
+
+
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+concat_ws('','&lt;a href=/xml/players/roster.php?id=',tm.TeamID,'&gt;',tm.Name_$lang;,'&lt;/a&gt;') as Team,tm.TeamID  
+from tr_list t
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm on tm.TeamID=t.TeamID 
+left outer join ut_countries c on c.CountryID=p.CountryID 
+left outer join tr_bids bs on (bs.Lot=t.Lot and bs.TeamID='$auth->team;')
+left outer join tr_check cs on (cs.Lot=t.Lot and cs.TrStatus=3) 
+
+where t.TrStatus=0 
+
+and 
+(@Skl_1;='' or Skl $Skl_sign1; @Skl_1)
+and
+(@Skl_2;='' or Skl $Skl_sign2; @Skl_2)
+
+and 
+(@Age_1;='' or Age $Age_sign1; @Age_1)
+and
+(@Age_2;='' or Age $Age_sign2; @Age_2)
+
+and 
+(@Price_1;='' or Price $Price_sign1; @Price_1)
+and
+(@Price_2;='' or Price $Price_sign2; @Price_2)
+
+
+
+and
+(@Position;='' or p.Position like '%$Position;%'  or p.Combination like '%$Position;%')
+
+and
+(@Name;='' or p.Name_$lang; like '%$Name;%' or p.PlayerID like '%$Name;%')
+
+and
+(@Team;='' or tm.Name_$lang; like '%$Team;%' or p.TeamID like '%$Team;%')
+
+and
+(@CountryID;='' or p.CountryID = @CountryID)
+
+and (t.Lot=@Lot; or @Lot;='')
+
+group by t.Lot,b.Lot
+
+
+ order by p.Position">
+
+
+   <fields>
+
+
+    <field
+      name="Skl"
+      name_rus="Мастерство"
+      name_eng="Skill"
+	name_ger="Meisterschaft"
+      type="between">
+    </field>   
+
+    <field
+      name="Age"
+      name_rus="Возраст"
+      name_eng="Age"
+	name_ger="Alter"
+      type="between">
+    </field>  
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="between">
+    </field>  
+
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+	name_ger="Spielposition"
+      type="string"
+      size="3"
+      maxlength="3">
+    </field> 
+
+    <field
+      name="Country"
+      type="template">
+    </field> 
+
+
+
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+	name_ger="Name"
+      type="string">
+    </field> 
+
+
+    <field
+      name="Team"
+      name_rus="Команда"
+      name_eng="Team"
+	name_ger="Mannschaft"
+      type="string">
+    </field> 
+
+
+    <field
+      name="Lot"
+      name_rus="Лот"
+      name_eng="Lot"
+	name_ger="Lot"
+      type="numeric">
+    </field> 
+
+
+
+
+   </fields>
+
+
+   <button
+       name_rus="Поиск"
+       name_eng="Search"
+	 name_ger="Suchen">
+   </button> 
+
+ </search2>
+
+
+<search3
+act="search"
+ sql="select p.CountryID,p.Age,p.Skl,p.Talent as Talent,p.Price,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+if(cs.Lot>0,'FDCBCB',if(bs.Lot>0,'DCF8DE',if(t.TeamID='$auth->team;','FDFACB','null'))) as color,
+
+
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+Team(t.TeamID ,tm1.Name_$lang;) as Seller,
+Team(t.BuyerID ,tm2.Name_$lang;) as Buyer
+
+from tr_list t
+join ut_players p  on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm1 on tm1.TeamID=t.TeamID 
+left outer join ut_teams tm2 on tm2.TeamID=t.BuyerID
+left outer join ut_countries c on c.CountryID=p.CountryID 
+left outer join tr_bids bs on (bs.Lot=t.Lot and bs.TeamID='$auth->team;')
+left outer join tr_check cs on (cs.Lot=t.Lot and cs.TrStatus=3) 
+
+where t.TrStatus>1 and t.TrStatus&lt;7
+
+and 
+(@Skl_1;='' or Skl $Skl_sign1; @Skl_1)
+and
+(@Skl_2;='' or Skl $Skl_sign2; @Skl_2)
+
+and 
+(@Age_1;='' or Age $Age_sign1; @Age_1)
+and
+(@Age_2;='' or Age $Age_sign2; @Age_2)
+
+and 
+(@Price_1;='' or Price $Price_sign1; @Price_1)
+and
+(@Price_2;='' or Price $Price_sign2; @Price_2)
+
+
+
+and
+(@Position;='' or p.Position like '%$Position;%'  or p.Combination like '%$Position;%')
+
+and
+(@Name;='' or p.Name_$lang; like '%$Name;%' or p.PlayerID like '%$Name;%')
+
+and
+(@Seller;='' or tm1.Name_$lang; like '%$Seller;%' or t.TeamID like '%$Seller;%')
+
+and
+(@Buyer;='' or tm2.Name_$lang; like '%$Buyer;%' or t.BuyerID like '%$Buyer;%')
+
+and
+(@CountryID;='' or p.CountryID = @CountryID)
+
+and (t.Lot=@Lot; or @Lot;='')
+
+group by t.Lot,b.Lot
+
+
+ order by p.Position">
+
+
+   <fields>
+
+
+    <field
+      name="Skl"
+      name_rus="Мастерство"
+      name_eng="Skill"
+	name_ger="Meisterschaft"
+      type="between">
+    </field>   
+
+    <field
+      name="Age"
+      name_rus="Возраст"
+      name_eng="Age"
+	name_ger="Alter"
+      type="between">
+    </field>  
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+	name_ger="Preis"
+      type="between">
+    </field>  
+
+
+    <field
+      name="Position"
+      name_rus="Позиция"
+      name_eng="Position"
+	name_ger="Spielposition"
+      type="string"
+      size="3"
+      maxlength="3">
+    </field> 
+
+    <field
+      name="Country"
+      type="template">
+    </field> 
+
+
+
+
+    <field
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name"
+	name_ger="Name"
+      type="string">
+    </field> 
+
+
+
+    <field
+      name="Seller"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer"
+      type="string">
+    </field> 
+
+
+    <field
+      name="Buyer"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer"
+      type="string">
+    </field> 
+
+
+    <field
+      name="Lot"
+      name_rus="Лот"
+      name_eng="Lot"
+	name_ger="Lot"
+      type="numeric">
+    </field> 
+
+
+
+
+   </fields>
+
+
+   <button
+       name_rus="Поиск"
+       name_eng="Search"
+	 name_ger="Suchen">
+   </button> 
+
+ </search3>
+
+
+
+<block sql="select p.*,
+concat_ws('',
+'&lt;a href=/xml/players/info.php?id=',p.PlayerID,'>',p.Name_$lang;,'&lt;/a>',
+if(p.Injury=0,null,concat(' &lt;img src=/images/icons/injury.gif title=Injury width=13px height=13px>&lt;b>',p.Injury,'&lt;/b>'))
+) as Player,
+c.Name_$lang; as Country,t.*,count(b.Lot) as Bids,
+round(p.Skl) as Skl,
+CONCAT(p.Position,IF(p.Combination='','','/'), p.Combination) as Pos,
+Team(tm1.TeamID ,tm1.Name_$lang;) as Seller,
+Team(tm2.TeamID ,tm2.Name_$lang;) as Buyer
+
+
+from tr_list t 
+join ut_players p on t.PlayerID=p.PlayerID 
+left outer join tr_bids b on (t.Lot=b.Lot) 
+left outer join ut_teams tm1 on tm1.TeamID=t.TeamID 
+left outer join ut_teams tm2 on tm2.TeamID=t.BuyerID
+left outer join ut_countries c on c.CountryID=p.CountryID 
+where t.TrStatus=10 
+group by t.Lot,b.Lot order by p.Position"
+pagecount="100" cellpadding="2"
+    width="100%">
+
+   <header>
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="SellTime"
+      name_rus="Продан"
+      name_eng="Sold"
+	name_ger="Verkauft"
+      type="date"
+      format="d.m.y">
+    </item> 
+
+    <item
+      name="Flag"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Player"
+      type="template">
+    </item> 
+
+    <item
+      name="Seller"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer">
+    </item>  
+
+    <item
+      name="Buyer"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer">
+    </item>  
+
+     <item
+      name="Position"
+      type="template">
+    </item> 
+
+    <item
+      name="Age"
+      name_rus="Воз"
+      name_eng="Age"
+	name_ger="Alt"
+	title_rus="Возраст"
+	title_ger="Alter"
+      align="center">
+    </item> 
+
+    <item
+      name="Skl"
+      type="template">
+    </item> 
+
+    <item
+      name="Talent"
+      type="template">
+    </item> 
+
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+
+    <item
+      name=""
+      name_rus=""
+      name_eng=""
+	name_ger=""
+      format="/images/icons/golden.gif"
+      type="icon">info.php?id=$PlayerID;
+    </item> 
+
+
+   </header>
+
+
+ </block>
+
+
+
+
+<playerhistory sql="select l.*, l.Bid as Price,
+Team(l.TeamID ,tm1.Name_$lang;) as Seller,
+Team(l.BuyerID ,tm2.Name_$lang;) as Buyer,
+tr_golden(Lot,PlayerID) as TrGolden
+from tr_list l
+left outer join ut_teams tm1 on tm1.teamid=l.teamid
+left outer join ut_teams tm2 on tm2.teamid=l.buyerid
+where l.PlayerID='$id;' and (l.TrStatus=2 or l.TrStatus=3)"
+
+pagecount="100" cellpadding="2"
+    width="100%">
+
+   <header>
+
+
+
+    <item
+      name="Lot"
+      name_rus="Лот"
+      name_eng="ID"
+	name_ger="ID"
+      align="right">
+    </item> 
+
+
+    <item
+      name="SellTime"
+      name_rus="Продан"
+      name_eng="Sold"
+	name_ger="Verkauft"
+      type="date"
+      format="d.m.y">
+    </item> 
+
+    <item
+      name="Seller"
+      name_rus="Продавец"
+      name_eng="Seller"
+	name_ger="Verkaeufer">
+    </item>  
+
+    <item
+      name="Buyer"
+      name_rus="Покупатель"
+      name_eng="Buyer"
+	name_ger="Kaeufer">
+    </item>  
+
+    <item
+      name="Price"
+      type="template">
+    </item> 
+
+
+    <item
+      name="TrGolden"
+      name_rus=" "
+      name_eng=" "
+	name_ger=" ">
+    </item> 
+
+
+
+   </header>
+
+
+ </history>
+
+</form>

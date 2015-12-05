@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fp_fouls">
+
+ <create
+    sql="create table fp_fouls(
+     FoulID int auto_increment primary key,
+     TypeID int,
+     UserID int,
+     Date int);
+     ">
+ </create>
+ <insert
+    sql="insert into fp_fouls (TypeID,UserID,Date) values(
+   @TypeID;,
+   @UserID;,
+   @Date;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+     <field
+      name="TypeID"
+      name_rus="Нарушение"
+      name_eng="Foul"
+      type="sqlist"
+      sql="select * from fp_foul_types"
+      needed="1">
+     </field> 
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+     </field>
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql=" select f.*,t.Name_$lang; as Foul,u.Login as User from fp_fouls f left outer join fp_foul_types t on t.TypeID=f.TypeID left outer join ut_users u on u.UserID=f.UserID">
+  <header>
+    <item
+      name="FoulID"
+      name_rus="Id Фола"
+      name_eng="Foul ID">
+    </item>
+     <item
+      name="Foul"
+      name_rus="Нарушение"
+      name_eng="Foul">
+    </item> 
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item> 
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Date"
+      type="date"
+      format="d.m.Y H:i">
+    </item> 
+    
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+ <update
+   sql="update fp_fouls set 
+   TypeID=@TypeID;,
+   UserID=@UserID;,
+   Date=@Date; 
+   where FoulID=@id;"
+   select="select * from fp_fouls where FoulID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+   <fields>
+     <field
+      name="TypeID"
+      name_rus="Нарушение"
+      name_eng="Foul"
+      type="sqlist"
+      sql="select * from fp_foul_types"
+      needed="1">
+     </field> 
+     <field
+      name="UserID"
+      name_rus="Id пользователя"
+      name_eng="User ID"
+      type="numeric"
+      needed="1">
+     </field>
+   </fields> 
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from fp_fouls where FoulID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

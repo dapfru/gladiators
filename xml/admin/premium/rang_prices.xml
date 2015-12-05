@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="vp_rang_prices">
+
+ <create
+    sql="create table vp_rang_prices(
+     RecordID int auto_increment primary key,
+     Term tinyint,
+     Price decimal(4,1),
+     TypeID tinyint);
+     ">
+ </create>
+ <insert
+    sql="insert into vp_rang_prices (Term,Price,TypeID) values(
+   @Term;,
+   @Price;,
+   @TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+     <field
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term"
+      type="numeric"
+      needed="1">
+     </field>
+
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1">
+     </field>
+
+
+     <field
+      name="TypeID"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="sqlist"
+      sql="select * from vp_rang_types order by Level "
+      needed="1">
+     </field>
+    </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select p.*,t.Name_$lang; as Rang from vp_rang_prices p left outer join vp_rang_types t on t.TypeID=p.TypeID">
+  <header>
+
+    <item
+      name="Rang"
+      name_rus="Ранг"
+      name_eng="Rang">
+    </item> 
+
+     <item
+      name="Term"
+      name_rus="Срок"
+      name_eng="Term">
+    </item> 
+    <item
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price">
+    </item> 
+
+    
+    <item type="edit"/>
+    <item type="delete"/>
+   </header>
+ </select>
+
+ <update
+   sql="update vp_rang_prices set 
+   Term=@Term;,
+   Price=@Price;,
+   TypeID=@TypeID; 
+   where RecordID=@id;"
+   select="select * from vp_rang_prices where RecordID=@id;"
+     success_rus="Запись изменёна!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+   <fields>
+     <field
+      name="Term"
+      name_rus="срок"
+      name_eng="Term"
+      type="numeric"
+      needed="1">
+     </field>
+     <field
+      name="Price"
+      name_rus="Цена"
+      name_eng="Price"
+      type="numeric"
+      needed="1">
+     </field>
+
+     <field
+      name="TypeID"
+      name_rus="Ранг"
+      name_eng="Rang"
+      type="sqlist"
+      sql="select * from vp_rang_types order by Level "
+      needed="1">
+     </field>
+    </fields>
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+ </update>
+
+ <delete
+    sql="delete from vp_rang_prices where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

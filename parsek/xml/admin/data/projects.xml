@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+  table="ut_projects">
+
+
+ <insert
+    sql="insert into ut_projects (ProjectID, Open, Url, Name_rus, Name_eng, ShortName_rus, ShortName_eng, Headline_rus, Headline_eng, Description_rus, Description_eng, Features_rus, Features_eng, Image, Small, StartDate, FinishDate, TypeID, StatusID) 
+values ('',@Open;, @Url;, @Name_rus;, @Name_eng;, @ShortName_rus;, @ShortName_eng;, @Headline_rus;, @Headline_eng;, @Description_rus;, @Description_eng;, @Features_rus;, @Features_eng;, @Image;, @Small;, @StartDate;, @FinishDate;, @TypeID;, @StatusID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+   <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+      </field>
+
+
+    <field
+      name="ShortName_rus"
+      name_rus="Сокращенно"
+      name_eng="Short name(rus)"
+      type="string"
+      maxlength="255">
+      </field>
+
+    <field
+      name="Open"
+      name_rus="Открытый"
+      name_eng="Opened"
+      type="checkbox">
+      </field>
+
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+         sql="select * from ut_project_types order by Name_$lang;"
+needed="1">
+      </field>
+
+     <field
+      name="StatusID"
+      name_rus="Статус"
+      name_eng="Status"
+      type="sqlist"
+          sql="select * from ut_status_types order by Name_$lang;"
+needed="1">
+      </field>
+
+     <field
+      name="Url"
+      name_rus="Ссылка на сайт"
+      name_eng=""
+      type="string"
+      maxlength="60">
+      </field> 
+   
+    <field
+      name="Headline_rus"
+      name_rus="Краткое описание"
+      name_eng="Headline(rus)"
+      type="text">
+      </field> 
+
+    <field
+      name="Description_rus"
+      name_rus="Описание"
+      name_eng="Description(rus)"
+      type="editor">
+      </field> 
+
+    <field
+      name="Features_rus"
+      name_rus="Особенности"
+      name_eng="Features(rus)"
+      type="editor">
+      </field>
+
+
+
+    <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+        height="100px"
+	width="100px">
+      </field> 
+
+    <field
+      name="StartDate"
+      name_rus="Дата начала"
+      name_eng="Start Date"
+      type="date">
+    </field>
+
+    <field
+      name="FinishDate"
+      name_rus="Дата окончания"
+      name_eng="Finish Date"
+      type="date">
+    </field>
+
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Headline_eng"
+      name_rus="Краткое описание(анг)"
+      name_eng="Headline(eng)"
+      type="text">
+    </field>
+
+
+     <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      type="editor">
+    </field>
+
+    <field
+      name="Features_eng"
+      name_rus="Особенности(анг)"
+      name_eng="Features(eng)"
+      type="editor">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+
+
+
+ <select
+   sql="select  ProjectID, Name_$lang; Project, Open,
+     t.Name_$lang; Type,
+     s.Name_$lang; Status 
+
+ from ut_projects 
+  left outer join ut_project_types t using(TypeID)
+  left outer join ut_status_types s using(StatusID)
+
+order by ProjectID asc">
+
+   <header>
+
+
+    <item
+      name="Project"
+      name_rus="Проект"
+      name_eng="Project">
+    </item> 
+
+     <item
+      name="Open"
+      name_rus="Открытый"
+      name_eng="Opened">
+     </item>
+
+     <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type">
+     </item>
+
+     <item
+      name="Status"
+      name_rus="Статус"
+      name_eng="Status">
+      </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+
+
+ <update
+    sql="update ut_projects set Url=@Url;, Name_rus=@Name_rus;, Name_eng=@Name_eng;,
+Open=@Open;, ShortName_rus=@ShortName_rus;, ShortName_eng=@ShortName_eng;,
+Headline_rus=@Headline_rus;, Headline_eng=@Headline_eng;, Description_rus=@Description_rus;,
+ Description_eng=@Description_eng;, Features_rus=@Features_rus;, Features_eng=@Features_eng;,
+ StartDate=@StartDate;, FinishDate=@FinishDate;, TypeID=@TypeID;, StatusID=@StatusID; 
+where ProjectID=@id; #update ut_projects set Image=@Image;, Small=@Small; where @Small;&lt;>'' and ProjectID=@id;"
+    select="select * from ut_projects where ProjectID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена"
+    button="Submit">
+
+
+   <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название"
+      name_eng="Name(rus)"
+      type="string"
+      maxlength="30"
+      needed="1">
+      </field>
+
+    <field
+      name="ShortName_rus"
+      name_rus="Сокращенно"
+      name_eng="Short name(rus)"
+      type="string"
+      maxlength="255">
+      </field> 
+
+
+    <field
+      name="Open"
+      name_rus="Открытый"
+      name_eng="Opened"
+      type="checkbox">
+      </field>
+
+     <field
+      name="TypeID"
+      name_rus="Тип"
+      name_eng="Type"
+      type="sqlist"
+         sql="select * from ut_project_types order by Name_$lang;"
+needed="1">
+      </field>
+
+     <field
+      name="StatusID"
+      name_rus="Статус"
+      name_eng="Status"
+      type="sqlist"
+          sql="select * from ut_status_types order by Name_$lang;"
+needed="1">
+      </field>
+
+     <field
+      name="Url"
+      name_rus="Ссылка на сайт"
+      name_eng=""
+      type="string"
+      maxlength="60">
+      </field> 
+   
+    <field
+      name="Headline_rus"
+      name_rus="Краткое описание"
+      name_eng="Headline(rus)"
+      type="text">
+      </field> 
+
+    <field
+      name="Description_rus"
+      name_rus="Описание"
+      name_eng="Description(rus)"
+      type="editor">
+      </field> 
+
+    <field
+      name="Features_rus"
+      name_rus="Особенности"
+      name_eng="Features(rus)"
+      type="editor">
+      </field>
+
+
+
+    <field
+      name="Image"
+      name_rus="Изображение"
+      name_eng="Image"
+      type="image"
+        height="100px"
+	width="100px">
+      </field> 
+
+    <field
+      name="StartDate"
+      name_rus="Дата начала"
+      name_eng="Start Date"
+      type="date">
+    </field>
+
+    <field
+      name="FinishDate"
+      name_rus="Дата окончания"
+      name_eng="Finish Date"
+      type="date">
+    </field>
+
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      name_eng="Name(eng)"
+      type="string"
+      maxlength="30">
+    </field> 
+
+    <field
+      name="Headline_eng"
+      name_rus="Краткое описание(анг)"
+      name_eng="Headline(eng)"
+      type="text">
+    </field>
+
+
+     <field
+      name="Description_eng"
+      name_rus="Описание(анг)"
+      name_eng="Description(eng)"
+      type="editor">
+    </field>
+
+    <field
+      name="Features_eng"
+      name_rus="Особенности(анг)"
+      name_eng="Features(eng)"
+      type="editor">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+
+
+
+ <delete
+    sql="delete from ut_projects where ProjectID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+
+</form>

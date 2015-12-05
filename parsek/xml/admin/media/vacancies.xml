@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_vacancies">
+
+
+ <insert
+    sql="insert into ut_vacancies (Name_rus,Name_eng,Requirements,Responsibilities,Conditions,Active) values(
+   @Name_rus;,
+   @Name_eng;,
+   @Requirements;,
+   @Responsibilities;,
+   @Conditions;, 
+   @Active;)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Requirements"
+      name_rus="Требования"
+      type="editor">
+    </field>
+
+    <field
+      name="Responsibilities"
+      name_rus="Обязанности"
+      type="editor">
+    </field>
+
+    <field
+      name="Conditions"
+      name_rus="Условия"
+      type="editor">
+    </field>
+
+    <field
+      name="Active"
+      name_rus="Свободна"
+      type="checkbox">
+    </field>
+
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="select VacancyID, Name_$lang; Name, Active from ut_vacancies">
+
+<header>
+    <item
+      name="VacancyID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item>
+
+    <item
+      name="Active"
+      name_rus="Свободна"
+      name_eng="checkboxlabel">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update ut_vacancies set 
+Name_rus=@Name_rus;,
+
+Name_eng=@Name_eng;,
+
+Requirements=@Requirements;,
+Responsibilities=@Responsibilities;,
+Conditions=@Conditions;,
+Active=@Active;
+ where VacancyID=@id;"
+
+ select="select * from ut_vacancies where VacancyID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="Name_rus"
+      name_rus="Название(рус)"
+      type="string"
+      maxlength="50"
+      needed="1">
+    </field>
+
+    <field
+      name="Name_eng"
+      name_rus="Название(анг)"
+      type="string"
+      maxlength="50">
+    </field>
+
+    <field
+      name="Requirements"
+      name_rus="Требования"
+      type="editor">
+    </field>
+
+    <field
+      name="Responsibilities"
+      name_rus="Обязанности"
+      type="editor">
+    </field>
+
+    <field
+      name="Conditions"
+      name_rus="Условия"
+      type="editor">
+    </field>
+
+    <field
+      name="Active"
+      name_rus="Свободна"
+      type="checkbox">
+    </field>
+
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from ut_vacancies where VacancyID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>

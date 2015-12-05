@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ut_users">
+
+
+ 
+<select sql="select * from ut_contest" pagecount="300">
+  <header>
+
+
+
+     <item
+      name="Name"
+      name_rus="Имя"
+      name_eng="Name">
+    </item> 
+
+     <item
+      name="Surname"
+      name_rus="Фамилия"
+      name_eng="Surname">
+    </item> 
+
+     <item
+      name="Answers"
+      name_rus="Варианты">
+    </item> 
+
+     <item
+      name="Country"
+      name_rus="Country">
+    </item> 
+     <item
+      name="City"
+      name_rus="City">
+    </item> 
+     <item
+      name="Address"
+      name_rus="Address">
+    </item> 
+     <item
+      name="Post"
+      name_rus="Post">
+    </item> 
+     <item
+      name="Phone"
+      name_rus="Phone">
+    </item> 
+     <item
+      name="Email"
+      name_rus="Email">
+    </item> 
+
+   </header>
+ </select>
+
+</form>

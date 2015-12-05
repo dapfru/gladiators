@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="gd_guilds" >
+
+
+ <update
+
+   sql="update gd_guilds set 
+
+   Name=@Name;,
+   Description=@Description;,
+
+   Url=@Url;,
+Newbies=@Newbies;
+
+   where GuildID='$auth->guild;'"
+   select="select * from gd_guilds where GuildID='$auth->guild;'"
+     success_rus="Запись изменена!"
+     success_eng="Record changed"
+     error_eng="Record not found"
+     error_rus="Запись не найдена">
+
+   <fields>
+
+     <field
+      name="Name"
+      name_rus="Название гильдии"
+      name_eng="Name of guild"
+      type="string"
+      maxlength="30"
+      needed="1">
+     </field>
+
+
+     <field
+      name="Small"
+      name_rus="Логотип&lt;br>(не более 15x15 пикселей GIF)"
+      name_eng="Logo"
+type="image"
+format="gif"
+
+      width="15" 
+      height="15">
+     </field>
+
+
+
+     <field
+      name="Newbies" colspan="2" align="left"
+      name_rus=" Принимать новых членов" 
+      name_eng=" Approve new members"
+      type="checkbox">
+     </field>
+
+
+     <field
+      name="Url"
+      needed="1"
+      name_rus="Адрес сайта гильдии"
+      name_eng="Guild site url"
+      type="string"
+      maxlength="50">
+     </field>
+
+
+
+
+
+     <field
+      name="Description"
+cols="80"
+rows="10"
+      name_rus="Описание"
+      name_eng="Description"
+      type="text"
+     >
+     </field>
+
+
+
+    </fields>
+
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+ </update>
+
+
+
+
+ <code hint_rus="Установите код счетчика на все страницы Вашего сайта"
+select ="select SiteID from top_sites where GuildID='$auth->guild;'">
+
+   <fields>
+
+     <field type="text"
+      name="Code" cols="90" rows="5"
+      name_rus="Код счетчика"
+      name_eng="Code of the counter">
+
+<![CDATA[ 
+<!--Gladiators.ru COUNTER--><a target=_top href="http://www.gladiators.ru">
+<img src="http://www.gladiators.ru/counter/cnt.php?id=$SiteID;"
+border=0 height=31 width=88 alt="Онлайн игра Гладиаторы" title="Онлайн игра Гладиаторы"/></a><!--/COUNTER-->
+ ]]>
+
+     </field>
+
+
+
+
+    </fields>
+
+
+ </code>
+
+
+</form>

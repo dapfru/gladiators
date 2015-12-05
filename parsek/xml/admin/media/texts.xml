@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form
+ table="lk_texts">
+
+
+ <insert
+    sql="insert into lk_texts  values('',@rus;,@eng;,@ger;)"
+    success_rus="Текст добавлен!"
+    success_eng="Text added"
+>
+
+
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="text"
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      type="text">
+    </field> 
+
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="text">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Добавить строку"
+       name_eng="Add Text">
+   </button> 
+
+ </insert>
+
+ <select 
+
+    sql="select * from lk_texts order by @lang; asc">
+
+   <header>
+
+    <item
+      name="TextID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian">
+    </item> 
+
+    <item
+      name="eng"
+      name_rus="Английский"
+      name_eng="english">
+    </item> 
+
+    <item
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German">
+    </item>
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+ </select>
+
+ <update
+    sql="update lk_texts  set rus=@rus;,eng=@eng;,ger=@ger; where TextID=@id;"
+    select="select * from lk_texts where TextID=@id;"
+    success_rus="Текст изменёна!"
+    success_eng="Text changed"
+
+    error_eng="Cannot find Text with this id"
+    error_rus="Не найдена Текст с этим id">
+
+
+   <fields>
+
+    <field
+      name="rus"
+      name_rus="Русский"
+      name_eng="russian"
+      type="text"
+
+      needed="1">
+    </field> 
+
+    <field
+      name="eng"
+      name_rus="Английский"
+      name_eng="english"
+      type="text">
+    </field> 
+
+    <field
+      name="ger"
+      name_rus="Немецкий"
+      name_eng="German"
+      type="text">
+    </field> 
+ 
+   </fields>
+
+   <button
+       name_rus="Изменить текст"
+       name_eng="Change text">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from lk_texts where TextID=@id;"
+    success_rus="Текст удален!"
+    success_eng="Text deleted">
+ </delete>
+
+</form>

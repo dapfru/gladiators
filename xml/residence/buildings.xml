@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="tm_buildings" title_rus="Постройки" title_eng="Buildings" banner="1" width="100%"
+
+empty_rus="Для приобретения постройки, выберите нужную постройку в левом меню. Затем, на открывшейся странице с подробной информацией о постройке, нажмите кнопку &quot;Приобрести&quot;, затем &quot;Подтвердить&quot;."
+
+>
+
+ <list hint_rus="Приобретите &lt;a href=/xml/residence/buildings.php?id=11>Торговую лавку&lt;/a> и наймите &lt;a href=/xml/residence/staff.php?id=7>Торговца&lt;/a> чтобы получать с неё доход.
+&lt;br>&lt;br>Чтобы гладиаторы начали тренироваться, необходимо приобрести &lt;a href=/xml/residence/buildings.php?id=2>Школу&lt;/a> и нанять &lt;a href=/xml/residence/staff.php?id=1>Тренера гладиаторов&lt;/a>.
+&lt;br>&lt;br>На содержание построек ежедневно тратятся деньги в размере 1/100 части цены. 
+&lt;br>&lt;br>Купленную постройку можно продать за половину стоимости, если от неё не зависят другие постройки, специалисты или гладиаторы.
+">
+ </list>
+
+
+
+ <info 
+    sql="set @InfoID=(select InfoID from fn_buildings_info where BuildingID='$id;' and Level='$Level;')
+
+#set @error=concat('Постройка не может быть продана, так как от неё зависят: ',(
+SELECT GROUP_CONCAT(concat(Name_$lang;))
+FROM fn_gladiators_conditions c
+LEFT OUTER JOIN ut_gladiator_types i on c.TypeID=i.TypeID
+where c.InfoID=@InfoID
+and (i.TypeID) in 
+(select b.TypeID from ut_gladiators b where b.UserID='$auth->user;')))
+
+#set @error=concat('Постройка не может быть продана, так как от неё зависят: ',(
+SELECT GROUP_CONCAT(concat(Name_$lang;,'-',Level))
+FROM fn_staff_conditions c
+LEFT OUTER JOIN fn_staff_info i on c.StaffID=i.InfoID
+where c.InfoID=@InfoID
+and (i.StaffID,i.Level) in 
+(select b.StaffID,b.Level from tm_staff b where b.UserID='$auth->user;')))
+
+
+#set @error=concat('Постройка не может быть продана, так как от неё зависят: ',(
+SELECT GROUP_CONCAT(concat(Name_$lang;,'-',Level))
+FROM fn_buildings_conditions c
+LEFT OUTER JOIN fn_buildings_info i on c.BuildingID=i.InfoID
+where c.InfoID=@InfoID
+and (i.BuildingID,i.Level) in 
+(select b.BuildingID,b.Level from tm_buildings b where b.UserID='$auth->user;')))
+#set @Price=(select round(Price/2) from fn_buildings_info where BuildingID='$id;' and Level='$Level;')
+#^sell_building('$auth->user;','$id;','$Level;','$Price;');"
+
+    success_rus="Постройка продана"
+    success_eng="Building sold"
+ width="100%">
+
+   <fields>
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">$Name;
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">$Level;
+    </field> 
+
+    <field
+      name="Building"
+      name_rus="Информация"
+      name_eng="Info"
+      needed="1"
+      type="label">$Comments;
+    </field> 
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      needed="1"
+      name_eng="Price"
+      type="dots">$Price;
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Продать"
+       name_eng="Sell" act="sell">
+   </button> 
+
+ </info>
+
+
+ <sell width="100%" hint_rus="После продажи постройки, Вы получите половину её цены. У Вас останется постройка предыдущего уровня.">
+
+   <fields>
+
+    <field
+      name="InfoID"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Building"
+      name_rus="Описание"
+      name_eng="Description"
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Price" sql="select round(Price/2) from fn_buildings_info where BuildingID='$id;' and Level='$Level;'"
+      name_rus="Цена продажи"
+      name_eng="Selling price"
+      needed="1" nobr="1"
+      type="label">
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Продать"
+       name_eng="Sell"
+       act="info">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+       type="return">
+   </button> 
+
+
+ </sell>
+
+ <upgrade
+	sql="set @er=(select $lang; from lk_messages where MessageID=84)
+#set @error=(SELECT GROUP_CONCAT(concat(@er,': ',Name_$lang;,Level)  )
+FROM fn_buildings_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.BuildingID=@InfoID; and (i.BuildingID,i.Level) not in (select b.BuildingID,b.Level from tm_buildings b where b.UserID='$auth->user;'))
+#set @BuildingID = (select BuildingID from fn_buildings_info where InfoID=@InfoID;)
+#set @Level = (select Level from fn_buildings_info where InfoID=@InfoID;)
+#set @error=if(@Level>0,0,69)
+#set @error=if(@BuildingID>0,0,70)
+#set @Price = (select Price from fn_buildings_info where InfoID=@InfoID;)
+#set @error=if('$auth->money;'-@Price > 0,'',67)
+#^build('$auth->user;','$BuildingID;','$Level;','$Price;','$InfoID;');"
+
+    success_rus="Постройка приобретена!"
+    success_eng="Building purchased!"
+
+    width="100%">
+
+
+   <fields>
+
+    <field
+      name="id"
+      type="hidden">
+    </field> 
+
+    <field
+      name="InfoID"
+      type="hidden">$InfoID;
+    </field> 
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">$Name;
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">$Level;
+    </field> 
+
+    <field
+      name="Building"
+      name_rus="Информация"
+      name_eng="Info"
+      needed="1"
+      type="label">$Comments;
+    </field> 
+
+    <field
+      name="Needed"
+      name_rus="Необходимо"
+      name_eng="Needed"
+      needed="1"
+      sql="SELECT GROUP_CONCAT(CONCAT('&lt;a href=/xml/residence/buildings.php?id=',i.BuildingID,'>',if((i.BuildingID,i.Level) in (select b.BuildingID,b.Level
+from tm_buildings b where b.UserID='$auth->user;'),'','&lt;font color=red&gt;'),Name_$lang;,'-',Level,'&lt;/a>&lt;/font&gt;')  SEPARATOR ', ')
+FROM fn_buildings_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.BuildingID='$InfoID;'"
+      type="label">
+    </field> 
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      needed="1"
+      name_eng="Price"
+      type="dots">$Price;
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Приобрести"
+       name_eng="Buy"
+       act="upgrade2">
+   </button> 
+
+
+ </upgrade>
+
+ <upgrade2 short="1" sql="set @Price = (select Price from fn_buildings_info where InfoID=@InfoID;)
+#set @error=if('$auth->money;'-@Price > 0,'',67)"
+    width="100%">
+
+
+   <fields>
+
+    <field
+      name="id"
+      type="hidden">
+    </field> 
+
+    <field
+      name="InfoID"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Name"
+      name_rus="Название"
+      name_eng="Name"
+      needed="1"
+      type="label">
+    </field> 
+
+    <field
+      name="Level"
+      name_rus="Уровень"
+      name_eng="Level"
+      needed="1"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Needed"
+      name_rus="Необходимо"
+      name_eng="Needed"
+      needed="1"
+      sql="SELECT GROUP_CONCAT(CONCAT('&lt;a href=/xml/residence/buildings.php?id=',i.BuildingID,'>',if((i.BuildingID,i.Level) in (select b.BuildingID,b.Level
+from tm_buildings b where b.UserID='$auth->user;'),'','&lt;font color=red&gt;'),Name_$lang;,'-',Level,'&lt;/a>&lt;/font&gt;')  SEPARATOR ', ')
+FROM fn_buildings_conditions c
+LEFT OUTER JOIN fn_buildings_info i USING(InfoID)
+where c.BuildingID='$InfoID;'"
+      type="label">
+    </field> 
+
+
+    <field
+      name="Money"
+      type="template">
+    </field>
+
+    <field
+      name="Price"
+      name_rus="Цена"
+      needed="1"
+      name_eng="Price"
+      type="dots">$Price;
+    </field> 
+
+   </fields>
+
+   <button
+       name_rus="Подтвердить"
+       name_eng="Build"
+       act="upgrade">
+   </button> 
+
+   <button
+       name_rus="Вернуться"
+       name_eng="Return"
+       type="return">
+   </button> 
+
+ </upgrade2>
+</form>

@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="ft_agreements">
+
+
+
+
+<my 
+sql="delete from ft_agreements where RecordID='$RecordID;'"
+select="select *,if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad from ft_agreements f
+where UserID1='$auth->user;' and StatusID=0 limit 0,1">
+
+   <fields>
+
+
+    <field
+      name="id"
+      type="hidden">$typeid;
+    </field>
+
+    <field
+      name="do"
+      type="hidden">
+    </field> 
+
+    <field
+      name="typeid"
+      type="hidden">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тип боя"
+      type="listlabel"
+	vars_rus="Сражение;Поединок;Серия поединков;Бой на выживание">
+    </field> 
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="label">
+    </field> 
+
+
+
+
+    <field
+      name="ExtraGlad"
+      name_rus="Разрешить лучников,&lt;br>конных и колесничих"
+      type="label">
+    </field> 
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="label">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="label">
+    </field> 
+
+    <field
+      name="RecordID"
+      type="hidden">
+    </field> 
+
+
+   </fields>
+
+
+   <button
+       name_rus="Отказаться"
+       name_eng="Cancel">
+   </button> 
+
+
+ </my>
+
+
+<battles  
+
+
+sql="select f.*,
+
+if(Login1='',concat('&lt;a href=/users/',u.UserID,'>',u.Login,'&lt;/a>'),Login1) Login,
+
+
+concat(LimitGlad,' (',f.GladCount,')') LimitGlad2,
+concat(LimitSkl,' (',f.GladSkl,')') LimitSkl2,
+
+if(UserID2 is not null,concat('&lt;a href=arena.php?id=',f.RecordID,'&amp;act=battles&amp;step=1>',
+
+concat('&lt;a href=/users/',u2.UserID,'>','» ',u2.Login,'&lt;/a>'),'&lt;/a>'),
+if(UserID1='$auth->user;',
+'',concat('&lt;a href=arena.php?id=',f.RecordID,'&amp;act=battles&amp;step=1&amp;typeid=$typeid;>','вызвать »','&lt;/a>'))) as Check1,
+
+concat(round((unix_timestamp()-f.Date)/60),' мин.') Min,
+
+if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad
+ from ft_agreements f
+join ut_users u on f.UserID1=u.UserID
+left outer join ut_users u2 on f.UserID2=u2.UserID
+where TypeID='$typeid;'   and StatusID=0
+order by Date desc"
+pagecount="50" maxpages="10" width="100%">
+
+   <header>
+
+
+ 
+
+
+    <item
+      name="Login"
+order="no"
+      name_rus="Пользователь"
+      name_eng="User"
+      type="label">
+    </item> 
+
+
+    <item
+      name="Win" align="center"
+order="no"
+      name_rus="В"
+      name_eng="W"
+      title_rus="Количество выигранных боев"
+      type="label">
+    </item> 
+
+
+    <item
+      name="Lose" align="center"
+order="no"
+      name_rus="П"
+      name_eng="L"
+      title_rus="Количество проигранных боев"
+      type="label">
+    </item> 
+
+
+
+
+
+    <item align="center"
+order="no"
+      name="Timeout"
+      name_rus="Таймаут"
+      type="label">
+    </item> 
+
+
+
+    <item align="center"
+order="no"
+      name="ExtraGlad"
+      name_rus="Спец" title_rus="Разрешены специальные типы гладиаторов (лучники, конные и колесничьи)"
+      type="label">
+    </item> 
+
+    <item align="center"
+order="no"
+      name="LimitGlad"
+      name_rus="Глад" title_rus="Максимальное количество гладиаторов в заявке"
+      type="label">
+    </item> 
+
+    <item align="center"
+order="no"
+      name="LimitSkl"
+      name_rus="Уровень" title_rus="Максимальный суммарный уровень гладиаторов в заявке"
+      type="label">0
+    </item> 
+
+    <item align="center"
+order="no"
+      name="Min"
+      name_rus="Ждёт" 
+      type="label">
+    </item> 
+
+    <item 
+order="no"
+      name="RecordID"
+      type="hidden">
+    </item> 
+
+    <item 
+order="no"
+      name="Check1"
+	name_rus=" "
+      type="label">
+    </item> 
+
+
+   </header>
+
+
+ </battles>
+
+
+
+   <battlesapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;' and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @Timeout=if(@Timeout;='',10,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl,Win,Lose,Tie,GladCount,GladSkl,Login1)
+values(@Date;,'$auth->user;',1,@Timeout,0,@ExtraGlad;,@LimitGlad,@LimitSkl;,'$auth->rst[Win];','$auth->rst[Lose];','$auth->rst[Tie];','$GladCount;','$GladSkl;','$auth->fullnick;')"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+    <field
+      name="id"
+      type="hidden">$typeid;
+    </field> 
+    <field
+      name="typeid"
+      type="hidden">
+    </field> 
+    <field
+      name="do"
+      type="hidden">
+    </field> 
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="3" max="120" >10
+    </field> 
+
+
+
+
+
+    <field
+      name="ExtraGlad"
+      name_rus="Разрешить лучников,&lt;br>конных и колесничих"
+      type="checkbox">
+    </field> 
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+
+      type="numeric" max="7" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </battlesapp>
+
+
+
+   <duelsapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;' and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @Timeout=if(@Timeout;='',10,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl,Win,Lose,Tie,GladCount,GladSkl,Login1)
+values(@Date;,'$auth->user;',2,@Timeout,0,0,1,@LimitSkl;,'$auth->rst[Win];','$auth->rst[Lose];','$auth->rst[Tie];','$GladCount;','$GladSkl;','$auth->fullnick;')"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+    <field
+      name="id"
+      type="hidden">$typeid;
+    </field> 
+    <field
+      name="typeid"
+      type="hidden">
+    </field> 
+    <field
+      name="do"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="3" max="120" >5
+    </field> 
+
+
+
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </duelsapp>
+
+
+
+   <seriesapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;'  and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @error=if((select @LimitGlad mod 2)=0,'Количество гладиаторов должно быть нечетным',0)
+#set @Timeout=if(@Timeout;='',10,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl,Win,Lose,Tie,GladCount,GladSkl,Login1)
+values(@Date;,'$auth->user;',3,@Timeout,0,0,@LimitGlad,@LimitSkl;,'$auth->rst[Win];','$auth->rst[Lose];','$auth->rst[Tie];','$GladCount;','$GladSkl;','$auth->fullnick;')"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="id"
+      type="hidden">$typeid;
+    </field> 
+    <field
+      name="typeid"
+      type="hidden">
+    </field> 
+    <field
+      name="do"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="3" max="120" >5
+    </field> 
+
+
+
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="numeric" max="5" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </seriesapp>
+
+
+
+   <survivalapp sql="set @error=if('$auth->user;' in (select UserID1 from ft_agreements where UserID1='$auth->user;'  and StatusID=0),'Вы уже подали заявку на бой',0)
+#set @LimitGlad=if(@LimitGlad;='',7,@LimitGlad)
+#set @Timeout=if(@Timeout;='',10,@Timeout)
+#insert into ft_agreements(Date,UserID1,TypeID,Timeout,Approved,ExtraGlad,LimitGlad,LimitSkl,Win,Lose,Tie,GladCount,GladSkl,Login1)
+values(@Date;,'$auth->user;',4,@Timeout,0,0,@LimitGlad,@LimitSkl;,'$auth->rst[Win];','$auth->rst[Lose];','$auth->rst[Tie];','$GladCount;','$GladSkl;','$auth->fullnick;')"
+    success_rus="Заявка была подана"
+hint_rus="Подсказка про сражения">
+
+   <fields>
+
+
+    <field
+      name="id"
+      type="hidden">$typeid;
+    </field> 
+    <field
+      name="typeid"
+      type="hidden">
+    </field> 
+
+    <field
+      name="do"
+      type="hidden">
+    </field> 
+
+
+    <field
+      name="Timeout"
+      name_rus="Таймаут (минут)"
+      type="numeric" min="3" max="120" >5
+    </field> 
+
+
+
+
+
+    <field
+      name="LimitGlad"
+      name_rus="Лимит гладиаторов" 
+      type="numeric" max="7" min="1">
+    </field> 
+
+    <field
+      name="LimitSkl"
+      name_rus="Лимит суммарного уровня" 
+      type="numeric" max="2000" min="0">0
+    </field> 
+
+
+   </fields>
+
+   <button
+       name_rus="Подать заявку"
+       name_eng="Send application">
+   </button> 
+
+ </survivalapp>
+
+
+
+
+
+<history
+
+
+sql="select f.*,
+concat(concat('&lt;a href=/users/',u1.UserID,'>',u1.Login,'&lt;/a>'),' - ',
+concat('&lt;a href=/users/',u2.UserID,'>',u2.Login,'&lt;/a>')) Login,
+concat('&lt;a href=javascript:; onclick=window.open(&quot;online2.php?id=',f.RecordID,'&quot;,&quot;battle',f.RecordID,'&quot;,&quot;height=600,width=800,scrollbars=1,status=1,&quot;);>','отчет »','&lt;/a>') Link,
+if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad
+ from ft_battles f
+join ut_users u1 on f.UserID1=u1.UserID
+
+left outer join ut_users u2 on f.UserID2=u2.UserID
+
+where TypeID='$typeid;' 
+order by Date desc limit 0,5"
+pagecount="5" maxpages="0" width="100%">
+
+   <header>
+
+
+ 
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+format="d.m.Y H:i"
+order="no"
+      type="date">
+    </item> 
+
+
+    <item
+order="no"
+align="center"
+      name="Login"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+    <item align="center"
+order="no"
+      name="ExtraGlad"
+      name_rus="Спец" title_rus="Разрешены специальные типы гладиаторов (лучники, конные и колесничьи)"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitGlad"
+order="no"
+      name_rus="Глад" title_rus="Максимальное количество гладиаторов в заявке"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitSkl"
+order="no"
+      name_rus="Уровень" title_rus="Максимальный суммарный уровень гладиаторов в заявке"
+      type="label">0
+    </item> 
+
+    <item
+order="no"
+      name="Link"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+   </header>
+
+
+ </history>
+
+
+
+
+
+<fullhistory
+
+
+sql="select f.*,
+concat(concat('&lt;a href=/users/',u1.UserID,'>',u1.Login,'&lt;/a>'),' - ',
+concat('&lt;a href=/users/',u2.UserID,'>',u2.Login,'&lt;/a>')) Login,
+
+concat('&lt;a href=javascript:; onclick=window.open(&quot;online2.php?id=',f.RecordID,'&quot;,&quot;battle',f.RecordID,'&quot;,&quot;height=600,width=800,scrollbars=1,status=1,&quot;);>','отчет »','&lt;/a>') Link,
+
+if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad
+ from ft_battles f
+join ut_users u1 on f.UserID1=u1.UserID
+
+left outer join ut_users u2 on f.UserID2=u2.UserID
+
+where TypeID='$typeid;'
+order by Date desc"
+pagecount="50" maxpages="10" width="100%">
+
+   <header>
+
+
+ 
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+format="d.m.Y H:i"
+order="no"
+      type="date">
+    </item> 
+
+
+    <item
+order="no"
+align="center"
+      name="Login"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+    <item align="center"
+order="no"
+      name="ExtraGlad"
+      name_rus="Спец" title_rus="Разрешены специальные типы гладиаторов (лучники, конные и колесничьи)"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitGlad"
+order="no"
+      name_rus="Глад" title_rus="Максимальное количество гладиаторов в заявке"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitSkl"
+order="no"
+      name_rus="Уровень" title_rus="Максимальный суммарный уровень гладиаторов в заявке"
+      type="label">0
+    </item> 
+
+    <item
+order="no"
+      name="Link"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+   </header>
+
+
+ </fullhistory>
+
+
+
+
+
+<userhistory
+
+
+sql="select f.*,
+(Case f.TypeID 
+when 1 then 'сражение'
+when 2 then 'поединок'
+when 3 then 'серия'
+when 4 then 'на выживание'
+end) Type,
+concat(concat('&lt;a href=/users/',u1.UserID,'>',u1.Login,'&lt;/a>'),' - ',
+concat('&lt;a href=/users/',u2.UserID,'>',u2.Login,'&lt;/a>')) Login,
+concat('&lt;a href=online.php?id=',f.RecordID,'>','отчет »','&lt;/a>') Link,
+if(ExtraGlad='1','&lt;img src=/images/icons/smallgreen.gif width=14px height=14px>','&lt;img src=/images/icons/smallred.gif width=14px height=14px>') ExtraGlad
+ from ft_battles f
+join ut_users u1 on f.UserID1=u1.UserID
+
+left outer join ut_users u2 on f.UserID2=u2.UserID
+
+where (UserID1='$user;' or UserID2='$user;')
+and ('$tournament;'=0 or TournamentID='$tournament;') and ('$tour;'=0 or Tour='$tour;')
+order by Date desc"
+pagecount="50" maxpages="10" width="100%">
+
+   <header>
+
+
+ 
+    <item
+      name="Date"
+      name_rus="Время"
+      name_eng="Time"
+format="d.m.Y H:i"
+order="no"
+      type="date">
+    </item> 
+
+    <item
+      name="Type"
+      name_rus="Тип"
+      name_eng="Type"
+order="no">
+    </item> 
+
+    <item
+order="no"
+align="center"
+      name="Login"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+    <item align="center"
+order="no"
+      name="ExtraGlad"
+      name_rus="Спец" title_rus="Разрешены специальные типы гладиаторов (лучники, конные и колесничьи)"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitGlad"
+order="no"
+      name_rus="Глад" title_rus="Максимальное количество гладиаторов в заявке"
+      type="label">
+    </item> 
+
+    <item align="center"
+      name="LimitSkl"
+order="no"
+      name_rus="Уровень" title_rus="Максимальный суммарный уровень гладиаторов в заявке"
+      type="label">0
+    </item> 
+
+    <item
+order="no"
+      name="Link"
+      name_rus=" "
+      name_eng=" "
+      type="label">
+    </item> 
+
+
+
+
+   </header>
+
+
+ </userhistory>
+
+</form>

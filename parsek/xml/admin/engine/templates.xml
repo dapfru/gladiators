@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="en_templates" title_rus="Шаблоны" title_eng="Templates">
+
+
+ <insert
+    sql="insert into en_templates (Name_rus, Name_eng, Name_ger,Header,Footer,ParentID) values(
+   @Name_rus;,
+   @Name_eng;,
+   @Name_ger;,
+   @Header;,
+   @Footer;,
+   @ParentID;
+)"
+ success_rus="Запись добавлена!"
+    success_eng="Record added">
+
+  <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      nobr="1"
+      maxsize="50"
+      needed="1">
+    </field>
+
+
+    <field
+      name="ParentID"
+      name_rus="Предок"
+      name_eng="Parent"
+      type="sqlist"
+      sql="select TemplateID,Name_$lang; from en_templates order by Name_$lang;">
+    </field>
+
+    <field
+      name="Header"
+      name_rus="Верх"
+      name_eng="Header" cols="70" rows="20"
+      type="text">
+    </field> 
+
+    <field
+      name="Footer"
+      name_rus="Низ"
+      name_eng="Footer" cols="70" rows="20"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      nobr="1"
+      maxsize="50">
+    </field>
+
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      nobr="1"
+      maxsize="50">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+<select sql="select t.TemplateID,t.Name_$lang; Name,t2.Name_$lang; Parent from en_templates t
+left outer join en_templates t2 on t2.TemplateID=t.ParentID 
+order by t.Name_$lang;">
+<header>
+
+    <item
+      name="TemplateID"
+      name_rus="N"
+      name_eng="N">
+    </item> 
+
+    <item
+      name="Name"
+      name_rus="Название"
+      name_eng="Name">
+    </item> 
+
+    <item
+      name="Parent"
+      name_rus="Предок"
+      name_eng="Parent">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update en_templates set 
+Name_rus=@Name_rus;,
+Name_eng=@Name_eng;,
+Name_ger=@Name_ger;,
+Header=@Header;,
+Footer=@Footer;,
+ParentID=@ParentID;
+ where TemplateID=@id;"
+
+ select="select * from en_templates where TemplateID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+
+  <fields>
+
+
+  <fields>
+
+
+    <field
+      name="Name_rus"
+      name_rus="Название (рус)"
+      name_eng="Name (rus)"
+      type="string"
+      nobr="1"
+      maxsize="50"
+      needed="1">
+    </field>
+
+
+    <field
+      name="ParentID"
+      name_rus="Предок"
+      name_eng="Parent"
+      type="sqlist"
+      sql="select TemplateID,Name_$lang; from en_templates order by Name_$lang;">
+    </field>
+
+    <field
+      name="Header"
+      name_rus="Верх"
+      name_eng="Header" cols="70" rows="20"
+      type="text" >
+    </field> 
+
+    <field
+      name="Footer"
+      name_rus="Низ"
+      name_eng="Footer" cols="70" rows="20"
+      type="text">
+    </field> 
+
+    <field
+      name="Name_eng"
+      name_rus="Название (анг)"
+      name_eng="Name (eng)"
+      type="string"
+      nobr="1"
+      maxsize="50">
+    </field>
+
+
+    <field
+      name="Name_ger"
+      name_rus="Название (нем)"
+      name_eng="Name (ger)"
+      type="string"
+      nobr="1"
+      maxsize="50">
+    </field>
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from en_templates where TemplateID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </dele

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="Windows-1251"?>
+<form table="fn_staff_info">
+
+ <create
+    sql="create table sp_user_questions (
+RecordID int auto_increment primary key, 
+UserID int,
+TypeID int,
+index (UserID),index(TypeID))">
+ </create>
+
+ <insert
+    sql="insert into sp_user_questions (UserID,TypeID) values(
+   @UserID;,
+   @TypeID;)"
+    success_rus="Запись добавлена!"
+    success_eng="Record added"
+    button="Submit">
+
+   <fields>
+
+    <field
+      name="UserID"
+      name_rus="ID пользователя"
+      name_eng="User id"
+      type="numeric"
+      needed="1">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тема"
+      name_eng="Theme"
+      type="sqlist"
+      sql="select * from sp_question_types order by Name_$lang;"
+      needed="1">
+    </field>
+
+   </fields>
+
+   <button
+       name_rus="Добавить запись"
+       name_eng="Add record">
+   </button> 
+
+ </insert>
+
+ <select sql="
+select s.*,u.Login as User, q.Name_$lang; as Theme 
+from sp_user_questions s
+left outer join ut_users u on (u.UserID=s.UserID)
+left outer join sp_question_types q on (q.TypeID=s.TypeID)
+">
+
+<header>
+
+    <item
+      name="RecordID"
+      name_rus="ИД"
+      name_eng="ID">
+    </item> 
+
+    <item
+      name="User"
+      name_rus="Пользователь"
+      name_eng="User">
+    </item> 
+
+    <item
+      name="Theme"
+      name_rus="Тема"
+      name_eng="Theme">
+    </item> 
+
+    <item type="edit"/>
+
+    <item type="delete"/>
+
+   </header>
+
+
+ </select>
+
+<update
+    sql="update sp_user_questions set 
+UserID=@UserID;,
+TypeID=@TypeID;
+ where RecordID=@id;"
+    select="select * from sp_user_questions where RecordID=@id;"
+    success_rus="Запись изменёна!"
+    success_eng="Record changed"
+    error_eng="Record not found"
+    error_rus="Запись не найдена">
+
+   <fields>
+
+    <field
+      name="UserID"
+      name_rus="ID пользователя"
+      name_eng="User id"
+      type="numeric"
+      needed="1">
+    </field> 
+
+    <field
+      name="TypeID"
+      name_rus="Тема"
+      name_eng="Theme"
+      type="sqlist"
+      sql="select * from sp_question_types order by Name_$lang;"
+      needed="1">
+    </field>
+
+   </fields>
+    
+   <button
+       name_rus="Изменить запись"
+       name_eng="Change record">
+   </button> 
+
+
+ </update>
+
+ <delete
+    sql="delete from sp_user_questions where RecordID=@id;"
+    success_rus="Запись удалена"
+    success_eng="Record deleted">
+ </delete>
+
+</form>
